@@ -31,3 +31,7 @@ header{
     align-items: center;
     margin-right: 10px;
 }
+
+.dNoneheaderContainerRightUserIcon{
+    display: none;
+}
