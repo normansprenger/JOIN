@@ -6,6 +6,5 @@ async function initLegalPolicy() {
 }
 
 function hideHeaderContainerRightUserIcon() {
-    console.log('hallo');
     document.getElementById('headerContainerRightUserIcon').style='display:none;';
 }
