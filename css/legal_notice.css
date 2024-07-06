@@ -6,17 +6,18 @@ body {
     margin: 0;
     display: flex;
     font-family: 'Inter';
-}
-
-main{
-    padding-top: 100px;
-    padding-bottom: 80px;
-    padding-right: 10px;
     background-color: #F6F7F8;
 }
 
+main{
+    margin-top: 100px;
+    margin-bottom: 80px;
+    padding-right: 10px;
+}
+
 h1{
-    font-size: 45px;
+    font-size: 42px;
+    flex: 1;
 }
 
 h2{
@@ -54,4 +55,16 @@ main a{
 #asideBottomLinkLegal{
     background-color: #091931;
     color: #CDCDCD;
+}
+
+@media screen and (max-width: 999px) {
+    main {
+        min-height: 100%;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    h1 {
+        width: 200px;
+    }
 }

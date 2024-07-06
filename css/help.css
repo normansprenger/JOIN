@@ -6,13 +6,13 @@ body {
     margin: 0;
     display: flex;
     font-family: 'Inter';
+    background-color: #F6F7F8;
 }
 
 main{
-    padding-top: 100px;
-    padding-bottom: 80px;
+    margin-top: 100px;
+    margin-bottom: 80px;
     padding-right: 10px;
-    background-color: #F6F7F8;
 }
 
 h1{
@@ -54,5 +54,11 @@ ol li::marker {
 
 #arrowLeft:hover{
     cursor: pointer;
+}
+
+@media screen and (max-width: 999px) {
+    main {
+        min-height: 100%;
+    }
 }
 
