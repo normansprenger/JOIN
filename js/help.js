@@ -1,4 +1,4 @@
-async function initLegalPolicy() {
+async function initHelp() {
     await includeHTML(); // Sicherstellen, dass includeHTML() abgeschlossen ist
     if (currentUser == null) {
         setTimeout(() => {

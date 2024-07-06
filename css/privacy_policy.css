@@ -1,0 +1,64 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    font-family: 'Inter';
+}
+
+main{
+    padding-top: 100px;
+    padding-bottom: 80px;
+    padding-right: 10px;
+    background-color: #F6F7F8;
+}
+
+h1{
+    font-size: 47px;
+}
+
+h2{
+    font-size: 32px;
+}
+
+h3{
+    font-size: 20px;
+}
+
+main a{
+    color: #29ABE2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ol li::marker {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mainSubContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#arrowLeft{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    bottom: 10px;
+}
+
+#arrowLeft:hover{
+    cursor: pointer;
+}
+
+#asideBottomLinkPrivacy{
+    background-color: #091931;
+    color: #CDCDCD;
+}
+
+
