@@ -1,6 +1,5 @@
 const BASE_URL = 'https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app/';
 
-// Funktion zum Abrufen der Kontakte
 async function fetchContacts() {
     try {
         const response = await fetch(`${BASE_URL}contacts.json`);
@@ -14,10 +13,9 @@ async function fetchContacts() {
     }
 }
 
-// Funktion zum Anzeigen der Kontakte auf der Seite
 function displayContacts(data) {
     const contactList = document.getElementById('contactList');
-    contactList.innerHTML = ''; // Vorhandene Inhalte löschen
+    contactList.innerHTML = '';
 
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
@@ -38,5 +36,4 @@ function displayContacts(data) {
     }
 }
 
-// Direktes Aufrufen der Funktion, um die Kontakte zu laden
 fetchContacts();
