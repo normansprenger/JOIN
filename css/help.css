@@ -7,6 +7,7 @@ body {
     display: flex;
     font-family: 'Inter';
     background-color: #F6F7F8;
+    min-height: 100vh;
 }
 
 main{
@@ -54,11 +55,5 @@ ol li::marker {
 
 #arrowLeft:hover{
     cursor: pointer;
-}
-
-@media screen and (max-width: 999px) {
-    main {
-        min-height: 100%;
-    }
 }
 
