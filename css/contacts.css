@@ -10,6 +10,10 @@ body {
     min-height: 100vh;
 }
 
+.d-none {
+    display: none;
+}
+
 #asideMiddleLinkContacts{
     background-color: #091931;
     color: white;
@@ -37,5 +41,70 @@ main{
     filter: brightness(2);
 }
 
+.innerListContainer {
+    padding: 32px 52px;
+}
 
+.listButtonContainer {
+    display: flex;
+    justify-content: center;
+}
 
+.addContactButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 21px;
+    background-color: #2A3647;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    padding: 12px 24px;
+    width: 100%; 
+    max-width: 800px; 
+    border: none; 
+}
+
+.addNewPersonAdd {
+    padding-left: 12px;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 32px;
+    padding: 12px 24px;
+}
+
+.contactItem:hover {
+    background-color: #EEEEEE;
+    border-radius: 8px;
+}
+
+.contactDetails h3 {
+    margin: 12px 0;
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.contactDetails p {
+    margin: 0;
+    color: #007cee;
+}
+
+.shortName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.letterHeader h2 {
+    margin-left: 32px;
+}
