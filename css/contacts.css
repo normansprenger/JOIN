@@ -14,6 +14,31 @@ body {
     display: none;
 }
 
+#content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-left: 232px;
+}
+
+.innerListContainer {
+    max-height: calc(100vh - 96px);
+    max-width: 456px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+    padding: 32px 16px;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 8px;
+  }
+
 #asideMiddleLinkContacts{
     background-color: #091931;
     color: white;
@@ -23,10 +48,13 @@ body {
     filter: brightness(2);
 }
 
-main{
+main {
     margin-top: 100px;
     margin-bottom: 80px;
     padding-right: 10px;
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
 }
 
 #desktopContainerLinkContacts{
@@ -48,6 +76,7 @@ main{
 .listButtonContainer {
     display: flex;
     justify-content: center;
+    max-width: 456px;
 }
 
 .addContactButton {
@@ -64,6 +93,10 @@ main{
     width: 100%; 
     max-width: 800px; 
     border: none; 
+}
+
+.addContactButton:hover {
+    background-color: #29ABE2;
 }
 
 .addContactButtonMobile {
