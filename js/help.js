@@ -11,8 +11,9 @@ async function initHelp() {
 }
 
 
-function hideHeaderContainerRightUserIcon() {
+function hideHeaderContainerRight() {
     document.getElementById('headerContainerRightUserIcon').style = 'display:none;';
+    document.getElementById('headerContainerRightHelp').style = 'display:none;';
 }
 
 
@@ -25,3 +26,5 @@ function backToLastPage() {
     console.log('Funktion fertig stellen. Merker für letzte Seite implementieren');
     open("../index.html", "_self");
 }
+
+

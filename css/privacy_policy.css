@@ -62,9 +62,4 @@ ol li::marker {
     color: #CDCDCD;
 }
 
-@media screen and (max-width: 999px) {
-    main {
-        min-height: 100%;
-    }
-}
 

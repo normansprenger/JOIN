@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 header {
     background-color: white;
     height: 80px;
@@ -17,7 +21,7 @@ header {
     width: 100%;
 }
 
-.headerContainerLeft{
+.headerContainerLeft {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +32,7 @@ header {
     padding-left: 10px;
 }
 
-.headerContainerRight{
+.headerContainerRight {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,35 +48,98 @@ header {
     justify-content: center;
     align-items: center;
     margin-right: 10px;
+    color: #29ABE2;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.dNoneheaderContainerRightUserIcon {
-    display: none;
-}
-
-.headerContainerRightHelp img:hover{
+.headerContainerRightHelp img:hover {
     cursor: pointer;
     transform: scale(1.12);
+}
+
+#headerMobileMenu {
+    position: fixed;
+    top: 62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px 0px 20px 20px;
+    gap: 8px;
+    height: 200px;
+    background-color: #2A3647;
+    transition: 0.2s;
+}
+
+.right {
+    right: -200px;
+}
+
+.normal {
+    right: 10px;
+}
+
+#headerMobileMenu a {
+    text-decoration: none;
+    color: #CDCDCD;
+    padding: 8px 8px 8px 8px;
+    display: flex;
+    width: 130px;
+    font-size: 16px;
+    border-radius: 6px;
+
+}
+
+.headerContainerRightUserIcon:hover {
+    background-color: #e2e6ec;
+}
+
+#headerMobileMenu a:hover {
+    background-color: rgba(42, 61, 89, 1);
 }
 
 @media screen and (min-width: 1000px) {
     header {
         height: 96px;
     }
-    .headerContainerLeftImg{
+
+    .headerContainerLeftImg {
         display: none;
     }
-    .headerContainerLeft{
+
+    .headerContainerLeft {
         padding-left: 340px;
         font-size: 20px;
-        font-weight: 400;    }
+        font-weight: 400;
+    }
+
+    .headerContainerRightUserIcon {
+        height: 53px;
+        width: 53px;
+        border: 3px solid #2A3647;
+
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .headerMobileMenuHelp{
+        display: none !important;
+    }
+    #headerMobileMenu {
+        top: 96px;
+        height: 158px;
+    }
 }
 
 @media screen and (max-width: 999px) {
-    .headerContainerRightHelp{
+    .headerContainerRightHelp {
         display: none;
     }
-    .headerContainerLeftKanbanText{
+
+    .headerContainerLeftKanbanText {
         display: none;
     }
 }
