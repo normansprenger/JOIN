@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/logoBright.svg">
+    <link rel="stylesheet" href="../css/font_inter.css">
+    <link rel="stylesheet" href="../css/signUp.css">
+    <script src="../js/signUp.js"></script>
+    <script src="../js/remoteStorage.js"></script>
+</head>
+
+<body>
+    <img class="logo" src="../assets/img/logoDark.svg" alt="logo">
+    <main>
+        <div class="header">
+            <img src="../assets/img/arrowLeft.svg" alt="">
+            <h1>Sign Up</h1>
+            <img class="sigUpSeperator" src="" alt="">
+        </div>
+        <form class="signUpForm">
+            <div class="inputContainer">
+                <input type="text" placeholder="Name">
+                <img class="signUpFormEmoticons" src="../assets/img/person.svg" alt="">
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" placeholder="Email">
+                <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" placeholder="Password">
+                <img class="signUpFormEmoticons" src="../assets/img/lock.svg" alt="">
+            </div>
+
+
+            <div class="inputContainer">
+                <input type="text" placeholder="Confirm Password">
+                <img class="signUpFormEmoticons" src="../assets/img/lock.svg" alt="">
+            </div>
+
+            <div class="checkbox">
+                <img id="checkedImg" class="check" src="../assets/img/checked.svg" alt="" onclick="changeCheckImg()" style="display: none;">
+                <img id="checkImg" class="check" src="../assets/img/checkEmpty.svg" alt="" onclick="changeCheckImg()">
+                <span>I accept the <a href="../html/privacy_policy.html">Privacy Policy</a></span>
+            </div>
+
+            <div class="SignUpButtonContainer" onclick="SignUp()">
+                <button>Sign Up</button>
+            </div>
+
+        </form>
+</body>
+
+</html>
