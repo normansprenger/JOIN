@@ -11,8 +11,9 @@ async function initHelp() {
 }
 
 
-function hideHeaderContainerRightUserIcon() {
+function hideHeaderContainerRight() {
     document.getElementById('headerContainerRightUserIcon').style = 'display:none;';
+    document.getElementById('headerContainerRightHelp').style = 'display:none;';
 }
 
 
@@ -24,4 +25,12 @@ function hideDesktopContainer() {
 function backToLastPage() {
     console.log('Funktion fertig stellen. Merker für letzte Seite implementieren');
     open("../index.html", "_self");
+}
+
+function showHeaderMenu(){
+    if(document.getElementById('headerMobileMenu').style.right == "-180px"){
+    document.getElementById('headerMobileMenu').style.right = "10px"}
+    else{
+        document.getElementById('headerMobileMenu').style.right = "-180px"
+    };
 }
