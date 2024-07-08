@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     min-width: 320px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -50,13 +51,18 @@ main{
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: calc(100% - 32px);
+    cursor: pointer;
+}
+
+.signUpFormEmoticons{
+    padding-right: 21px;
 }
 
 input{
     border: 0 solid;
     outline: none;
     font-size: 20px;
-    margin-left: 8px;
+    margin-left: 21px;
     width: 88%;
 
 }
@@ -79,18 +85,61 @@ a{
     cursor: pointer;
 }
 
-button{
+button:disabled{
     width: 180px;
     height: 51px;
     border-radius: 8px;
-    background-color: #2A3647;
     color: white;
     font-size: 16px;
     font-weight: 700;
+    background-color: #A8A8A8;
+    border: none;
+}
+
+button:enabled{
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #2A3647;
+    border: none;
 }
 
 .arrowLeft{
     position: relative;
-    right: 44px;
-    top: 50px;
+    right: 40px;
+    top: 62px;
+}
+
+.signUpHeadline{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpSeperator{
+    height: 3px;
+    width: 88px;
+    background-color: #29ABE2;
+    margin-bottom: 24px;
+}
+
+h1{
+    font-size: 47px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.links{
+    text-decoration: none;
+    display: flex;
+    gap:32px;
+    position: fixed;
+    bottom: 35px;
+}
+
+.links a{
+    color:#A8A8A8;
 }
