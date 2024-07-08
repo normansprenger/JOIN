@@ -6,7 +6,6 @@ body {
     margin: 0;
     display: flex;
     font-family: 'Inter';
-    background-color: #F6F7F8;
     min-height: 100vh;
 }
 
@@ -14,50 +13,82 @@ body {
     display: none;
 }
 
-#content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-left: 232px;
+h1 {
+    font-size: 61px;
 }
 
-.innerListContainer {
-    max-height: calc(100vh - 96px);
-    max-width: 456px;
-    overflow-y: auto;
-    margin-bottom: 24px;
-    padding: 32px 16px;
-    box-sizing: border-box;
+.letterHeader h2 {
+    margin-left: 32px;
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-::-webkit-scrollbar-thumb {
-    background: grey;
-    border-radius: 8px;
-  }
-
-#asideMiddleLinkContacts{
-    background-color: #091931;
-    color: white;
-}
-
-#asideMiddleLinkContacts img{
-    filter: brightness(2);
+.contactDetails h3 {
+    margin: 12px 0;
+    font-weight: normal;
+    font-size: 24px;
 }
 
 main {
     margin-top: 100px;
     margin-bottom: 80px;
-    padding-right: 10px;
-    flex-grow: 1; 
-    display: flex; 
-    flex-direction: column; 
+    flex-grow: 1;
 }
 
-#desktopContainerLinkContacts{
+#content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-left: 232px;
+    margin-right: 0;
+}
+
+.contactsHTMLContainer {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+.listSection {
+    flex: 1;
+    max-width: 456px;
+    margin-right: 20px;
+}
+
+.contactDetailsSection {
+    flex: 1;
+    background-color: #F6F7F8;
+    padding: 32px 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.innerListContainer {
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    margin-bottom: 24px;
+    padding: 32px 52px;
+    box-sizing: border-box;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 8px;
+}
+
+#asideMiddleLinkContacts {
+    background-color: #091931;
+    color: white;
+}
+
+#asideMiddleLinkContacts img {
+    filter: brightness(2);
+}
+
+#desktopContainerLinkContacts {
     background-color: #091931;
     border-radius: 8px;
     width: 76px;
@@ -65,12 +96,8 @@ main {
     color: white;
 }
 
-#desktopContainerLinkContacts img{
+#desktopContainerLinkContacts img {
     filter: brightness(2);
-}
-
-.innerListContainer {
-    padding: 32px 52px;
 }
 
 .listButtonContainer {
@@ -90,9 +117,9 @@ main {
     cursor: pointer;
     margin-bottom: 12px;
     padding: 12px 24px;
-    width: 100%; 
-    max-width: 800px; 
-    border: none; 
+    width: 100%;
+    max-width: 800px;
+    border: none;
 }
 
 .addContactButton:hover {
@@ -120,12 +147,6 @@ main {
     border-radius: 8px;
 }
 
-.contactDetails h3 {
-    margin: 12px 0;
-    font-weight: normal;
-    font-size: 24px;
-}
-
 .contactDetails p {
     margin: 0;
     color: #007cee;
@@ -142,11 +163,52 @@ main {
     height: 32px;
 }
 
-.letterHeader h2 {
-    margin-left: 32px;
+.LeftPartOverview {
+    display: flex;
+    align-items: center;
+    padding-left: 55px;
+    gap: 30px;
+}
+
+.LeftPartOverviewText {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 30px;
+    align-items: center;
+}
+
+.TextTeam {
+    font-size: 24px;
+}
+
+.SeperatorLineContent {
+    height: 90px;
+    width: 3px;
+    background-color: #29ABE2;
+}
+
+#dynamicContactDetails {
+    padding-left: 55px;
 }
 
 @media (max-width: 1000px) {
+    #content {
+        padding: 0;
+    }
+
+    .innerListContainer {
+        padding: 0;
+    }
+
+    .contactsHTMLContainer {
+        flex-direction: column; /* Untereinander anordnen */
+    }
+
+    .listSection {
+        max-width: none;
+        margin-right: 0;
+    }
+
     .addContactButton {
         display: none;
     }
@@ -173,5 +235,11 @@ main {
 
     .contactList {
         margin: 0 32px 32px 32px;
+    }
+}
+
+@media (max-width: 500px) {
+    .contactList {
+        margin: 0 12px 12px 12px;
     }
 }
