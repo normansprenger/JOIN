@@ -16,43 +16,51 @@
     <img class="logo" src="../assets/img/logoDark.svg" alt="logo">
     <main>
         <div class="header">
-            <img src="../assets/img/arrowLeft.svg" alt="">
-            <h1>Sign Up</h1>
-            <img class="sigUpSeperator" src="" alt="">
+            <a href="../index.html" class="arrowLeft"><img src="../assets/img/arrowLeft.svg" alt=""></a>
+            <div class="signUpHeadline">
+                <h1>Sign Up</h1>
+                <div class="signUpSeperator"></div>
+            </div>
         </div>
         <form class="signUpForm">
             <div class="inputContainer">
-                <input type="text" placeholder="Name">
+                <input class="inputField" required autocomplete id="signUpName" type="text" placeholder="Name" onkeyup="enableDisableButton()">
                 <img class="signUpFormEmoticons" src="../assets/img/person.svg" alt="">
             </div>
 
             <div class="inputContainer">
-                <input type="text" placeholder="Email">
+                <input class="inputField" required autocomplete id="signUpEmail" type="email" placeholder="Email" onkeyup="enableDisableButton()">
                 <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
             </div>
 
-            <div class="inputContainer">
-                <input type="text" placeholder="Password">
-                <img class="signUpFormEmoticons" src="../assets/img/lock.svg" alt="">
+            <div class="inputContainer" onkeyup="changePasswordIcon()">
+                <input class="inputField" required autocomplete id="signUpPassword" type="password" placeholder="Password" onkeyup="enableDisableButton()">
+                <img id="passwordIcon" class="signUpFormEmoticons" src="../assets/img/lock.svg" alt="" onclick="toggleVisibilityIcon()">
             </div>
 
 
             <div class="inputContainer">
-                <input type="text" placeholder="Confirm Password">
+                <input class="inputField" required autocomplete id="signUpConfirmPassword" type="password" placeholder="Confirm Password" onkeyup="enableDisableButton()">
                 <img class="signUpFormEmoticons" src="../assets/img/lock.svg" alt="">
             </div>
 
             <div class="checkbox">
-                <img id="checkedImg" class="check" src="../assets/img/checked.svg" alt="" onclick="changeCheckImg()" style="display: none;">
+                <img id="checkedImg" class="check" src="../assets/img/checked.svg" alt="" onclick="changeCheckImg()"
+                    style="display: none;">
                 <img id="checkImg" class="check" src="../assets/img/checkEmpty.svg" alt="" onclick="changeCheckImg()">
                 <span>I accept the <a href="../html/privacy_policy.html">Privacy Policy</a></span>
             </div>
 
-            <div class="SignUpButtonContainer" onclick="SignUp()">
-                <button>Sign Up</button>
+            <div class="SignUpButtonContainer" onclick="signUp()">
+                <button id="signUpButton" disabled>Sign Up</button>
             </div>
 
         </form>
+    </main>
+    <div class="links">
+        <a href="../html/privacy_policy.html">Privacy Policy</a>
+        <a href="../html/legal_notice.html">Legal Notice</a>
+    </div>
 </body>
 
 </html>
