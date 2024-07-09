@@ -15,7 +15,7 @@ body {
     align-items: center;
 }
 
-main{
+main {
     background-color: white;
     width: calc(100vw - 32px);
     border-radius: 30px;
@@ -27,7 +27,7 @@ main{
     max-width: 530px;
 }
 
-.logo{
+.logo {
     position: fixed;
     top: 37px;
     left: 38px;
@@ -35,7 +35,7 @@ main{
     height: 78px;
 }
 
-.signUpForm{
+.signUpForm {
     display: flex;
     gap: 24px;
     flex-direction: column;
@@ -43,22 +43,21 @@ main{
     width: 100%;
 }
 
-.inputContainer{
+.inputContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: calc(100% - 32px);
     cursor: pointer;
 }
 
-.signUpFormEmoticons{
+.signUpFormEmoticons {
     padding-right: 21px;
 }
 
-input{
+input {
     border: 0 solid;
     outline: none;
     font-size: 20px;
@@ -67,7 +66,7 @@ input{
 
 }
 
-.checkbox{
+.checkbox {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -75,17 +74,17 @@ input{
     gap: 6px;
 }
 
-.check{
+.check {
     cursor: pointer;
 }
 
-a{
+a {
     color: #29ABE2;
     text-decoration: none;
     cursor: pointer;
 }
 
-button:disabled{
+button:disabled {
     width: 180px;
     height: 51px;
     border-radius: 8px;
@@ -96,7 +95,7 @@ button:disabled{
     border: none;
 }
 
-button:enabled{
+button:enabled {
     width: 180px;
     height: 51px;
     border-radius: 8px;
@@ -107,39 +106,47 @@ button:enabled{
     border: none;
 }
 
-.arrowLeft{
+.arrowLeft {
     position: relative;
     right: 40px;
     top: 62px;
 }
 
-.signUpHeadline{
+.signUpHeadline {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.signUpSeperator{
+.signUpSeperator {
     height: 3px;
     width: 88px;
     background-color: #29ABE2;
     margin-bottom: 24px;
 }
 
-h1{
+h1 {
     font-size: 47px;
     font-weight: 700;
     margin-bottom: 16px;
 }
 
-.links{
+.links {
     text-decoration: none;
     display: flex;
-    gap:32px;
+    gap: 32px;
     position: fixed;
     bottom: 35px;
 }
 
-.links a{
-    color:#A8A8A8;
+.links a {
+    color: #A8A8A8;
+}
+
+#errorMessage {
+    font-size: 12px;
+    font-weight: 400;
+    color: #FF8190;
+    margin-top: -20px;
+    margin-bottom: -20px;
 }

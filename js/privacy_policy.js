@@ -1,3 +1,5 @@
+const BASE_URL = 'https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app/';
+
 async function initPrivacyPolicy() {
     await includeHTML(); // Sicherstellen, dass includeHTML() abgeschlossen ist
     if (currentUser == null) {
@@ -25,5 +27,12 @@ function hideDesktopContainer() {
 function backToLastPage() {
     console.log('Funktion fertig stellen. Merker für letzte Seite implementieren');
     open("../index.html", "_self");
+}
+
+async function loadData(path = "") {
+    let response = await fetch(BASE_URL + path + ".json");
+    let reponseToJSON = await response.json();
+    console.log(reponseToJSON);
+    document.getElementById('container').innerHTML = reponseToJSON['name'];
 }
 
