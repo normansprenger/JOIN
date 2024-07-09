@@ -53,6 +53,18 @@ function toggleContactView(id) {
         return;
     }
 
+    // Entferne die 'selected'-Klasse von allen Kontakt-Elementen
+    const contactItems = document.querySelectorAll('.contactItem');
+    contactItems.forEach(item => {
+        item.classList.remove('selected');
+    });
+
+    // Finde das angeklickte Kontakt-Element und füge die 'selected'-Klasse hinzu
+    const selectedContactElement = document.querySelector(`.contactItem[onclick="toggleContactView(${id})"]`);
+    if (selectedContactElement) {
+        selectedContactElement.classList.add('selected');
+    }
+
     const contactDetailsSection = document.getElementById('contactDetailsSection');
     
     const existingContactDetails = document.getElementById('dynamicContactDetails');
@@ -65,25 +77,48 @@ function toggleContactView(id) {
 
     contactDetailsContainer.innerHTML = /*HTML*/ `
         <div class="contactDetailsHeader" style="display: flex; align-items: center; gap: 16px;">
-            <div class="shortName" style="background-color: ${contact.color};">
-                <span class="initials">${contact.initials}</span>
+            <div class="shortNameContactDetails" style="background-color: ${contact.color};">
+                <p class="initialsContactDetails">${contact.initials}</p>
             </div>
-            <div style="flex-grow: 1;">
+            <div class="ContactDetailsContainer">
                 <h2>${contact.name}</h2>
-                <div style="display: flex; gap: 16px;">
-                    <span class="edit" style="cursor: pointer; color: blue;" onclick="editContact(${id})">Edit</span>
-                    <span class="delete" style="cursor: pointer; color: red;" onclick="deleteContact(${id})">Delete</span>
+                <div class="EditDeleteContainer">
+                    <div class="edit">
+                        <img src="../assets/img/edit.svg" alt="Edit">
+                        <p onclick="editContact(${id})">Edit</p>  
+                    </div>
+                    <div class="delete">
+                        <img src="../assets/img/delete.svg" alt="Delete">
+                        <p onclick="deleteContact(${id})">Delete</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="contactDetailsBody">
+        <div class="contactDetailsBodyContainer">
             <h3>Contact Information</h3>
-            <p><strong>Email:</strong><br> ${contact.email}</p>
-            <p><strong>Phone:</strong><br> +${contact.phone || 'N/A'}</p>
+                <div class="contactDetailsBodyEmailContainer">
+                    <p>Email:</p>
+                    <p class="contactDetailsBodyEmail">${contact.email}</p>
+                </div>
+                <div class="contactDetailsBodyPhoneContainer">
+                    <p>Phone:</p>
+                    <p class="contactDetailsBodyPhone">+${contact.phone || 'N/A'}</p>
+                </div>
+            <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
         </div>
     `;
 
     contactDetailsSection.appendChild(contactDetailsContainer);
+
+    if (window.innerWidth <= 1000) {
+        document.querySelector('.listSection').style.display = 'none';
+        contactDetailsSection.style.display = 'block';
+    }
+}
+
+function backToList() {
+    document.querySelector('.listSection').style.display = 'block';
+    document.getElementById('contactDetailsSection').style.display = 'none';
 }
 
 function editContact(id) {
