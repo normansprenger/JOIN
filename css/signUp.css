@@ -1,5 +1,7 @@
 html {
     scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
 }
 
 body {
@@ -8,11 +10,12 @@ body {
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
-    min-width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    max-width: 2000px;
 }
 
 main {
@@ -28,7 +31,7 @@ main {
 }
 
 .logo {
-    position: fixed;
+    position: absolute;
     top: 37px;
     left: 38px;
     width: 64px;
@@ -149,4 +152,32 @@ h1 {
     color: #FF8190;
     margin-top: -20px;
     margin-bottom: -20px;
+}
+
+.blackBackground {
+    position: absolute;
+    inset: 0 0 0 0;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.525);
+    animation: animation_overlay 1000ms ease-in-out 0ms forwards;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.successMessage {
+    padding: 27px 22px 27px 22px;
+    background-color: #2A3647;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    transition: bottom 2000ms ease;
+    position: relative;
+    bottom: -1000px;
+}
+
+.messageAfter{
+    bottom: 0px !important;
 }

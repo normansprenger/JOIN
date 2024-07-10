@@ -9,7 +9,7 @@ let users = [];
 const BASE_URL = "https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app"
 
 
-function init(){
+function init() {
     loadUsers();
 }
 
@@ -147,15 +147,15 @@ function originalBorderColorConfirmPassword() {
 }
 
 
-function signUp(event) {
+async function signUp(event) {
     event.preventDefault();
     if (document.getElementById('signUpPassword').value == document.getElementById('signUpConfirmPassword').value) {
         document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #D1D1D1";
         document.getElementById('errorMessage').style.display = "none";
         pushUser();
-        saveUsers();
+        await saveUsers();
         clearInputs();
-
+        signUpSuccess();
     }
     else {
         document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #FF8190";
@@ -250,15 +250,15 @@ function validatePassword() {
     }
 }
 
-function clearInputs(){
+function clearInputs() {
     document.getElementById('signUpName').value = '';
     document.getElementById('signUpEmail').value = '';
     document.getElementById('signUpPassword').value = '';
     document.getElementById('signUpConfirmPassword').value = '';
 }
 
-function resetUserDatabase(){
-    users = [    {
+function resetUserDatabase() {
+    users = [{
         "color": "#FF70AA",
         "email": "simon.matter@gmx.de",
         "id": 0,
@@ -266,8 +266,8 @@ function resetUserDatabase(){
         "name": "Simon Matter",
         "password": "Simon1!",
         "phone": "015204679261"
-      },
-      {
+    },
+    {
         "color": "#FFC700",
         "email": "normansprenger@gmail.com",
         "id": 1,
@@ -275,7 +275,22 @@ function resetUserDatabase(){
         "name": "Norman Sprenger",
         "password": "Test1!",
         "phone": "01779706478"
-      }]
-      saveUsers();
-      window.alert('Datenbank zurückgesetzt')
+    }]
+    saveUsers();
+    window.alert('Datenbank zurückgesetzt')
+}
+
+function signUpSuccess() {
+    // Display the background
+    document.getElementById('blackBackground').style.display = "flex";
+    // Trigger the transition by changing the class
+    const message = document.getElementById('successMessage');
+    message.classList.remove("messageBefore");
+    message.classList.add("messageAfter");
+    // Redirect to login after 2000ms
+    setTimeout(directToLogin, 2000);
+}
+
+function directToLogin() {
+    window.location.href = '../../index.html';
 }
