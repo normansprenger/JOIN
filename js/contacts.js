@@ -1,38 +1,38 @@
 let contactsData = {};
 
 function displayContacts(data) {
-    contactsData = {}; // Reset the global variable to an empty object
+  contactsData = {}; // Reset the global variable to an empty object
 
-    const contactList = document.getElementById('contactList');
-    contactList.innerHTML = '';
+  const contactList = document.getElementById("contactList");
+  contactList.innerHTML = "";
 
-    const contactsArray = Object.values(data); // Convert data to an array
-    contactsArray.sort((a, b) => a.name.localeCompare(b.name));
+  const contactsArray = Object.values(data); // Convert data to an array
+  contactsArray.sort((a, b) => a.name.localeCompare(b.name));
 
-    let currentLetter = '';
+  let currentLetter = "";
 
-    contactsArray.forEach(contact => {
-        // Save each contact by its ID in contactsData
-        contactsData[contact.id] = contact;
+  contactsArray.forEach((contact) => {
+    // Save each contact by its ID in contactsData
+    contactsData[contact.id] = contact;
 
-        const firstLetter = contact.name.charAt(0).toUpperCase();
+    const firstLetter = contact.name.charAt(0).toUpperCase();
 
-        if (firstLetter !== currentLetter) {
-            currentLetter = firstLetter;
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
 
-            const letterHeader = document.createElement('div');
-            letterHeader.className = 'letterHeader';
-            letterHeader.innerHTML = `
+      const letterHeader = document.createElement("div");
+      letterHeader.className = "letterHeader";
+      letterHeader.innerHTML = `
                 <h2>${currentLetter}</h2>
                 <hr>
             `;
-            contactList.appendChild(letterHeader);
-        }
+      contactList.appendChild(letterHeader);
+    }
 
-        const contactElement = document.createElement('div');
-        contactElement.className = 'contactItem';
-        contactElement.setAttribute('onclick', `toggleContactView(${contact.id})`);
-        contactElement.innerHTML = /*HTML*/ `
+    const contactElement = document.createElement("div");
+    contactElement.className = "contactItem";
+    contactElement.setAttribute("onclick", `toggleContactView(${contact.id})`);
+    contactElement.innerHTML = /*HTML*/ `
             <div class="shortName" style="background-color: ${contact.color};">
                 <span class="initials">${contact.initials}</span>
             </div>
@@ -41,43 +41,51 @@ function displayContacts(data) {
                 <p>${contact.email}</p>
             </div>
         `;
-        contactList.appendChild(contactElement);
-    });
+    contactList.appendChild(contactElement);
+  });
 }
 
 function toggleContactView(id) {
-    const contact = contactsData[id];
+  const contact = contactsData[id];
 
-    if (!contact) {
-        console.error(`Contact with ID ${id} not found`);
-        return;
-    }
+  if (!contact) {
+    console.error(`Contact with ID ${id} not found`);
+    return;
+  }
 
-    // Entferne die 'selected'-Klasse von allen Kontakt-Elementen
-    const contactItems = document.querySelectorAll('.contactItem');
-    contactItems.forEach(item => {
-        item.classList.remove('selected');
-    });
+  // Entferne die 'selected'-Klasse von allen Kontakt-Elementen
+  const contactItems = document.querySelectorAll(".contactItem");
+  contactItems.forEach((item) => {
+    item.classList.remove("selected");
+  });
 
-    // Finde das angeklickte Kontakt-Element und füge die 'selected'-Klasse hinzu
-    const selectedContactElement = document.querySelector(`.contactItem[onclick="toggleContactView(${id})"]`);
-    if (selectedContactElement) {
-        selectedContactElement.classList.add('selected');
-    }
+  // Finde das angeklickte Kontakt-Element und füge die 'selected'-Klasse hinzu
+  const selectedContactElement = document.querySelector(
+    `.contactItem[onclick="toggleContactView(${id})"]`
+  );
+  if (selectedContactElement) {
+    selectedContactElement.classList.add("selected");
+  }
 
-    const contactDetailsSection = document.getElementById('contactDetailsSection');
-    
-    const existingContactDetails = document.getElementById('dynamicContactDetails');
-    if (existingContactDetails) {
-        contactDetailsSection.removeChild(existingContactDetails);
-    }
+  const contactDetailsSection = document.getElementById(
+    "contactDetailsSection"
+  );
 
-    const contactDetailsContainer = document.createElement('div');
-    contactDetailsContainer.id = 'dynamicContactDetails';
+  const existingContactDetails = document.getElementById(
+    "dynamicContactDetails"
+  );
+  if (existingContactDetails) {
+    contactDetailsSection.removeChild(existingContactDetails);
+  }
 
-    contactDetailsContainer.innerHTML = /*HTML*/ `
+  const contactDetailsContainer = document.createElement("div");
+  contactDetailsContainer.id = "dynamicContactDetails";
+
+  contactDetailsContainer.innerHTML = /*HTML*/ `
         <div class="contactDetailsHeader" style="display: flex; align-items: center; gap: 16px;">
-            <div class="shortNameContactDetails" style="background-color: ${contact.color};">
+            <div class="shortNameContactDetails" style="background-color: ${
+              contact.color
+            };">
                 <p class="initialsContactDetails">${contact.initials}</p>
             </div>
             <div class="ContactDetailsContainer">
@@ -102,31 +110,82 @@ function toggleContactView(id) {
                 </div>
                 <div class="contactDetailsBodyPhoneContainer">
                     <p>Phone:</p>
-                    <p class="contactDetailsBodyPhone">+${contact.phone || 'N/A'}</p>
+                    <p class="contactDetailsBodyPhone">+${
+                      contact.phone || "N/A"
+                    }</p>
                 </div>
             <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
         </div>
     `;
 
-    contactDetailsSection.appendChild(contactDetailsContainer);
+  contactDetailsSection.appendChild(contactDetailsContainer);
 
-    if (window.innerWidth <= 1000) {
-        document.querySelector('.listSection').style.display = 'none';
-        contactDetailsSection.style.display = 'block';
-    }
+  if (window.innerWidth <= 1000) {
+    document.querySelector(".listSection").style.display = "none";
+    contactDetailsSection.style.display = "block";
+  }
 }
 
 function backToList() {
-    document.querySelector('.listSection').style.display = 'block';
-    document.getElementById('contactDetailsSection').style.display = 'none';
+  document.querySelector(".listSection").style.display = "block";
+  document.getElementById("contactDetailsSection").style.display = "none";
 }
 
 function editContact(id) {
-    console.log(`Edit contact with id ${id}`);
+  console.log(`Edit contact with id ${id}`);
 }
 
 function deleteContact(id) {
-    console.log(`Delete contact with id ${id}`);
+  console.log(`Delete contact with id ${id}`);
+}
+
+function openAddContactPopUp() {
+  const popupContainer = document.createElement("div");
+  popupContainer.id = "addContactPopup";
+  popupContainer.className = "popupContainer";
+  popupContainer.innerHTML = /*HTML*/ `
+        <div class="popupContent">
+            <div class="popupContentAddContactTitle"> 
+                <div class="popupCloseAddContact">
+                    <img onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
+                </div>   
+                <h1>Add contact</h1>
+                <p>Tasks are better with a team!</p>
+                <div class="SeperatorLineContent"></div>
+            </div>
+            <div class="popupContentAddContactDetails">
+                <div class="ShortNameContainer">
+                    <div class="CreateContactShortName">
+                        <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
+                    </div>
+                </div>
+                <div class="DialogAddEdit">
+                <form class="DialogAddEditForm">
+                    <div class="inputContainer">
+                        <label for="fullName"></label>
+                        <input class="CreateContactInput" pattern="[a-zA-ZäöüÄÖÜß\s]*" minlength="2" type="text" id="fullName" placeholder="Name" required>
+                    </div>
+                    <div class="inputContainer">
+                        <label for="mail"></label>
+                        <input class="CreateContactInput" type="email" id="mail" placeholder="Email" required>
+                    </div>
+                <div class="inputContainer">
+                    <label for="telNumber"></label>
+                    <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
+                </div>
+                <button class="AddContactButton">Create contact</button>
+                </form>
+            </div>
+        </div> 
+    `;
+  document.body.appendChild(popupContainer);
+}
+
+function closeAddContactPopUp() {
+  const popup = document.getElementById("addContactPopup");
+  if (popup) {
+    document.body.removeChild(popup);
+  }
 }
 
 fetchContacts();
