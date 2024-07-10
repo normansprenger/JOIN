@@ -1,8 +1,35 @@
 let passwordFilled = false;
 let confirmPasswordFilled = false;
 let privacyPolicyAccepted = false;
+const userColors = [
+    '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF',
+    '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
+];
 let users = [];
 const BASE_URL = "https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app"
+
+
+function init(){
+    loadUsers();
+}
+
+
+async function loadUsers(path = "/users") {
+    let response = await fetch(BASE_URL + path + ".json");
+    let reponseToJSON = await response.json();
+    users = reponseToJSON;
+};
+
+
+async function saveUsers(path = "/users") {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(users)
+    });
+}
 
 
 function changeCheckImg() {
@@ -69,25 +96,6 @@ function toggleVisibilityConfirmPasswordIcon() {
     }
 }
 
-
-
-
-
-function validateEmail() {
-    const emailElement = document.getElementById('email');
-    const email = emailElement.value;
-    const validations = [
-        { condition: email.indexOf('@') < 1, message: 'Die E-Mail-Adresse muss ein @-Symbol enthalten.\n' },
-        { condition: email.lastIndexOf('.') <= email.indexOf('@') + 1, message: 'Die E-Mail-Adresse muss einen Punkt (.) nach dem @-Symbol enthalten.\n' },
-        { condition: email.lastIndexOf('.') === email.length - 1, message: 'Die E-Mail-Adresse darf nicht mit einem Punkt (.) enden.\n' },
-        { condition: !/^[a-zA-Z0-9._%+-]+@/.test(email), message: 'Der lokale Teil der E-Mail-Adresse enthält ungültige Zeichen.\n' },
-        { condition: !/[a-zA-Z]{2,}$/.test(email.split('.').pop()), message: 'Die Top-Level-Domain muss mindestens zwei Buchstaben lang sein.\n' }
-    ];
-    const errorMessage = validations.reduce((msg, val) => val.condition ? msg + val.message : msg, '');
-    emailElement.setCustomValidity(errorMessage);
-}
-
-
 function enableDisableButton() {
     if ((privacyPolicyAccepted)
         && (!document.getElementById('signUpName').value == '')
@@ -98,56 +106,56 @@ function enableDisableButton() {
 
 }
 
+
 function changeBordorColorName() {
     document.getElementById('inputContainerName').style.border = "1px solid #29ABE2";
 }
+
 
 function originalBorderColorName() {
     document.getElementById('inputContainerName').style.border = "1px solid #D1D1D1";
 }
 
+
 function changeBordorColorEmail() {
     document.getElementById('inputContainerEmail').style.border = "1px solid #29ABE2";
 }
+
 
 function originalBorderColorEmail() {
     document.getElementById('inputContainerEmail').style.border = "1px solid #D1D1D1";
 }
 
+
 function changeBordorColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #29ABE2";
 }
+
 
 function originalBorderColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #D1D1D1";
 }
 
+
 function changeBordorColorConfirmPassword() {
     document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #29ABE2";
 }
+
 
 function originalBorderColorConfirmPassword() {
     document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #D1D1D1";
 }
 
-function signUp(event) {
-    event.preventDefault()
-    passwordsEqual = false;
-    checkPasswords();
-    console.log('REGISTRATION started');
-    if (passwordsEqual == true) {
-        let name = document.getElementById('signUpName').value;
-        let email = document.getElementById('signUpEmail').value;
-        let password = document.getElementById('signUpName').value;
-        users.push({ "name": name, "email": email, "password": password })
-    }
-}
 
-function checkPasswords() {
+function signUp(event) {
+    event.preventDefault();
     if (document.getElementById('signUpPassword').value == document.getElementById('signUpConfirmPassword').value) {
         document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #D1D1D1";
         document.getElementById('errorMessage').style.display = "none";
-        return passwordsEqual = true;
+        pushUser();
+        saveUsers();
+        clearInputs();
+
     }
     else {
         document.getElementById('inputContainerConfirmPassword').style.border = "1px solid #FF8190";
@@ -156,20 +164,118 @@ function checkPasswords() {
 }
 
 
-async function loadUsers(path = "/users") {
-    let response = await fetch(BASE_URL + path + ".json");
-    let reponseToJSON = await response.json();
-    users = reponseToJSON;
-};
-
-
-async function saveUsers(path = "/users") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(users)
-    });
+function pushUser() {
+    let name = document.getElementById('signUpName').value;
+    let email = document.getElementById('signUpEmail').value;
+    let password = document.getElementById('signUpPassword').value;
+    let initials = getInitials(name);
+    let color = randomColor(userColors);
+    let id = new Date().getTime();
+    let phone = '';
+    let User = {
+        'color': `${color}`,
+        'email': `${email}`,
+        'id': `${id}`,
+        'initials': `${initials}`,
+        'name': `${name}`,
+        'password': `${password}`,
+        'phone': `${phone}`
+    };
+    users.push(User);
 }
 
+
+function getInitials(name) {
+    // Trimmen des Namens und Aufteilen in Wörter
+    let words = name.trim().split(/\s+/);
+
+    // Wenn der Name nur aus einem Wort besteht, gebe die erste Initiale zurück
+    if (words.length === 1) {
+        return words[0].charAt(0).toUpperCase();
+    }
+
+    // Wenn der Name aus Vor- und Nachnamen besteht, gebe die Initialen zurück
+    let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
+    return initials;
+}
+
+function randomColor(colors) {
+    // Eine zufällige Zahl zwischen 0 und der Länge des Arrays (exklusiv) generieren
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    // Den Wert an der zufälligen Position zurückgeben
+    return colors[randomIndex];
+}
+
+
+function validateName() {
+    var input = document.getElementById('signUpName');
+    var name = input.value.trim();
+    var nameParts = name.split(' ');
+
+    if (nameParts.length >= 2 && nameParts[0].length > 0 && nameParts[1].length > 0) {
+        input.setCustomValidity('');
+    } else {
+        input.setCustomValidity('Bitte geben Sie Vorname und Nachname ein.');
+    }
+}
+
+function validateEmail() {
+    var input = document.getElementById('signUpEmail');
+    var email = input.value.trim();
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailPattern.test(email)) {
+        input.setCustomValidity('');
+    } else {
+        input.setCustomValidity('Bitte geben Sie eine gültige Email-Adresse ein.');
+    }
+}
+
+function validatePassword() {
+    var input = document.getElementById('signUpPassword');
+    var password = input.value.trim();
+
+    // Example password validation criteria:
+    // - At least 8 characters long
+    // - Contains at least one uppercase letter
+    // - Contains at least one lowercase letter
+    // - Contains at least one digit
+    // - Contains at least one special character
+    var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
+
+    if (passwordPattern.test(password)) {
+        input.setCustomValidity('');
+    } else {
+        input.setCustomValidity('Das Passwort muss mindestens 4 Zeichen lang sein und Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.');
+    }
+}
+
+function clearInputs(){
+    document.getElementById('signUpName').value = '';
+    document.getElementById('signUpEmail').value = '';
+    document.getElementById('signUpPassword').value = '';
+    document.getElementById('signUpConfirmPassword').value = '';
+}
+
+function resetUserDatabase(){
+    users = [    {
+        "color": "#FF70AA",
+        "email": "simon.matter@gmx.de",
+        "id": 0,
+        "initials": "SM",
+        "name": "Simon Matter",
+        "password": "Simon1!",
+        "phone": "015204679261"
+      },
+      {
+        "color": "#FFC700",
+        "email": "normansprenger@gmail.com",
+        "id": 1,
+        "initials": "NS",
+        "name": "Norman Sprenger",
+        "password": "Test1!",
+        "phone": "01779706478"
+      }]
+      saveUsers();
+      window.alert('Datenbank zurückgesetzt')
+}
