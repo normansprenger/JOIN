@@ -87,7 +87,7 @@ a {
     cursor: pointer;
 }
 
-button:disabled {
+#loginBtn:disabled {
     width: 180px;
     height: 51px;
     border-radius: 8px;
@@ -98,7 +98,7 @@ button:disabled {
     border: none;
 }
 
-button:enabled {
+#loginBtn:enabled {
     width: 180px;
     height: 51px;
     border-radius: 8px;
@@ -107,6 +107,11 @@ button:enabled {
     font-weight: 700;
     background-color: #2A3647;
     border: none;
+}
+
+#loginBtn:enabled:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .signUpHeadline {
@@ -174,6 +179,23 @@ h1 {
 
 .messageAfter {
     bottom: 0px !important;
+}
+
+#guestLoginBtn{
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    color: #2A3647;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: white;
+    border: #2A3647 1px solid;
+}
+
+#guestLoginBtn:hover {
+    color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: #29ABE2 1px solid;
 }
 
 @media screen and (min-width: 1000px) {

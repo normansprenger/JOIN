@@ -79,20 +79,6 @@ function changePasswordIcon() {
     }
 }
 
-
-function changeConfirmPasswordIcon() {
-    if (!document.getElementById('signUpConfirmPassword').value == '' && confirmPasswordFilled == false) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
-        confirmPasswordFilled = true;
-    }
-    else if (document.getElementById('signUpConfirmPassword').value == '') {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/lock.svg';
-        document.getElementById("signUpConfirmPassword").type = "password";
-        confirmPasswordFilled = false;
-    }
-}
-
-
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("signUpPassword").type === "password" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';
@@ -103,19 +89,6 @@ function toggleVisibilityPasswordIcon() {
         document.getElementById("signUpPassword").type = "password";
     }
 }
-
-
-function toggleVisibilityConfirmPasswordIcon() {
-    if (document.getElementById("signUpConfirmPassword").type === "password" && confirmPasswordFilled == true) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility.svg';
-        document.getElementById("signUpConfirmPassword").type = "text";
-    }
-    else if (document.getElementById("signUpConfirmPassword").type === "text" && confirmPasswordFilled == true) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
-        document.getElementById("signUpConfirmPassword").type = "password";
-    }
-}
-
 
 function enableDisableButton() {
     if ((privacyPolicyAccepted)

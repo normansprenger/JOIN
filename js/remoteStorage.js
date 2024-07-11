@@ -28,6 +28,7 @@ async function loadTasks(path = "/tasks") {
     tasks = reponseToJSON;
 };
 
+
 async function saveUsers(path = "/users") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
