@@ -1,18 +1,17 @@
 let contactsData = {};
 
 function displayContacts(data) {
-  contactsData = {}; // Reset the global variable to an empty object
+  contactsData = {};
 
   const contactList = document.getElementById("contactList");
   contactList.innerHTML = "";
 
-  const contactsArray = Object.values(data); // Convert data to an array
+  const contactsArray = Object.values(data); 
   contactsArray.sort((a, b) => a.name.localeCompare(b.name));
 
   let currentLetter = "";
 
   contactsArray.forEach((contact) => {
-    // Save each contact by its ID in contactsData
     contactsData[contact.id] = contact;
 
     const firstLetter = contact.name.charAt(0).toUpperCase();
@@ -53,13 +52,11 @@ function toggleContactView(id) {
     return;
   }
 
-  // Entferne die 'selected'-Klasse von allen Kontakt-Elementen
   const contactItems = document.querySelectorAll(".contactItem");
   contactItems.forEach((item) => {
     item.classList.remove("selected");
   });
 
-  // Finde das angeklickte Kontakt-Element und füge die 'selected'-Klasse hinzu
   const selectedContactElement = document.querySelector(
     `.contactItem[onclick="toggleContactView(${id})"]`
   );
@@ -82,7 +79,7 @@ function toggleContactView(id) {
   contactDetailsContainer.id = "dynamicContactDetails";
 
   contactDetailsContainer.innerHTML = /*HTML*/ `
-        <div class="contactDetailsHeader" style="display: flex; align-items: center; gap: 16px;">
+        <div class="contactDetailsHeader">
             <div class="shortNameContactDetails" style="background-color: ${
               contact.color
             };">
@@ -173,7 +170,7 @@ function openAddContactPopUp() {
                     <label for="telNumber"></label>
                     <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
                 </div>
-                <button class="AddContactButton">Create contact</button>
+                <button class="AddContactButton">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
                 </form>
             </div>
         </div> 

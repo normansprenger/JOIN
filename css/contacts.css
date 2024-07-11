@@ -197,6 +197,7 @@ main {
     padding: 8px;
     margin-right: 24px;
     border-radius: 50%;
+    border: 3px solid white;
     width: 120px;
     height: 120px;
 }
@@ -298,12 +299,45 @@ main {
     cursor: pointer;
 }
 
+.contactDetailsHeader {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 1000px) {
+    .EditDeleteContainer {
+        display: none;
+    }
+
+    .shortNameContactDetails {
+        width: 80px;
+        height: 80px;
+        margin-right: 20px;
+    }
+
+    .initialsContactDetails {
+        font-size: 27px;
+    }
+
+    .ContactDetailsContainer h2 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    .TextTeam {
+        font-size: 20px;
+    }
+
     .LeftPartOverview {
         flex-direction: column;
         align-items: start;
         padding-left: 16px;
         gap: 0;
+    }
+
+    .LeftPartOverview h1 {
+        margin: 28px 0 0 0;
+        font-size: 47px;
     }
 
     .LeftPartOverviewText {
@@ -343,6 +377,7 @@ main {
     .contactDetailsSection {
         display: none;
         width: 100%;
+        padding: 0;
     }
 
     .contactDetailsSection.active {
@@ -383,7 +418,7 @@ main {
 
     .popupContainer {
         position: fixed;
-        background: white;
+        background-color: rgba(0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
         z-index: 1000;
@@ -398,14 +433,18 @@ main {
     
     .popupCloseAddContact img {
         cursor: pointer;
-        height: 24px;
-        width: 24px;
+        height: 13.15px;
+        width: 13.15px;
     }
     
     .popupContent {
         border-radius: 10px;
         height: 100vh;
         width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
     
     .popupContent h1 {
@@ -421,8 +460,17 @@ main {
         padding-left: 24px;
         border-top-right-radius: 30px;
         border-top-left-radius: 30px;
-        min-height: 396px;
+        width: 396px;
+        height: 300px;
         background-color: #2A3647;
+    }
+
+    .popupContentAddContactDetails {
+        background-color: white;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        width: 420px;
+        height: 443px;
     }
     
     .AddContactPerson {
@@ -469,11 +517,17 @@ main {
         height: 41px;
         border: 1px solid #D1D1D1;
         border-radius: 10px;
+        transition: border-color 0.3s;
         font-size: 20px;
         padding-left: 21px;
         background-repeat: no-repeat; 
         background-position: right 21px center;
         background-size: 24px 24px; 
+    }
+
+    .CreateContactInput:focus {
+        border-color: #29ABE2; 
+        outline: none; 
     }
 
     #fullName {
@@ -509,6 +563,12 @@ main {
         justify-content: center;
         gap: 4px;
         padding: 18px 10px;
+    }
+
+    .AddContactButton img {
+        height: 12px;
+        width: 16px;
+        padding-left: 4px;
     }
 }
 
