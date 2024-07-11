@@ -186,3 +186,23 @@ function closeAddContactPopUp() {
 }
 
 fetchContacts();
+
+
+
+function pushContacts() {
+  let name = document.getElementById('signUpName').value;
+  let email = document.getElementById('signUpEmail').value;
+  let initials = getInitials(name);
+  let color = randomColor(userColors);
+  let id = new Date().getTime();
+  let phone = '';
+  let contact = {
+      'color': `${color}`,
+      'email': `${email}`,
+      'id': `${id}`,
+      'initials': `${initials}`,
+      'name': `${name}`,
+      'phone': `${phone}`
+  };
+  contacts.push(contact);
+}
