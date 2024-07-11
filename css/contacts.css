@@ -145,7 +145,6 @@ main {
     gap: 32px;
     padding: 12px 24px;
     height: 78px;
-    width: 352px;
 }
 
 .contactItem.selected {
@@ -413,7 +412,7 @@ main {
     }
 
     .contactList {
-        margin: 0 32px 32px 32px;
+        margin: 0 32px 100px 32px;
     }
 
     .popupContainer {
@@ -449,10 +448,12 @@ main {
     
     .popupContent h1 {
         font-size: 47px;
+        margin-bottom: 0;
     }
     
     .popupContent p {
         font-size: 20px;
+        margin-top: 8px;
     }
     
     .popupContentAddContactTitle {
@@ -520,9 +521,9 @@ main {
         transition: border-color 0.3s;
         font-size: 20px;
         padding-left: 21px;
-        background-repeat: no-repeat; 
+        background-repeat: no-repeat;
         background-position: right 21px center;
-        background-size: 24px 24px; 
+        background-size: 24px 24px;
     }
 
     .CreateContactInput:focus {
