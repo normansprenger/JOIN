@@ -7,20 +7,18 @@ let tasks = [];
 
 const BASE_URL = 'https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app/';
 
-
 async function loadUsers(path = "/users") {
     let response = await fetch(BASE_URL + path + ".json");
     let reponseToJSON = await response.json();
     users = reponseToJSON;
 };
 
-
 async function loadContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json");
     let reponseToJSON = await response.json();
     contacts = reponseToJSON;
+    return contacts;
 };
-
 
 async function loadTasks(path = "/tasks") {
     let response = await fetch(BASE_URL + path + ".json");
@@ -38,7 +36,6 @@ async function saveUsers(path = "/users") {
     });
 }
 
-
 async function saveContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
@@ -48,7 +45,6 @@ async function saveContacts(path = "/contacts") {
         body: JSON.stringify(contacts)
     });
 }
-
 
 async function saveTasks(path = "/tasks") {
     let response = await fetch(BASE_URL + path + ".json", {

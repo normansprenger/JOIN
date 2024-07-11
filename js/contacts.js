@@ -185,9 +185,16 @@ function closeAddContactPopUp() {
   }
 }
 
+async function fetchContacts() {
+  try {
+    const contacts = await loadContacts();
+    displayContacts(contacts);
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+  }
+}
+
 fetchContacts();
-
-
 
 function pushContacts() {
   let name = document.getElementById('signUpName').value;
@@ -205,4 +212,5 @@ function pushContacts() {
       'phone': `${phone}`
   };
   contacts.push(contact);
+  saveContacts(); // Speichern der neuen Kontakte in Firebase
 }
