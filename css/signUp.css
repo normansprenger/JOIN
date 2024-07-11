@@ -32,8 +32,8 @@ main {
 
 .logo {
     position: absolute;
-    top: 37px;
-    left: 38px;
+    top: 60px;
+    left: 50px;
     width: 64px;
     height: 78px;
 }
@@ -158,7 +158,7 @@ h1 {
     position: absolute;
     inset: 0 0 0 0;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.525);
+    background-color: rgba(0, 0, 0, 0.758);
     animation: animation_overlay 1000ms ease-in-out 0ms forwards;
     z-index: 9999;
     display: flex;
@@ -178,6 +178,29 @@ h1 {
     bottom: -1000px;
 }
 
-.messageAfter{
+.messageAfter {
     bottom: 0px !important;
+}
+
+@media screen and (min-width: 1000px) {
+    .logo {
+        height: 120px;
+        width: 100px;
+
+    }
+
+    main {
+        max-width: 600px;
+        height: 630px;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    .inputContainer {
+        width: calc(100% - 160px);
+    }
+
+
 }

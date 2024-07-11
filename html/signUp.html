@@ -25,13 +25,14 @@
         <form class="signUpForm" onsubmit="signUp(event)">
             <div class="inputContainer" id="inputContainerName" style="border: 1px solid #D1D1D1;">
                 <input class="inputField" required autocomplete="name" id="signUpName" type="text" placeholder="Name"
-                    onkeyup="enableDisableButton()" onfocus="changeBordorColorName()" onblur="originalBorderColorName()" oninput="validateName()">
+                    onkeyup="enableDisableButton()" onfocus="changeBordorColorName()" onblur="originalBorderColorName()"
+                    oninput="validateName()">
                 <img class="signUpFormEmoticons" src="../assets/img/person.svg" alt="">
             </div>
 
             <div class="inputContainer" id="inputContainerEmail" style="border: 1px solid #D1D1D1;">
-                <input class="inputField" required autocomplete="email" id="signUpEmail" type="email" placeholder="Email"
-                    onkeyup="enableDisableButton()" onfocus="changeBordorColorEmail()"
+                <input class="inputField" required autocomplete="email" id="signUpEmail" type="email"
+                    placeholder="Email" onkeyup="enableDisableButton()" onfocus="changeBordorColorEmail()"
                     onblur="originalBorderColorEmail()" oninput="validateName()">
                 <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
             </div>
@@ -49,8 +50,8 @@
 
             <div class="inputContainer" onkeyup="changeConfirmPasswordIcon()" id="inputContainerConfirmPassword"
                 style="border: 1px solid #D1D1D1;">
-                <input class="inputField" required autocomplete="new-password" id="signUpConfirmPassword" type="password"
-                    placeholder="Confirm Password" onkeyup="enableDisableButton()"
+                <input class="inputField" required autocomplete="new-password" id="signUpConfirmPassword"
+                    type="password" placeholder="Confirm Password" onkeyup="enableDisableButton()"
                     onfocus="changeBordorColorConfirmPassword()" onblur="originalBorderColorConfirmPassword()">
                 <img id="confirmPasswordIcon" class="signUpFormEmoticons" src="../assets/img/lock.svg" alt=""
                     onclick="toggleVisibilityConfirmPasswordIcon()">
@@ -66,7 +67,7 @@
             </div>
 
             <div class="SignUpButtonContainer">
-                <button type="submit" id="signUpButton" disabled >Sign Up</button>
+                <button type="submit" id="signUpButton" disabled>Sign Up</button>
             </div>
 
         </form>
