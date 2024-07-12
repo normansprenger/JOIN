@@ -15,12 +15,12 @@
     <img class="logo" src="../assets/img/logoDark.svg" alt="logo">
     <main>
         <div class="header">
-            <div class="signUpHeadline">
+            <div class="loginHeadline">
                 <h1>Log in</h1>
                 <div class="signUpSeperator"></div>
             </div>
         </div>
-        <form class="signUpForm" onsubmit="signUp(event)">
+        <form class="signUpForm" onsubmit="Login(event)">
 
             <div class="inputContainer" id="inputContainerEmail" style="border: 1px solid #D1D1D1;">
 
@@ -31,7 +31,7 @@
                 <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
             </div>
 
-            <div id="wrongEmailMsg" style="display: none;">Wrong E-Mail. Try again.</div>
+            <div id="wrongEmailMsg" class="warningMsg dnone">Wrong E-Mail. Try again.</div>
 
             <div class="inputContainer" id="inputContainerPassword" onkeyup="changePasswordIcon()"
                 style="border: 1px solid #D1D1D1;">
@@ -44,7 +44,7 @@
                     onclick="toggleVisibilityPasswordIcon()">
             </div>
 
-            <div id="wrongPasswordMsg" style="display: none;">Wrong Password. Try again.</div>
+            <div id="wrongPasswordMsg" class="warningMsg dnone">Wrong Password. Try again.</div>
 
             <div class="checkbox">
                 <img id="rememberCheckedImg" class="check" src="../assets/img/checked.svg" alt="" onclick="changeRememberImg()"
@@ -64,7 +64,7 @@
     </main>
     <section class="bottom">
         <div class="SignUpContainer">
-            <span>Not a Join Ueser ?</span>
+            <span>Not a Join User ?</span>
             <div id="signUpLink">Sign Up</div>
         </div>
         <div class="links">
@@ -72,10 +72,6 @@
             <a href="../html/legal_notice.html">Legal Notice</a>
         </div>
     </section>
-
-    <div id="blackBackground" class="blackBackground" style="display: none;">
-        <span id="successMessage" class="successMessage">You Signed Up successfully</span>
-    </div>
 </body>
 
 </html>

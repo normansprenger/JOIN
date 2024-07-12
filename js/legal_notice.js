@@ -27,3 +27,8 @@ function backToLastPage() {
     open("../index.html", "_self");
 }
 
+function logout(){
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = '../../index.html';
+}
