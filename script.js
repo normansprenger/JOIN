@@ -9,28 +9,40 @@ const userColors = [
     '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF',
     '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
 ];
-let currentUser = undefined;
+let currentUser = [];
 
-
+// lädt User und schaut ob user noch gespeichert ist
 function init() {
     loadUsers();
+    checkCurrentUser();
+    enableDisableButton();
+    changePasswordIcon();
+    sessionStorage.clear();
 }
 
-
+// lädt User aus der Datenbank
 async function loadUsers(path = "/users") {
     let response = await fetch(BASE_URL + path + ".json");
     let reponseToJSON = await response.json();
     users = reponseToJSON;
 };
 
-async function saveUsers(path = "/users") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(users)
-    });
+// schaut im LocalStorage ob User RememberMe gewählt hatte
+function checkCurrentUser() {
+    let storedUserString = localStorage.getItem('currentUser');
+    if (storedUserString) {
+        currentUser = JSON.parse(storedUserString);
+        fillStoredUserInfos();
+    }
+}
+
+// füllt die Eingabefelder mit Email und Passwort
+function fillStoredUserInfos() {
+    document.getElementById('loginEmail').value = currentUser['email'];
+    document.getElementById('loginPassword').value = currentUser['password'];
+    document.getElementById('rememberCheckedImg').style.display = 'block';
+    document.getElementById('rememberImg').style.display = 'none';
+    rememberMe = true;
 }
 
 function changeRememberImg() {
@@ -59,19 +71,6 @@ function changePasswordIcon() {
 }
 
 
-function changeConfirmPasswordIcon() {
-    if (!document.getElementById('signUpConfirmPassword').value == '' && confirmPasswordFilled == false) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
-        confirmPasswordFilled = true;
-    }
-    else if (document.getElementById('signUpConfirmPassword').value == '') {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/lock.svg';
-        document.getElementById("signUpConfirmPassword").type = "password";
-        confirmPasswordFilled = false;
-    }
-}
-
-
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("loginPassword").type === "password" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';
@@ -80,18 +79,6 @@ function toggleVisibilityPasswordIcon() {
     else if (document.getElementById("loginPassword").type === "text" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
         document.getElementById("loginPassword").type = "password";
-    }
-}
-
-
-function toggleVisibilityConfirmPasswordIcon() {
-    if (document.getElementById("signUpConfirmPassword").type === "password" && confirmPasswordFilled == true) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility.svg';
-        document.getElementById("signUpConfirmPassword").type = "text";
-    }
-    else if (document.getElementById("signUpConfirmPassword").type === "text" && confirmPasswordFilled == true) {
-        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
-        document.getElementById("signUpConfirmPassword").type = "password";
     }
 }
 
@@ -124,18 +111,50 @@ function originalBorderColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #D1D1D1";
 }
 
-async function LogIn(event) {
+async function Login(event) {
     event.preventDefault();
-    
+    checkEmail();
 }
 
-function checkLogin() {
+
+function checkEmail() {
+    let email = document.getElementById('loginEmail').value;
+    let emailsearch = users.find(user => user.email === email);
+    if (!emailsearch) {
+        document.getElementById('wrongEmailMsg').classList.remove('dnone');
+    }
+    else if (emailsearch) {
+        checkCombination();
+    }
+}
+
+function checkCombination() {
     let email = document.getElementById('loginEmail').value;
     let password = document.getElementById('loginPassword').value;
-    let emailsearch = users.find(user => user.email === email && user.password === password);
-    if(!emailsearch){
-        document.getElementById
+    let combinationSearch = users.find(user => user.email === email && user.password === password);
+    if (!combinationSearch) {
+        document.getElementById('wrongPasswordMsg').classList.remove('dnone');
+        document.getElementById('wrongEmailMsg').classList.add('dnone');
     }
+    else {
+        currentUser = combinationSearch;
+        checkRememberMe();
+    }
+}
+
+// wenn remember me gewählt wurde wird der user im Local Storage gespeichert, solange bis er sich ausloggt
+// wenn remember me nicht ausgewählt wurde wird der user im session storage, gespeichert
+function checkRememberMe() {
+    if (rememberMe == true) {
+        let currentUserAsString = JSON.stringify(currentUser);
+        localStorage.setItem('currentUser', currentUserAsString);
+    }
+    else if (rememberMe == false) {
+        let currentUserAsString = JSON.stringify(currentUser);
+        sessionStorage.setItem('currentUser', currentUserAsString);
+        localStorage.clear();
+    }
+    directToSummary();
 }
 
 
@@ -171,12 +190,16 @@ function validatePassword() {
     }
 }
 
-
+//leert die Eingabefelder
 function clearInputs() {
     document.getElementById('loginName').value = '';
     document.getElementById('loginUpEmail').value = '';
 }
 
+//Weiterleitung zu Summary
+function directToSummary() {
+    window.location.href = '../html/legal_notice.html';
+}
 
 function resetUserDatabase() {
     users = [{
@@ -285,22 +308,4 @@ function resetContactsDatabase() {
     }]
     saveContacts();
     window.alert('Database Contacts Reset')
-}
-
-
-function signUpSuccess() {
-    document.getElementById('blackBackground').style.display = "flex";
-
-    // Verzögere das Anzeigen der Erfolgsmeldung um 50ms, um sicherzustellen, dass der Hintergrund zuerst erscheint
-    setTimeout(() => {
-        document.getElementById('successMessage').classList.add("messageAfter");
-    }, 100);
-
-    // Verzögere das Weiterleiten zur Login-Seite um 2050ms (2000ms für die Animation + 100ms Verzögerung)
-    setTimeout(directToLogin, 2100);
-}
-
-
-function directToLogin() {
-    window.location.href = '../../index.html';
 }
