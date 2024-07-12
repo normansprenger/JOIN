@@ -28,7 +28,7 @@ h1 {
 }
 
 main {
-    margin-top: 100px;
+    margin-top: 80px;
     margin-bottom: 80px;
     flex-grow: 1;
 }
@@ -304,6 +304,25 @@ main {
 }
 
 @media (max-width: 1000px) {
+    .contactMenuPopup {
+        position: fixed;
+        bottom: 100px;
+        right: 10px;
+        width: 116px;
+        height: 100px;
+        background-color: white;
+        border-radius: 20px 20px 0 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+   }
+
+   .contactMenuPopupContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   }
+
     .EditDeleteContainer {
         display: none;
     }
@@ -570,6 +589,27 @@ main {
         height: 12px;
         width: 16px;
         padding-left: 4px;
+    }
+
+    .ContactMenu {
+        position: absolute;
+        bottom: 100px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #2A3647;
+        border-radius: 100%;
+        cursor: pointer;
+        padding: 12px;
+    }
+
+    .editContact, .deleteContact {
+        display: flex;
+        gap: 8px;
+        cursor: pointer;
     }
 }
 
