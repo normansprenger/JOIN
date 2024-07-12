@@ -145,34 +145,44 @@ function openAddContactPopUp() {
   popupContainer.innerHTML = /*HTML*/ `
         <div class="popupContent">
             <div class="popupContentAddContactTitle"> 
-                <div class="popupCloseAddContact">
-                    <img onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
+                <div class="popupCloseAddContactMobile">
+                    <img class="closeAddContactPopUpMobile" onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
                 </div>   
                 <h1>Add contact</h1>
                 <p>Tasks are better with a team!</p>
-                <div class="SeperatorLineContent"></div>
+                <div class="SeperatorLineContentPopUp"></div>
             </div>
+            
             <div class="popupContentAddContactDetails">
-                <div class="ShortNameContainer">
-                    <div class="CreateContactShortName">
-                        <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
-                    </div>
+            
+              <div class="ShortNameContainer">
+                  <div class="CreateContactShortName">
+                    <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
+                  </div>
+              </div>
+
+              <div class="DialogAddEdit">
+                <div class="popupCloseAddContactDesktop">
+                  <img class="closeAddContactPopUpDesktop" onclick="closeAddContactPopUp()" src="../assets/img/close_black.svg" alt="CloseAddContactPopUp">
                 </div>
-                <div class="DialogAddEdit">
+
                 <form class="DialogAddEditForm">
-                    <div class="inputContainer">
-                        <label for="fullName"></label>
-                        <input class="CreateContactInput" pattern="[a-zA-ZäöüÄÖÜß\s]*" minlength="2" type="text" id="fullName" placeholder="Name" required>
-                    </div>
-                    <div class="inputContainer">
-                        <label for="mail"></label>
-                        <input class="CreateContactInput" type="email" id="mail" placeholder="Email" required>
-                    </div>
-                <div class="inputContainer">
-                    <label for="telNumber"></label>
-                    <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
-                </div>
-                <button class="AddContactButton" onclick="pushContacts()">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
+                  <div class="inputContainer">
+                      <label for="fullName"></label>
+                      <input class="CreateContactInput" pattern="[a-zA-ZäöüÄÖÜß\s]*" minlength="2" type="text" id="fullName" placeholder="Name" required>
+              </div>
+
+              <div class="inputContainer">
+                <label for="mail"></label>
+                <input class="CreateContactInput" type="email" id="mail" placeholder="Email" required>
+              </div>
+                
+              <div class="inputContainer">
+                <label for="telNumber"></label>
+                <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
+              </div>
+
+              <button class="CreateContactButton" onclick="pushContacts()">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
                 </form>
             </div>
         </div> 

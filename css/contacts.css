@@ -82,6 +82,14 @@ main {
     border-radius: 8px;
 }
 
+/* Button */
+
+.listButtonContainer {
+    display: flex;
+    justify-content: center;
+    max-width: 456px;
+}
+
 #asideMiddleLinkContacts {
     background-color: #091931;
     color: white;
@@ -101,37 +109,6 @@ main {
 
 #desktopContainerLinkContacts img {
     filter: brightness(2);
-}
-
-.listButtonContainer {
-    display: flex;
-    justify-content: center;
-    max-width: 456px;
-}
-
-.addContactButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 21px;
-    font-weight: 700;
-    background-color: #2A3647;
-    border-radius: 10px;
-    border: 1px;
-    cursor: pointer;
-    margin-top: 22.5px;
-    padding: 12px 0 12px 0;
-    width: 352px;
-    height: 56px;
-}
-
-.addContactButton:hover {
-    background-color: #29ABE2;
-}
-
-.addContactButtonMobile {
-    display: none;
 }
 
 .addNewPersonAdd {
@@ -288,44 +265,36 @@ main {
     gap: 12px;
 }
 
-.backButton {
-    display: none;
-    position: absolute;
-    top: 128px;
-    right: 16px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-}
-
 .contactDetailsHeader {
     display: flex;
     align-items: center;
+}
+
+.shortNameContactDetails {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+#fullName {
+    background-image: url(../assets/img/person.svg);
+    background-size: 24px;
+}
+
+#mail {
+    background-image: url(../assets/img/mail.svg);
+    background-size: 20px;
+}
+
+#telNumber {
+    background-image: url(../assets/img/call.svg);
+    background-size: 16px;
 }
 
 @media (max-width: 1000px) {
     main {
         margin-top: 80px;
     }
-
-    .contactMenuPopup {
-        position: fixed;
-        bottom: 100px;
-        right: 10px;
-        width: 116px;
-        height: 100px;
-        background-color: white;
-        border-radius: 20px 20px 0 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-   }
-
-   .contactMenuPopupContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-   }
 
     .EditDeleteContainer {
         display: none;
@@ -366,11 +335,6 @@ main {
         flex-direction: column;
         gap: 0;
         align-items: start;
-    }
-
-    .SeperatorLineContent {
-        width: 90px;
-        height: 3px;
     }
 
     #dynamicContactDetails {
@@ -437,121 +401,11 @@ main {
     .contactList {
         margin: 0 32px 100px 32px;
     }
-
-    .popupContainer {
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        z-index: 1000;
-    }
     
-    .popupCloseAddContact {
-        display: flex;
-        justify-content: flex-end;
-        padding-right: 24px;
-        padding-top: 24px;
-    }
-    
-    .popupCloseAddContact img {
+    .closeAddContactPopUpMobile {
         cursor: pointer;
         height: 13.15px;
         width: 13.15px;
-    }
-    
-    .popupContent {
-        border-radius: 10px;
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    
-    .popupContent h1 {
-        font-size: 47px;
-        margin-bottom: 0;
-    }
-    
-    .popupContent p {
-        font-size: 20px;
-        margin-top: 8px;
-    }
-    
-    .popupContentAddContactTitle {
-        color: white;
-        padding-left: 24px;
-        border-top-right-radius: 30px;
-        border-top-left-radius: 30px;
-        width: 396px;
-        height: 300px;
-        background-color: #2A3647;
-    }
-
-    .popupContentAddContactDetails {
-        background-color: white;
-        border-bottom-right-radius: 30px;
-        border-bottom-left-radius: 30px;
-        width: 420px;
-        height: 443px;
-    }
-    
-    .AddContactPerson {
-        width: 42.67px;
-        height: 42.67px;
-    }
-    
-    .ShortNameContainer {
-        position: relative;
-        align-self: center;
-    }
-    
-    .CreateContactShortName {
-        z-index: 1;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #D1D1D1;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 3px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .DialogAddEdit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .DialogAddEditForm {
-        display: flex;
-        flex-direction: column;
-        margin-top: 80px;
-        gap: 8px;
-        max-width: 364px;
-    }
-
-    .CreateContactInput {
-        height: 41px;
-        border: 1px solid #D1D1D1;
-        border-radius: 10px;
-        transition: border-color 0.3s;
-        font-size: 20px;
-        padding-left: 21px;
-        background-repeat: no-repeat;
-        background-position: right 21px center;
-        background-size: 24px 24px;
-    }
-
-    .CreateContactInput:focus {
-        border-color: #29ABE2; 
-        outline: none; 
     }
 
     #fullName {
@@ -567,32 +421,6 @@ main {
     #telNumber {
         background-image: url(../assets/img/call.svg);
         background-size: 16px;
-    }
-
-    .inputContainer {
-        position: relative;
-        margin-bottom: 15px;
-    }
-
-    .AddContactButton {
-        background-color: #2A3647;
-        border-radius: 10px;
-        border: none;
-        color: white;
-        font-size: 21px;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        padding: 18px 10px;
-    }
-
-    .AddContactButton img {
-        height: 12px;
-        width: 16px;
-        padding-left: 4px;
     }
 
     .ContactMenu {
