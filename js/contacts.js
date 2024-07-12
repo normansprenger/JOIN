@@ -147,6 +147,9 @@ function openAddContactPopUp() {
             <div class="popupContentAddContactTitle"> 
                 <div class="popupCloseAddContactMobile">
                     <img class="closeAddContactPopUpMobile" onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
+                </div>
+                <div class="logoAddContactPopUpDesktop">
+                  <img src="../assets/img/logoBright.svg" alt="Join Logo">
                 </div>   
                 <h1>Add contact</h1>
                 <p>Tasks are better with a team!</p>
@@ -182,7 +185,10 @@ function openAddContactPopUp() {
                 <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
               </div>
 
-              <button class="CreateContactButton" onclick="pushContacts()">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
+              <div class="ContactButtonContainer">
+                <button class="CancelContactButton" onclick="closeAddContactPopUp()">Cancel<img src="../assets/img/close_black.svg" alt="CloseAddContactPopUp"></button>
+                <button class="CreateContactButton" onclick="pushContacts()">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
+              </div>
                 </form>
             </div>
         </div> 

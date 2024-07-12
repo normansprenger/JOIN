@@ -296,6 +296,12 @@ main {
         margin-top: 80px;
     }
 
+    .SeperatorLineContent {
+        height: 3px;
+        width: 90px;
+        background-color: #29ABE2;
+    }
+
     .EditDeleteContainer {
         display: none;
     }

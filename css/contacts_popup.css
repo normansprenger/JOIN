@@ -28,6 +28,11 @@
     justify-content: center;
     gap: 4px;
     padding: 18px 10px;
+    height: 57px;
+}
+
+.CreateContactButton:hover {
+    background-color: #29ABE2;
 }
 
 .CreateContactButton img {
@@ -54,15 +59,10 @@
     cursor: pointer;
 }
 
-.DialogAddEdit {
-    width: 100%;
-}
-
 .popupCloseAddContactDesktop {
     display: flex;
     justify-content: flex-end;
-    padding-right: 24px;
-    padding-top: 24px;
+    padding: 24px 24px 0 0;
 }
 
 .popupCloseAddContactMobile {
@@ -86,7 +86,7 @@
 
 .popupContent h1 {
     font-size: 61px;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .popupContent p {
@@ -95,12 +95,14 @@
 }
 
 .popupContentAddContactTitle {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     color: white;
-    padding-left: 24px;
     border-radius: 30px 0 0 30px;
-    padding: 66px 48px 66px 48px;
     width: 467px;
     height: 594px;
+    padding: 0 48px 0 48px;
     background-color: #2A3647;
 }
 
@@ -108,8 +110,7 @@
     display: flex;
     background-color: white;
     border-radius: 0 30px 30px 0;
-    width: 420px;
-    height: 716px;
+    height: 594px;
 }
 
 .SeperatorLineContentPopUp {
@@ -125,6 +126,7 @@
     transition: border-color 0.3s;
     font-size: 20px;
     padding-left: 21px;
+    width: 422px;
     background-repeat: no-repeat;
     background-position: right 21px center;
     background-size: 24px 24px;
@@ -137,7 +139,7 @@
 
 .inputContainer {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 32px;
 }
 
 .AddContactPerson {
@@ -164,12 +166,83 @@
 .ShortNameContainer {
     position: relative;
     align-self: center;
+    width: 300px;
+}
+
+.DialogAddEditForm {
+    margin-top: 137px;
+    width: 500px;
+}
+
+.logoAddContactPopUpDesktop img {
+    width: 55.6px;
+    height: 66.48px;
+}
+
+.popupContainer {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.ContactButtonContainer {
+    display: flex;
+}
+
+.CancelContactButton {
+    border: solid 1px #2A3647;
+    color: #2A3647;
+    background-color: white;
+    padding: 16px;
+    border-radius: 10px;
+    width: 126px;
+    height: 56px;
+    font-size: 20px;
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.CancelContactButton:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+}
+
+.CancelContactButton img {
+    margin-left: 8px;
+    height: 10.49px;
+    width: 10.49px;
+}
+
+.CancelContactButton:hover img {
+    filter: invert(47%) sepia(77%) saturate(2275%) hue-rotate(158deg) brightness(98%) contrast(102%);
 }
 
 @media (max-width: 1000px) {
+    .CreateContactButton {
+        padding: 14px 10px;
+        width: 202px;
+    }
+
+    .CreateContactButton img {
+        height: 12px;
+        width: 16px;
+        padding-left: 4px;
+    }
+
+    .CancelContactButton {
+        display: none;
+    }
+
+    .logoAddContactPopUpDesktop {
+        display: none;
+    }
+
     .ShortNameContainer {
-        position: relative;
-        align-self: center;
         left: 50%;
         top: -50%;
     }
@@ -190,20 +263,6 @@
         align-items: center;
     }
 
-    .DialogAddEdit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .DialogAddEditForm {
-        display: flex;
-        flex-direction: column;
-        margin-top: 80px;
-        gap: 8px;
-        max-width: 364px;
-    }
-
     .closeAddContactPopUpDesktop {
         display: none;
     }
@@ -214,12 +273,13 @@
     }
 
     .CreateContactInput {
-        height: 41px;
+        height: 37px;
         border: 1px solid #D1D1D1;
         border-radius: 10px;
         transition: border-color 0.3s;
         font-size: 20px;
         padding-left: 21px;
+        width: 339px;
         background-repeat: no-repeat;
         background-position: right 21px center;
         background-size: 24px 24px;
@@ -272,6 +332,7 @@
     .SeperatorLineContentPopUp {
         width: 90px;
         height: 3px;
+        margin: 16px 0 0 24px;
     }
 
     #dynamicContactDetails {
@@ -327,27 +388,6 @@
         padding: 20px;
     }
 
-    .CreateContactButton {
-        background-color: #2A3647;
-        border-radius: 10px;
-        border: none;
-        color: white;
-        font-size: 21px;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        padding: 18px 10px;
-    }
-
-    .CreateContactButton img {
-        height: 12px;
-        width: 16px;
-        padding-left: 4px;
-    }
-
     .contactsHTMLContainer {
         width: 100%;
     }
@@ -376,10 +416,6 @@
         height: 13.15px;
         width: 13.15px;
     }
-
-    .closeAddContactPopUpDesktop {
-        display: none;
-    }
     
     .popupContent {
         border-radius: 10px;
@@ -393,42 +429,45 @@
     
     .popupContent h1 {
         font-size: 47px;
-        margin-bottom: 0;
+        margin: 66px 0 0 24px;
     }
     
     .popupContent p {
         font-size: 20px;
-        margin-top: 8px;
+        margin: 8px 0 0 24px;
     }
     
     .popupContentAddContactTitle {
+        display: block;
         color: white;
-        padding: 0 0 0 24px;
         border-radius: 30px 30px 0 0;
+        padding: 0;
         width: 396px;
-        height: 300px;
+        height: 352px;
         background-color: #2A3647;
     }
 
     .popupContentAddContactDetails {
-        background-color: white;
         border-radius: 0 0 30px 30px;
-        width: 420px;
+        width: 396px;
         height: 443px;
     }
 
     .DialogAddEdit {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
     .DialogAddEditForm {
         display: flex;
+        justify-content: center;
+        align-items: center;
         flex-direction: column;
-        margin-top: 80px;
+        margin-top: 0;
         gap: 8px;
-        max-width: 364px;
+        width: 396px;
     }
 
     #fullName {
