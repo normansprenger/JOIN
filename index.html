@@ -24,8 +24,8 @@
 
             <div class="inputContainer" id="inputContainerEmail" style="border: 1px solid #D1D1D1;">
 
-                <input class="inputField" required autocomplete="email" id="loginEmail" type="email"
-                    placeholder="Email" onkeyup="enableDisableButton()" onfocus="changeBordorColorEmail()"
+                <input class="inputField" required autocomplete="email" id="loginEmail" type="email" placeholder="Email"
+                    onkeyup="enableDisableButton()" onfocus="changeBordorColorEmail()"
                     onblur="originalBorderColorEmail()">
 
                 <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
@@ -47,27 +47,30 @@
             <div id="wrongPasswordMsg" class="warningMsg dnone">Wrong Password. Try again.</div>
 
             <div class="checkbox">
-                <img id="rememberCheckedImg" class="check" src="../assets/img/checked.svg" alt="" onclick="changeRememberImg()"
-                    style="display: none;">
-                <img id="rememberImg" class="check" src="../assets/img/checkEmpty.svg" alt="" onclick="changeRememberImg()">
+                <img id="rememberCheckedImg" class="check" src="../assets/img/checked.svg" alt=""
+                    onclick="changeRememberImg()" style="display: none;">
+                <img id="rememberImg" class="check" src="../assets/img/checkEmpty.svg" alt=""
+                    onclick="changeRememberImg()">
                 <span>Remember me</span>
             </div>
 
-            <div class="SignUpButtonContainer">
-                <button type="submit" id="loginBtn" disabled>Log in</button>
-            </div>
+            <div class="btnContainer">
+                <div class="SignUpButtonContainer">
+                    <button type="submit" id="loginBtn" disabled>Log in</button>
+                </div>
 
-            <div class="SignUpButtonContainer">
-                <button type="button" id="guestLoginBtn" >Guest Log in</button>
+                <div class="SignUpButtonContainer">
+                    <button type="button" id="guestLoginBtn" onclick="guestLogin()">Guest Log in</button>
+                </div>
             </div>
         </form>
     </main>
     <section class="bottom">
-        <div class="SignUpContainer">
+        <div class="signUpContainer">
             <span>Not a Join User ?</span>
-            <div id="signUpLink">Sign Up</div>
+            <a id="signUpLink">Sign Up</a>
         </div>
-        <div class="links">
+        <div class="bottomLinks">
             <a href="../html/privacy_policy.html">Privacy Policy</a>
             <a href="../html/legal_notice.html">Legal Notice</a>
         </div>

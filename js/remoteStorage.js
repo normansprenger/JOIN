@@ -1,4 +1,4 @@
-let currentUser = 'test'; // der Nutzer der momentan angemeldet ist muss lokal gespeichert werden -> nicht in die Firebase
+let currentUser = []; // der Nutzer der momentan angemeldet ist -> wird aus dem SessionStorage geladen
 let lastPage = null; // hier wird die URL gespeichert welche verwendet wurde bevor man auf HELP LEGAL NOTICE oder PRIVACY POLICY geht damit man von dort aus zu der Seite zurückkehren kann.
 
 let users = [];
@@ -57,5 +57,25 @@ async function saveTasks(path = "/tasks") {
     });
 }
 
+//schaut in den sessionstorage und holt den currentuser, falls keiner vorhanden dann gehe zur Login
+function checkUser(){
+    let storedUserString = sessionStorage.getItem('currentUser');
+    if (storedUserString) {
+        currentUser = JSON.parse(storedUserString);
+    }
+    else {
+        window.location.href = '../index.html';
+    }
+}
 
+function fillUserInitials(){
+    document.getElementById('headerContainerRightUserIconInitials').innerHTML = currentUser['initials'];
+}
+
+// leert beide Speicher und kehrt zurück zu Login
+function logout(){
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = '../../index.html';
+}
 

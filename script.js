@@ -27,7 +27,7 @@ async function loadUsers(path = "/users") {
     users = reponseToJSON;
 };
 
-// schaut im LocalStorage ob User RememberMe gewählt hatte
+// schaut im LocalStorage ob User vorhanden(RememberMe) und wenn da dann zur fillStoredUserInfos 
 function checkCurrentUser() {
     let storedUserString = localStorage.getItem('currentUser');
     if (storedUserString) {
@@ -57,7 +57,7 @@ function changeRememberImg() {
     }
 }
 
-
+// changes the passwordiconimg and tells when password is filled
 function changePasswordIcon() {
     if (!document.getElementById('loginPassword').value == '' && passwordFilled == false) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
@@ -70,7 +70,7 @@ function changePasswordIcon() {
     }
 }
 
-
+//toggles the visibility of the passwordtext and fitting img
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("loginPassword").type === "password" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';
@@ -82,7 +82,7 @@ function toggleVisibilityPasswordIcon() {
     }
 }
 
-
+//enable or disables the loginButton
 function enableDisableButton() {
     if ((!document.getElementById('loginEmail').value == '') &&
         (!document.getElementById('loginPassword').value == '')) {
@@ -111,12 +111,13 @@ function originalBorderColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #D1D1D1";
 }
 
-async function Login(event) {
+//login function
+function Login(event) {
     event.preventDefault();
     checkEmail();
 }
 
-
+// checks if the email is there in users if yes next function, if not then errormessage
 function checkEmail() {
     let email = document.getElementById('loginEmail').value;
     let emailsearch = users.find(user => user.email === email);
@@ -128,6 +129,7 @@ function checkEmail() {
     }
 }
 
+//checks if Email and Passwort are there and matching, if not wrong password
 function checkCombination() {
     let email = document.getElementById('loginEmail').value;
     let password = document.getElementById('loginPassword').value;
@@ -142,12 +144,13 @@ function checkCombination() {
     }
 }
 
-// wenn remember me gewählt wurde wird der user im Local Storage gespeichert, solange bis er sich ausloggt
+// wenn remember me gewählt wurde wird der user im Local Storage und im Session Storage gespeichert, solange bis er sich ausloggt
 // wenn remember me nicht ausgewählt wurde wird der user im session storage, gespeichert
 function checkRememberMe() {
     if (rememberMe == true) {
         let currentUserAsString = JSON.stringify(currentUser);
         localStorage.setItem('currentUser', currentUserAsString);
+        sessionStorage.setItem('currentUser', currentUserAsString);
     }
     else if (rememberMe == false) {
         let currentUserAsString = JSON.stringify(currentUser);
@@ -157,7 +160,7 @@ function checkRememberMe() {
     directToSummary();
 }
 
-
+//validates email 
 function validateEmail() {
     var input = document.getElementById('loginEmail');
     var email = input.value.trim();
@@ -170,7 +173,7 @@ function validateEmail() {
     }
 }
 
-
+//validates password 
 function validatePassword() {
     var input = document.getElementById('loginPassword');
     var password = input.value.trim();
@@ -198,8 +201,9 @@ function clearInputs() {
 
 //Weiterleitung zu Summary
 function directToSummary() {
-    window.location.href = '../html/legal_notice.html';
+    window.location.href = '../html/summary.html';
 }
+
 
 function resetUserDatabase() {
     users = [{
@@ -308,4 +312,15 @@ function resetContactsDatabase() {
     }]
     saveContacts();
     window.alert('Database Contacts Reset')
+}
+
+function guestLogin() {
+    let currentUser = {
+        "initials": "G",
+        "name": "Guest"
+    };
+    let currentUserAsString = JSON.stringify(currentUser);
+    sessionStorage.setItem('currentUser', currentUserAsString);
+    localStorage.clear();
+    directToSummary();
 }

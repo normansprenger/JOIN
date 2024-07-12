@@ -70,11 +70,16 @@ input {
 }
 
 .checkbox {
-    width: 100%;
+    width: calc(100% - 32px);
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 6px;
+
+}
+
+#rememberImg{
+    padding-left: 16px;
 }
 
 .check {
@@ -133,15 +138,16 @@ h1 {
     margin-bottom: 16px;
 }
 
-.links {
+.bottomLinks {
+    margin-top: 20px;
     text-decoration: none;
     display: flex;
+    width: 100%;
+    justify-content: center;
     gap: 32px;
-    position: fixed;
-    bottom: 35px;
 }
 
-.links a {
+.bottomLinks a {
     color: #A8A8A8;
 }
 
@@ -207,7 +213,6 @@ h1 {
 
     main {
         max-width: 600px;
-        height: 630px;
     }
 
     h1 {
@@ -217,8 +222,43 @@ h1 {
     .inputContainer {
         width: calc(100% - 160px);
     }
+    .checkbox{
+        width: calc(100% - 160px)
+    }
 
+}
 
+.bottom{
+    width: calc(100vw - 32px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 530px;
+}
+
+.signUpContainer{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.signUpContainer span{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+#signUpLink{
+    padding: 15px 16px 15px 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #2A3647;
+    border: none;
 }
 
 .warningMsg{
@@ -233,4 +273,11 @@ h1 {
 
 .dnone{
     display: none;
+}
+
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:21px;
 }
