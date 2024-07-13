@@ -10,22 +10,26 @@ body {
     min-height: 100vh;
 }
 
-#asideMiddleLinkSummary{
+#asideMiddleLinkSummary {
     background-color: #091931;
     color: white;
 }
 
-#asideMiddleLinkSummary img{
+#asideMiddleLinkSummary img {
     filter: brightness(2);
 }
 
-main{
-    margin-top: 100px;
+main {
+    margin-top: 128px;
     margin-bottom: 80px;
     padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-#desktopContainerLinkSummary{
+#desktopContainerLinkSummary {
     background-color: #091931;
     border-radius: 8px;
     width: 76px;
@@ -33,6 +37,109 @@ main{
     color: white;
 }
 
-#desktopContainerLinkSummary img{
+#desktopContainerLinkSummary img {
     filter: brightness(2);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+}
+
+.headline {
+    font-size: 47px;
+    font-weight: 700;
+}
+
+.headlineText {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.separator {
+    width: 90px;
+    height: 3px;
+    border-radius: 1.5px;
+    background-color: #29ABE2;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 32px);
+    height: 300px;
+    margin-top: 40px;
+    gap: 30px;
+}
+
+.statsTop {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.singleStatTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    padding: 30px 12px 30px 12px;
+    width: 38%;
+}
+
+.singleStatSubContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statNumber {
+    font-weight: 600;
+    font-size: 47px;
+}
+
+
+.singleStatText {
+    font-size: 17px;
+}
+
+.statImg {
+    height: 40px;
+    width: 40px;
+}
+
+.statMiddle {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px 12px 30px 12px;
+}
+
+.statMiddleLeftSubContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statMiddleLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.statMiddleSeparator {
+    height: 89px;
+    width: 2px;
+    background-color: #D1D1D1;
 }

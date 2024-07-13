@@ -20,7 +20,46 @@
 <body onload="initSummary()">
     <header w3-include-html="../assets/templates/header_template.html"></header>
     <aside w3-include-html="../assets/templates/aside_template.html"></aside>
-    <main>SUMMARY NORMAN</main>
+    <main>
+        <div class="header">
+            <span class="headline">Join 360</span>
+            <span class="headlineText">Key Metrics at a Glance</span>
+            <div class="separator"></div>
+        </div>
+        <div class="stats">
+            <div class="statsTop">
+                <div class="singleStatTop">
+                    <img class="statImg" id="todoImg" src="../assets/img/todoNormal.svg" alt="">
+                    <div class="singleStatSubContainer">
+                        <div class="statNumber" id="statTodoCounter">1</div>
+                        <div class="singleStatText">To-do</div>
+                    </div>
+                </div>
+                <div class="singleStatTop">
+                    <img class="statImg" id="doneImg" src="../assets/img/doneNormal.svg" alt="">
+                    <div class="singleStatSubContainer">
+                        <div class="statNumber" id="statDoneCounter">1</div>
+                        <div class="singleStatText">Done</div>
+                    </div>
+                </div>
+            </div>
+            <div class="statMiddle">
+                <div class="statMiddleLeft">
+                    <img class="statImg" id="urgentImg" src="../assets/img/taskUrgent.svg" alt="">
+                    <div class="statMiddleLeftSubContainer">
+                        <div class="statNumber" id="statUrgentCounter">1</div>
+                        <div class="singleStatText">Urgent</div>
+                    </div>
+                </div>
+                <div class="statMiddleSeparator"></div>
+                <div class="statMiddleRight">
+                    <div id="urgentTaskDate">October 16, 2024</div>
+                    <div class="singleStatText">Upcoming Deadline</div>
+                </div>
+            </div>
+            <div class="statsBottom"></div>
+        </div>
+    </main>
     <footer w3-include-html="../assets/templates/footer_template.html"></footer>
 </body>
 
