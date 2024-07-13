@@ -1,4 +1,15 @@
 let contactsData = {};
+const userColors = [
+  '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF',
+  '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
+];
+
+
+async function init(){
+  await includeHTML();
+  loadContacts();
+  //renderContacts();
+}
 
 function displayContacts(data) {
   contactsData = {};
@@ -169,10 +180,10 @@ function openAddContactPopUp() {
                   <img class="closeAddContactPopUpDesktop" onclick="closeAddContactPopUp()" src="../assets/img/close_black.svg" alt="CloseAddContactPopUp">
                 </div>
 
-                <form class="DialogAddEditForm">
+                <form class="DialogAddEditForm" onsubmit="createContact(event)">
                   <div class="inputContainer">
                       <label for="fullName"></label>
-                      <input class="CreateContactInput" pattern="[a-zA-ZäöüÄÖÜß\s]*" minlength="2" type="text" id="fullName" placeholder="Name" required>
+                      <input class="CreateContactInput" type="text" id="fullName" placeholder="Name" required>
               </div>
 
               <div class="inputContainer">
@@ -182,12 +193,12 @@ function openAddContactPopUp() {
                 
               <div class="inputContainer">
                 <label for="telNumber"></label>
-                <input class="CreateContactInput" type="tel" id="telNumber" pattern="^(\+[0-9\/ ]+|[0-9\/ ]+)$" placeholder="Phone" required>
+                <input class="CreateContactInput" type="tel" id="telNumber" placeholder="Phone" required>
               </div>
 
               <div class="ContactButtonContainer">
                 <button class="CancelContactButton" onclick="closeAddContactPopUp()">Cancel<img src="../assets/img/close_black.svg" alt="CloseAddContactPopUp"></button>
-                <button class="CreateContactButton" onclick="pushContacts()">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
+                <button type="submit" class="CreateContactButton" >Create contact<img src="../assets/img/check.svg" alt="Check"></button>
               </div>
                 </form>
             </div>
@@ -241,6 +252,14 @@ function openContactMenu(id) {
   
 fetchContacts();
 
+function createContact(event){
+  event.preventDefault();
+  pushContacts();
+  saveContacts();
+  displayContacts();
+  closeAddContactPopUp();
+}
+
 async function pushContacts() {
     let name = document.getElementById('fullName').value;
     let email = document.getElementById('mail').value;
@@ -274,5 +293,13 @@ async function pushContacts() {
     // Wenn der Name aus Vor- und Nachnamen besteht, gebe die Initialen zurück
     let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
     return initials;
+}
+
+
+function randomColor(colors) {
+  // Eine zufällige Zahl zwischen 0 und der Länge des Arrays (exklusiv) generieren
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  // Den Wert an der zufälligen Position zurückgeben
+  return colors[randomIndex];
 }
   
