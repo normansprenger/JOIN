@@ -36,6 +36,29 @@ function checkCurrentUser() {
     }
 }
 
+
+async function saveUsers(path = "/users") {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(users)
+    });
+}
+
+
+async function saveContacts(path = "/contacts") {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contacts)
+    });
+}
+
+
 // füllt die Eingabefelder mit Email und Passwort
 function fillStoredUserInfos() {
     document.getElementById('loginEmail').value = currentUser['email'];
