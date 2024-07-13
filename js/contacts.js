@@ -4,10 +4,10 @@ const userColors = [
   '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
 ];
 
-
-async function init(){
+async function initContacts(){
   await includeHTML();
   loadContacts();
+  fetchContacts();
   //renderContacts();
 }
 
@@ -101,7 +101,7 @@ function toggleContactView(id) {
           <div class="EditDeleteContainer">
             <div class="edit">
               <img src="../assets/img/edit.svg" alt="Edit">
-              <p onclick="editContact(${id})">Edit</p>  
+              <p onclick="openEditContactPopUp(${id})">Edit</p>  
             </div>
             <div class="delete">
               <img src="../assets/img/delete.svg" alt="Delete">
@@ -141,12 +141,95 @@ function backToList() {
   document.getElementById("contactDetailsSection").style.display = "none";
 }
 
-function editContact(id) {
-  console.log(`Edit contact with id ${id}`);
-}
-
 function deleteContact(id) {
   console.log(`Delete contact with id ${id}`);
+}
+
+function openEditContactPopUp(id) {
+  const contact = contactsData[id];
+  
+  if (!contact) {
+    console.error(`Contact with ID ${id} not found`);
+    return;
+  }
+
+  const popupContainer = document.createElement("div");
+  popupContainer.id = "editContactPopup";
+  popupContainer.className = "editPopUpContainer";
+  popupContainer.innerHTML = /*HTML*/ `
+        <div class="popupContent">
+            <div class="popupContentEditContactTitle"> 
+                <div class="popupCloseEditContactMobile">
+                    <img class="closeEditContactPopUpMobile" onclick="closeEditContactPopUp()" src="../assets/img/close.svg" alt="CloseEditContactPopUp">
+                </div> 
+                <h1>Edit contact</h1>
+                <div class="SeperatorLineContentPopUp"></div>
+            </div>
+            
+            <div class="popupContentEditContactDetails">
+                <div class="ShortNameContainer">
+                    <div class="EditContactShortName">
+                      <div class="shortNameEditContact" style="background-color: ${contact.color};">
+                          <span class="initials">${contact.initials}</span>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="DialogAddEdit">
+                    <div class="popupCloseEditContactDesktop">
+                      <img class="closeEditContactPopUpDesktop" onclick="closeEditContactPopUp()" src="../assets/img/close_black.svg" alt="CloseEditContactPopUp">
+                    </div>
+
+                    <form class="DialogEditContactForm" onsubmit="updateContact(event, ${id})">
+                        <div class="inputContainer">
+                            <label for="editFullName"></label>
+                            <input class="EditContactInput" type="text" id="editFullName" value="${contact.name}" placeholder="Name" required>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="editMail"></label>
+                            <input class="EditContactInput" type="email" id="editMail" value="${contact.email}" placeholder="Email" required>
+                        </div>
+                        
+                        <div class="inputContainer">
+                            <label for="editTelNumber"></label>
+                            <input class="EditContactInput" type="tel" id="editTelNumber" value="${contact.phone || ''}" placeholder="Phone" required>
+                        </div>
+
+                        <div class="ContactButtonContainer">
+                            <button class="DeleteContactButton" onclick="deleteContact(${id})">Delete</button>
+                            <button type="submit" class="UpdateContactButton">Save<img src="../assets/img/check.svg" alt="Check"></button>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    `;
+  document.body.appendChild(popupContainer);
+}
+
+function closeEditContactPopUp() {
+  const popup = document.getElementById("editContactPopup");
+  if (popup) {
+    document.body.removeChild(popup);
+  }
+}
+
+function updateContact(event, id) {
+  event.preventDefault();
+
+  const name = document.getElementById('editFullName').value;
+  const email = document.getElementById('editMail').value;
+  const phone = document.getElementById('editTelNumber').value;
+
+  // Update the contact in contactsData
+  contactsData[id].name = name;
+  contactsData[id].email = email;
+  contactsData[id].phone = phone;
+
+  // Optionally, update the display
+  displayContacts(contactsData);
+  closeEditContactPopUp();
 }
 
 function openAddContactPopUp() {
@@ -224,30 +307,30 @@ async function fetchContacts() {
 }
 
 function openContactMenu(id) {
-    const contact = contactsData[id];
-  
-    if (!contact) {
-      console.error(`Contact with ID ${id} not found`);
-      return;
-    }
-  
-    const popup = document.createElement("div");
-    popup.className = "contactMenuPopup";
-  
-    popup.innerHTML = /*HTML*/ `
-      <div class="contactMenuPopupContent">
-        <div class="editContact">
-            <img src="../assets/img/edit.svg" alt="Edit">
-            <p onclick="editContact(${id})">Edit</p>
-        </div>
-        <div class="deleteContact">
-            <img src="../assets/img/delete.svg" alt="Delete">
-            <p onclick="deleteContact(${id})">Delete</p>                
-        </div>
-      </div>
-    `;
+  const contact = contactsData[id];
 
-    document.body.appendChild(popup);
+  if (!contact) {
+    console.error(`Contact with ID ${id} not found`);
+    return;
+  }
+
+  const popup = document.createElement("div");
+  popup.className = "contactMenuPopup";
+
+  popup.innerHTML = /*HTML*/ `
+    <div class="contactMenuPopupContent">
+      <div class="editContact">
+          <img src="../assets/img/edit.svg" alt="Edit">
+          <p onclick="openEditContactPopUp(${id})">Edit</p>
+      </div>
+      <div class="deleteContact">
+          <img src="../assets/img/delete.svg" alt="Delete">
+          <p onclick="deleteContact(${id})">Delete</p>                
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
 }
   
 fetchContacts();

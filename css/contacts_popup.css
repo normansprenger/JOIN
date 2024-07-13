@@ -41,6 +41,33 @@
     padding-left: 4px;
 }
 
+.UpdateContactButton {
+    background-color: #2A3647;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 18px 10px;
+    height: 51px;
+    width: 99px;
+}
+
+.UpdateContactButton:hover {
+    background-color: #29ABE2;
+}
+
+.UpdateContactButton img {
+    height: 12px;
+    width: 16px;
+    padding-left: 4px;
+}
+
 .addContactButton:hover {
     background-color: #29ABE2;
 }
@@ -212,6 +239,26 @@
     color: #29ABE2;
 }
 
+.DeleteContactButton {
+    border: solid 1px #2A3647;
+    color: #2A3647;
+    background-color: white;
+    border-radius: 10px;
+    width: 82px;
+    height: 51px;
+    font-size: 20px;
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.DeleteContactButton:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+}
+
 .CancelContactButton img {
     margin-left: 8px;
     height: 10.49px;
@@ -222,7 +269,170 @@
     filter: invert(47%) sepia(77%) saturate(2275%) hue-rotate(158deg) brightness(98%) contrast(102%);
 }
 
+.popupContentEditContactTitle {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    border-radius: 30px 0 0 30px;
+    width: 467px;
+    height: 594px;
+    padding: 0 48px 0 48px;
+    background-color: #2A3647;
+}
+
+.popupCloseEditContactMobile {
+    display: none;
+}
+
+.popupCloseEditContactDesktop {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px 24px 0 0;
+}
+
+.closeEditContactPopUpDesktop {
+    cursor: pointer;
+    height: 13.15px;
+    width: 13.15px;
+}
+
+.DialogEditContactForm {
+    margin-top: 137px;
+    width: 500px;
+}
+
+.EditContactInput {
+    height: 41px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    transition: border-color 0.3s;
+    font-size: 20px;
+    padding-left: 21px;
+    width: 422px;
+    background-repeat: no-repeat;
+    background-position: right 21px center;
+    background-size: 24px 24px;
+}
+
+.EditContactInput:focus {
+    border-color: #29ABE2; 
+    outline: none; 
+}
+
+.EditContactShortName {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #D1D1D1;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupContentEditContactDetails {
+    display: flex;
+    background-color: white;
+    border-radius: 0 30px 30px 0;
+    height: 594px;
+}
+
+.editPopUpContainer {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.shortNameEditContact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    width: 104px;
+    height: 104px;
+    font-size: 47px;
+    font-weight: 500;
+}
+
 @media (max-width: 1000px) {
+    .editPopUpContainer {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+    }
+
+    .popupContentEditContactDetails {
+        border-radius: 0 0 30px 30px;
+        width: 396px;
+        height: 443px;
+    }
+
+    .EditContactInput {
+        height: 37px;
+        border: 1px solid #D1D1D1;
+        border-radius: 10px;
+        transition: border-color 0.3s;
+        font-size: 20px;
+        padding-left: 21px;
+        width: 339px;
+        background-repeat: no-repeat;
+        background-position: right 21px center;
+        background-size: 24px 24px;
+    }
+
+    .EditContactInput:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .DialogEditContactForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 0;
+        gap: 8px;
+        width: 396px;
+    }
+
+    .closeEditContactPopUpDesktop {
+        display: none;
+    }
+
+    .closeEditContactPopUpMobile {
+        cursor: pointer;
+        height: 13.15px;
+        width: 13.15px;
+    }
+    .popupCloseEditContactMobile {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 24px;
+        padding-top: 24px;
+    }
+
+    .popupContentEditContactTitle {
+        display: block;
+        color: white;
+        border-radius: 30px 30px 0 0;
+        padding: 0;
+        width: 396px;
+        height: 352px;
+        background-color: #2A3647;
+    }
+
     .CreateContactButton {
         padding: 14px 10px;
         width: 202px;
@@ -245,22 +455,6 @@
     .ShortNameContainer {
         left: 50%;
         top: -50%;
-    }
-    
-    .CreateContactShortName {
-        z-index: 1;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #D1D1D1;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 3px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .closeAddContactPopUpDesktop {
