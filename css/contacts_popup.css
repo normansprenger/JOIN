@@ -105,7 +105,6 @@
 .popupContent {
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -208,10 +207,16 @@
 
 .popupContainer {
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     z-index: 1000;
+    right: -100%;
+    transition: right 0.5s ease;
+    background-color: transparent;
+}
+
+.popupContainer.show {
+    right: 0;
 }
 
 .ContactButtonContainer {
@@ -362,6 +367,15 @@
     height: 104px;
     font-size: 47px;
     font-weight: 500;
+}
+
+.popupAnimationBackground {
+    transition: background-color 1s ease;
+    background-color: transparent; 
+}
+
+.popupAnimationBackground.show {
+    background-color: rgba(0, 0, 0, 0.2); 
 }
 
 @media (max-width: 1000px) {
@@ -592,10 +606,15 @@
 
     .popupContainer {
         position: fixed;
-        background-color: rgba(0, 0, 0, 0.2);
+        bottom: -100%;
         display: flex;
         flex-direction: column;
+        transition: bottom 0.5s ease;
         z-index: 1000;
+    }
+
+    .popupContainer.show {
+        bottom: 0;
     }
     
     .popupCloseAddContactMobile {
@@ -644,7 +663,7 @@
     .popupContentAddContactDetails {
         border-radius: 0 0 30px 30px;
         width: 396px;
-        height: 443px;
+        height: 400px;
     }
 
     .DialogAddEdit {

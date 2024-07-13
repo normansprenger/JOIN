@@ -135,7 +135,6 @@ function toggleContactView(id) {
     }
   }
   
-
 function backToList() {
   document.querySelector(".listSection").style.display = "block";
   document.getElementById("contactDetailsSection").style.display = "none";
@@ -222,12 +221,10 @@ function updateContact(event, id) {
   const email = document.getElementById('editMail').value;
   const phone = document.getElementById('editTelNumber').value;
 
-  // Update the contact in contactsData
   contactsData[id].name = name;
   contactsData[id].email = email;
   contactsData[id].phone = phone;
 
-  // Optionally, update the display
   displayContacts(contactsData);
   closeEditContactPopUp();
 }
@@ -237,6 +234,7 @@ function openAddContactPopUp() {
   popupContainer.id = "addContactPopup";
   popupContainer.className = "popupContainer";
   popupContainer.innerHTML = /*HTML*/ `
+      <div class="popupAnimationBackground">
         <div class="popupContent">
             <div class="popupContentAddContactTitle"> 
                 <div class="popupCloseAddContactMobile">
@@ -286,14 +284,36 @@ function openAddContactPopUp() {
                 </form>
             </div>
         </div> 
+      </div>
     `;
-  document.body.appendChild(popupContainer);
+
+document.body.appendChild(popupContainer);
+
+setTimeout(() => {
+    popupContainer.classList.add('show');
+    changeBackgroundColor(popupContainer, true);
+}, 10);
 }
 
 function closeAddContactPopUp() {
   const popup = document.getElementById("addContactPopup");
   if (popup) {
-    document.body.removeChild(popup);
+      changeBackgroundColor(popup, false);
+
+      popup.classList.remove('show');
+
+      setTimeout(() => {
+          document.body.removeChild(popup);
+      }, 500);
+  }
+}
+
+function changeBackgroundColor(popupContainer, show) {
+  const background = popupContainer.querySelector('.popupAnimationBackground');
+  if (show) {
+      background.classList.add('show'); // Hintergrundfarbe ändern
+  } else {
+      background.classList.remove('show'); // Hintergrundfarbe zurücksetzen
   }
 }
 
@@ -359,30 +379,24 @@ async function pushContacts() {
       'phone': `${phone}`
     };
     
-    // Add to local contacts array
     contacts.push(contact);
   
   }
 
   function getInitials(name) {
-    // Trimmen des Namens und Aufteilen in Wörter
     let words = name.trim().split(/\s+/);
 
-    // Wenn der Name nur aus einem Wort besteht, gebe die erste Initiale zurück
     if (words.length === 1) {
         return words[0].charAt(0).toUpperCase();
     }
 
-    // Wenn der Name aus Vor- und Nachnamen besteht, gebe die Initialen zurück
     let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
     return initials;
 }
 
 
 function randomColor(colors) {
-  // Eine zufällige Zahl zwischen 0 und der Länge des Arrays (exklusiv) generieren
   const randomIndex = Math.floor(Math.random() * colors.length);
-  // Den Wert an der zufälligen Position zurückgeben
   return colors[randomIndex];
 }
   
