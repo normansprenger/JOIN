@@ -28,14 +28,14 @@
         </div>
         <div class="stats">
             <div class="statsTop">
-                <div class="singleStatTop">
+                <div class="singleStatTop" onmouseover="changeTodoImgHover()" onmouseout="changeTodoImgNormal()" onclick="openBoardSite()">
                     <img class="statImg" id="todoImg" src="../assets/img/todoNormal.svg" alt="">
                     <div class="singleStatSubContainer">
                         <div class="statNumber" id="statTodoCounter">1</div>
                         <div class="singleStatText">To-do</div>
                     </div>
                 </div>
-                <div class="singleStatTop">
+                <div class="singleStatTop" onmouseover="changeDoneImgHover()" onmouseout="changeDoneImgNormal()" onclick="openBoardSite()">
                     <img class="statImg" id="doneImg" src="../assets/img/doneNormal.svg" alt="">
                     <div class="singleStatSubContainer">
                         <div class="statNumber" id="statDoneCounter">1</div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="statMiddle">
+            <div class="statMiddle" onclick="openBoardSite()">
                 <div class="statMiddleLeft">
                     <img class="statImg" id="urgentImg" src="../assets/img/taskUrgent.svg" alt="">
                     <div class="statMiddleLeftSubContainer">
@@ -58,16 +58,16 @@
                 </div>
             </div>
             <div class="statsBottom">
-                <div class="singleStatBottom">
-                    <div class="statNumber">5</div>
+                <div class="singleStatBottom" onclick="openBoardSite()">
+                    <div class="statNumber" id="statTasksInBoardCounter">2</div>
                     <div class="singleStatTextBottom">Tasks in<br>Board</div>
                 </div>
-                <div class="singleStatBottom">
-                    <div class="statNumber">2</div>
+                <div class="singleStatBottom" onclick="openBoardSite()">
+                    <div class="statNumber" id="statTasksInProgressCounter">6</div>
                     <div class="singleStatTextBottom">Tasks in<br>Progress</div>
                 </div>
-                <div class="singleStatBottom">
-                    <div class="statNumber">2</div>
+                <div class="singleStatBottom" onclick="openBoardSite()">
+                    <div class="statNumber" id="statAwaitFeedbackCounter">8</div>
                     <div class="singleStatTextBottom">Awaiting<br>Feedback</div>
                 </div>
             </div>

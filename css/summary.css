@@ -22,7 +22,7 @@ body {
 main {
     margin-top: 128px;
     margin-bottom: 80px;
-    padding-right: 10px;
+    padding-right: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,7 +70,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: calc(100% - 32px);
+    width: calc(100%);
     height: 300px;
     margin-top: 40px;
     gap: 30px;
@@ -92,6 +92,7 @@ main {
     gap: 10px;
     padding: 30px 12px 30px 12px;
     width: 38%;
+    transition: 0.125s ease;
 }
 
 .singleStatSubContainer {
@@ -125,6 +126,7 @@ main {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     padding: 30px 12px 30px 12px;
     width: calc(100% - 20px);
+    transition: 0.125s ease;
 }
 
 .statMiddleLeftSubContainer {
@@ -146,38 +148,60 @@ main {
     background-color: #D1D1D1;
 }
 
-#urgentTaskDate{
+#urgentTaskDate {
     font-size: 17px;
     font-weight: 700;
 }
 
-.statMiddleRight{
+.statMiddleRight {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 13px;
 }
 
-.statsBottom{
+.statsBottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.singleStatBottom{
+.singleStatBottom {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
     border-radius: 20px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    padding: 13px ;
+    padding: 13px;
     width: 22%;
+    transition: 0.125s ease;
 }
 
-.singleStatTextBottom{
-font-size: 14px;
-text-align: center;
-font-weight: 400;
+.singleStatTextBottom {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.singleStatTop:hover {
+    transform: scale(1.1);
+    color: white;
+    background-color: #2A3647;
+    cursor: pointer;
+}
+
+.statMiddle:hover {
+    transform: scale(1.095);
+    color: white;
+    background-color: #2A3647;
+    cursor: pointer;
+}
+
+.singleStatBottom:hover{
+    transform: scale(1.1);
+    color: white;
+    background-color: #2A3647;
+    cursor: pointer;
 }
