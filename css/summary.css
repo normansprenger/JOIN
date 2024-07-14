@@ -109,7 +109,6 @@ main {
 .singleStatText {
     font-size: 17px;
     font-weight: 400;
-    text-align: center;
 }
 
 .statImg {
@@ -148,7 +147,7 @@ main {
 }
 
 #urgentTaskDate{
-    font-size: 21px;
+    font-size: 17px;
     font-weight: 700;
 }
 
@@ -174,5 +173,11 @@ main {
     border-radius: 20px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     padding: 13px ;
-    width: 25%;
+    width: 22%;
+}
+
+.singleStatTextBottom{
+font-size: 14px;
+text-align: center;
+font-weight: 400;
 }
