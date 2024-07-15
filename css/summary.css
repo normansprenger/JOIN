@@ -27,6 +27,8 @@ main {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    opacity: 0;
+    transition: 1000ms ease;
 }
 
 #desktopContainerLinkSummary {
@@ -199,9 +201,47 @@ main {
     cursor: pointer;
 }
 
-.singleStatBottom:hover{
+.singleStatBottom:hover {
     transform: scale(1.1);
     color: white;
     background-color: #2A3647;
     cursor: pointer;
+}
+
+.startAnimation {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 160px);
+    background-color: #F6F7F8;
+    ;
+    margin-top: 80px;
+    transition: 1000ms ease;
+}
+
+.dnone {
+    display: none;
+}
+
+.opacityZero {
+    opacity: 0;
+}
+
+
+.opacityFull {
+    opacity: 1;
+}
+
+#daytimeGreeting {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#userName {
+    font-size: 26px;
+    font-weight: 700;
+    color: #29ABE2;
 }
