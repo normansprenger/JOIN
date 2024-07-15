@@ -157,8 +157,8 @@ function openEditContactPopUp(id) {
   popupContainer.id = "editContactPopup";
   popupContainer.className = "editPopUpContainer";
   popupContainer.innerHTML = /*HTML*/ `
-        <div class="popupContent">
-            <div class="popupContentEditContactTitle"> 
+        <div class="editPopUpContent" onclick="closeEditContactPopUp()">
+            <div class="popupContentEditContactTitle" onclick="event.stopPropagation()"> 
                 <div class="popupCloseEditContactMobile">
                     <img class="closeEditContactPopUpMobile" onclick="closeEditContactPopUp()" src="../assets/img/close.svg" alt="CloseEditContactPopUp">
                 </div> 
@@ -166,7 +166,7 @@ function openEditContactPopUp(id) {
                 <div class="SeperatorLineContentPopUp"></div>
             </div>
             
-            <div class="popupContentEditContactDetails">
+            <div class="popupContentEditContactDetails" onclick="event.stopPropagation()">
                 <div class="ShortNameContainer">
                     <div class="EditContactShortName">
                       <div class="shortNameEditContact" style="background-color: ${contact.color};">
@@ -206,13 +206,20 @@ function openEditContactPopUp(id) {
         </div>
     `;
   document.body.appendChild(popupContainer);
+  
+  setTimeout(() => {
+    popupContainer.classList.add('show');
+}, 10);
 }
 
 function closeEditContactPopUp() {
-  const popup = document.getElementById("editContactPopup");
-  if (popup) {
+const popup = document.getElementById("editContactPopup");
+if (popup) {
+  popup.classList.remove('show');
+  setTimeout(() => {
     document.body.removeChild(popup);
-  }
+  }, 500);
+}
 }
 
 function updateContact(event, id) {
@@ -235,9 +242,9 @@ function openAddContactPopUp() {
   popupContainer.id = "addContactPopup";
   popupContainer.className = "popupContainer";
   popupContainer.innerHTML = /*HTML*/ `
-      <div class="popupAnimationBackground" >
-          <div class="popupContent" onclick="event.stopPropagation()">
-              <div class="popupContentAddContactTitle"> 
+      <div class="popupAnimationBackground" onclick="closeAddContactPopUp()">
+          <div class="popupContent">
+              <div class="popupContentAddContactTitle" onclick="event.stopPropagation()"> 
                   <div class="popupCloseAddContactMobile">
                       <img class="closeAddContactPopUpMobile" onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
                   </div>
@@ -249,7 +256,7 @@ function openAddContactPopUp() {
                   <div class="SeperatorLineContentPopUp"></div>
               </div>
               
-              <div class="popupContentAddContactDetails">
+              <div class="popupContentAddContactDetails" onclick="event.stopPropagation()">
                   <div class="ShortNameContainer">
                       <div class="CreateContactShortName">
                           <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
@@ -305,7 +312,6 @@ function closeAddContactPopUp() {
   }
 }
 
-
 async function fetchContacts() {
   try {
     const contacts = await loadContacts();
@@ -340,9 +346,11 @@ function openContactMenu(id) {
   `;
 
   document.body.appendChild(popup);
+
+  if (window.innerWidth <= 1000) {
+    popup.style.animation = "slideIn 0.2s ease forwards";
+  }
 }
-  
-fetchContacts();
 
 function createContact(event){
   event.preventDefault();
@@ -370,7 +378,7 @@ async function pushContacts() {
     
     contacts.push(contact);
   
-  }
+}
 
   function getInitials(name) {
     let words = name.trim().split(/\s+/);
@@ -383,9 +391,9 @@ async function pushContacts() {
     return initials;
 }
 
-
 function randomColor(colors) {
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
 }
   
+fetchContacts();
