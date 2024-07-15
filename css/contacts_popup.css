@@ -205,20 +205,6 @@
     height: 66.48px;
 }
 
-.popupContainer {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-    right: -100%;
-    transition: right 0.5s ease;
-    background-color: transparent;
-}
-
-.popupContainer.show {
-    right: 0;
-}
-
 .ContactButtonContainer {
     display: flex;
 }
@@ -369,16 +355,77 @@
     font-weight: 500;
 }
 
+.popupContainer {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    right: -100%;
+    transition: right 0.5s ease;
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.popupContainer.show {
+    right: 0;
+}
+
 .popupAnimationBackground {
-    transition: background-color 1s ease;
-    background-color: transparent; 
+    transition: transform 0.5s ease;
 }
 
-.popupAnimationBackground.show {
-    background-color: rgba(0, 0, 0, 0.2); 
+.popupContent {
+    transition: transform 0.5s ease;
+    transform: translateX(100%);
 }
 
+.popupContainer.show .popupContent {
+    transform: translateX(0);
+}
+
+@keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  
+  }
+  
+  #dynamicContactDetails {
+    animation: slideIn 0.2s ease forwards;
+  }
+  
+
+/* Mobile View */
 @media (max-width: 1000px) {
+    .popupContainer {
+        position: fixed;
+        bottom: -100%;
+        display: flex;
+        flex-direction: column;
+        transition: bottom 0.5s ease;
+        transition: background-color 0.5s ease;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .popupContainer.show {
+        bottom: 0;
+    }
+
+    .popupContent {
+        transform: translateY(100%);
+    }
+
+    .popupContainer.show .popupContent {
+        transform: translateY(0);
+    }
+
     .editPopUpContainer {
         position: fixed;
         background-color: rgba(0, 0, 0, 0.2);
@@ -602,19 +649,6 @@
 
     .contactList {
         margin: 0 32px 100px 32px;
-    }
-
-    .popupContainer {
-        position: fixed;
-        bottom: -100%;
-        display: flex;
-        flex-direction: column;
-        transition: bottom 0.5s ease;
-        z-index: 1000;
-    }
-
-    .popupContainer.show {
-        bottom: 0;
     }
     
     .popupCloseAddContactMobile {

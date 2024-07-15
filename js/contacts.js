@@ -56,84 +56,85 @@ function displayContacts(data) {
 }
 
 function toggleContactView(id) {
-    const contact = contactsData[id];
-  
-    if (!contact) {
-      console.error(`Contact with ID ${id} not found`);
-      return;
-    }
-  
-    const contactItems = document.querySelectorAll(".contactItem");
-    contactItems.forEach((item) => {
-      item.classList.remove("selected");
-    });
-  
-    const selectedContactElement = document.querySelector(
-      `.contactItem[onclick="toggleContactView(${id})"]`
-    );
-    if (selectedContactElement) {
-      selectedContactElement.classList.add("selected");
-    }
-  
-    const contactDetailsSection = document.getElementById(
-      "contactDetailsSection"
-    );
-  
-    const existingContactDetails = document.getElementById(
-      "dynamicContactDetails"
-    );
-    if (existingContactDetails) {
-      contactDetailsSection.removeChild(existingContactDetails);
-    }
-  
-    const contactDetailsContainer = document.createElement("div");
-    contactDetailsContainer.id = "dynamicContactDetails";
-  
-    contactDetailsContainer.innerHTML = /*HTML*/ `
-      <div class="contactDetailsHeader">
-        <div class="shortNameContactDetails" style="background-color: ${
-          contact.color
-        };">
-          <p class="initialsContactDetails">${contact.initials}</p>
-        </div>
-        <div class="ContactDetailsContainer">
-          <h2>${contact.name}</h2>
-          <div class="EditDeleteContainer">
-            <div class="edit">
-              <img src="../assets/img/edit.svg" alt="Edit">
-              <p onclick="openEditContactPopUp(${id})">Edit</p>  
-            </div>
-            <div class="delete">
-              <img src="../assets/img/delete.svg" alt="Delete">
-              <p onclick="deleteContact(${id})">Delete</p>
-            </div>
+  const contact = contactsData[id];
+
+  if (!contact) {
+    console.error(`Contact with ID ${id} not found`);
+    return;
+  }
+
+  const contactItems = document.querySelectorAll(".contactItem");
+  contactItems.forEach((item) => {
+    item.classList.remove("selected");
+  });
+
+  const selectedContactElement = document.querySelector(
+    `.contactItem[onclick="toggleContactView(${id})"]`
+  );
+  if (selectedContactElement) {
+    selectedContactElement.classList.add("selected");
+  }
+
+  const contactDetailsSection = document.getElementById(
+    "contactDetailsSection"
+  );
+
+  const existingContactDetails = document.getElementById(
+    "dynamicContactDetails"
+  );
+  if (existingContactDetails) {
+    contactDetailsSection.removeChild(existingContactDetails);
+  }
+
+  const contactDetailsContainer = document.createElement("div");
+  contactDetailsContainer.id = "dynamicContactDetails";
+
+  contactDetailsContainer.innerHTML = /*HTML*/ `
+    <div class="contactDetailsHeader">
+      <div class="shortNameContactDetails" style="background-color: ${
+        contact.color
+      };">
+        <p class="initialsContactDetails">${contact.initials}</p>
+      </div>
+      <div class="ContactDetailsContainer">
+        <h2>${contact.name}</h2>
+        <div class="EditDeleteContainer">
+          <div class="edit">
+            <img src="../assets/img/edit.svg" alt="Edit">
+            <p onclick="openEditContactPopUp(${id})">Edit</p>  
+          </div>
+          <div class="delete">
+            <img src="../assets/img/delete.svg" alt="Delete">
+            <p onclick="deleteContact(${id})">Delete</p>
           </div>
         </div>
       </div>
-      <div class="contactDetailsBodyContainer">
-        <h3>Contact Information</h3>
-        <div class="contactDetailsBodyEmailContainer">
-          <p>Email:</p>
-          <p class="contactDetailsBodyEmail">${contact.email}</p>
-        </div>
-        <div class="contactDetailsBodyPhoneContainer">
-          <p>Phone:</p>
-          <p class="contactDetailsBodyPhone">${contact.phone || "N/A"}</p>
-        </div>
-        <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
-        <div class="ContactMenu" id="ContactMenu" onclick="openContactMenu(${id})">
-          <img src="../assets/img/more_vert.svg" alt="Menü">
-        </div>
+    </div>
+    <div class="contactDetailsBodyContainer">
+      <h3>Contact Information</h3>
+      <div class="contactDetailsBodyEmailContainer">
+        <p>Email:</p>
+        <p class="contactDetailsBodyEmail">${contact.email}</p>
       </div>
-    `;
-  
-    contactDetailsSection.appendChild(contactDetailsContainer);
-  
-    if (window.innerWidth <= 1000) {
-      document.querySelector(".listSection").style.display = "none";
-      contactDetailsSection.style.display = "block";
-    }
+      <div class="contactDetailsBodyPhoneContainer">
+        <p>Phone:</p>
+        <p class="contactDetailsBodyPhone">${contact.phone || "N/A"}</p>
+      </div>
+      <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
+      <div class="ContactMenu" id="ContactMenu" onclick="openContactMenu(${id})">
+        <img src="../assets/img/more_vert.svg" alt="Menü">
+      </div>
+    </div>
+  `;
+
+  contactDetailsSection.appendChild(contactDetailsContainer);
+
+  if (window.innerWidth <= 1000) {
+    document.querySelector(".listSection").style.display = "none";
+    contactDetailsSection.style.display = "block";
   }
+}
+
   
 function backToList() {
   document.querySelector(".listSection").style.display = "block";
@@ -234,88 +235,76 @@ function openAddContactPopUp() {
   popupContainer.id = "addContactPopup";
   popupContainer.className = "popupContainer";
   popupContainer.innerHTML = /*HTML*/ `
-      <div class="popupAnimationBackground">
-        <div class="popupContent">
-            <div class="popupContentAddContactTitle"> 
-                <div class="popupCloseAddContactMobile">
-                    <img class="closeAddContactPopUpMobile" onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
-                </div>
-                <div class="logoAddContactPopUpDesktop">
-                  <img src="../assets/img/logoBright.svg" alt="Join Logo">
-                </div>   
-                <h1>Add contact</h1>
-                <p>Tasks are better with a team!</p>
-                <div class="SeperatorLineContentPopUp"></div>
-            </div>
-            
-            <div class="popupContentAddContactDetails">
-            
-              <div class="ShortNameContainer">
-                  <div class="CreateContactShortName">
-                    <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
+      <div class="popupAnimationBackground" >
+          <div class="popupContent" onclick="event.stopPropagation()">
+              <div class="popupContentAddContactTitle"> 
+                  <div class="popupCloseAddContactMobile">
+                      <img class="closeAddContactPopUpMobile" onclick="closeAddContactPopUp()" src="../assets/img/close.svg" alt="CloseAddContactPopUp">
+                  </div>
+                  <div class="logoAddContactPopUpDesktop">
+                      <img src="../assets/img/logoBright.svg" alt="Join Logo">
+                  </div>   
+                  <h1>Add contact</h1>
+                  <p>Tasks are better with a team!</p>
+                  <div class="SeperatorLineContentPopUp"></div>
+              </div>
+              
+              <div class="popupContentAddContactDetails">
+                  <div class="ShortNameContainer">
+                      <div class="CreateContactShortName">
+                          <img class="AddContactPerson" src="../assets/img/person_white.svg" alt="AddContactPerson">
+                      </div>
+                  </div>
+
+                  <div class="DialogAddEdit">
+                      <div class="popupCloseAddContactDesktop">
+                          <img class="closeAddContactPopUpDesktop" onclick="closeAddContactPopUp()" src="../assets/img/close_black.svg" alt="CloseAddContactPopUp">
+                      </div>
+
+                      <form class="DialogAddEditForm" onsubmit="createContact(event)">
+                          <div class="inputContainer">
+                              <label for="fullName"></label>
+                              <input class="CreateContactInput" type="text" id="fullName" placeholder="Name" required>
+                          </div>
+
+                          <div class="inputContainer">
+                              <label for="mail"></label>
+                              <input class="CreateContactInput" type="email" id="mail" placeholder="Email" required>
+                          </div>
+                          
+                          <div class="inputContainer">
+                              <label for="telNumber"></label>
+                              <input class="CreateContactInput" type="tel" id="telNumber" placeholder="Phone" required>
+                          </div>
+
+                          <div class="ContactButtonContainer">
+                              <button type="button" class="CancelContactButton" onclick="closeAddContactPopUp()">Cancel<img src="../assets/img/close_black.svg" alt="CloseAddContactPopUp"></button>
+                              <button type="submit" class="CreateContactButton">Create contact<img src="../assets/img/check.svg" alt="Check"></button>
+                          </div>
+                      </form>
                   </div>
               </div>
-
-              <div class="DialogAddEdit">
-                <div class="popupCloseAddContactDesktop">
-                  <img class="closeAddContactPopUpDesktop" onclick="closeAddContactPopUp()" src="../assets/img/close_black.svg" alt="CloseAddContactPopUp">
-                </div>
-
-                <form class="DialogAddEditForm" onsubmit="createContact(event)">
-                  <div class="inputContainer">
-                      <label for="fullName"></label>
-                      <input class="CreateContactInput" type="text" id="fullName" placeholder="Name" required>
-              </div>
-
-              <div class="inputContainer">
-                <label for="mail"></label>
-                <input class="CreateContactInput" type="email" id="mail" placeholder="Email" required>
-              </div>
-                
-              <div class="inputContainer">
-                <label for="telNumber"></label>
-                <input class="CreateContactInput" type="tel" id="telNumber" placeholder="Phone" required>
-              </div>
-
-              <div class="ContactButtonContainer">
-                <button class="CancelContactButton" onclick="closeAddContactPopUp()">Cancel<img src="../assets/img/close_black.svg" alt="CloseAddContactPopUp"></button>
-                <button type="submit" class="CreateContactButton" >Create contact<img src="../assets/img/check.svg" alt="Check"></button>
-              </div>
-                </form>
-            </div>
-        </div> 
+          </div> 
       </div>
-    `;
+  `;
 
-document.body.appendChild(popupContainer);
+  document.body.appendChild(popupContainer);
 
-setTimeout(() => {
-    popupContainer.classList.add('show');
-    changeBackgroundColor(popupContainer, true);
-}, 10);
+  setTimeout(() => {
+      popupContainer.classList.add('show');
+  }, 10);
 }
 
 function closeAddContactPopUp() {
   const popup = document.getElementById("addContactPopup");
   if (popup) {
-      changeBackgroundColor(popup, false);
-
       popup.classList.remove('show');
-
       setTimeout(() => {
           document.body.removeChild(popup);
       }, 500);
   }
 }
 
-function changeBackgroundColor(popupContainer, show) {
-  const background = popupContainer.querySelector('.popupAnimationBackground');
-  if (show) {
-      background.classList.add('show'); // Hintergrundfarbe ändern
-  } else {
-      background.classList.remove('show'); // Hintergrundfarbe zurücksetzen
-  }
-}
 
 async function fetchContacts() {
   try {
