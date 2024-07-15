@@ -429,21 +429,6 @@ main {
         background-size: 16px;
     }
 
-    .ContactMenu {
-        position: absolute;
-        bottom: 100px;
-        right: 10px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #2A3647;
-        border-radius: 100%;
-        cursor: pointer;
-        padding: 12px;
-    }
-
     .editContact, .deleteContact {
         display: flex;
         gap: 8px;
