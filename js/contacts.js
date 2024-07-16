@@ -8,7 +8,6 @@ async function initContacts(){
   await includeHTML();
   loadContacts();
   fetchContacts();
-  renderContacts(data);
 }
 
 async function fetchContacts() {
