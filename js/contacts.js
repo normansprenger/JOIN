@@ -8,10 +8,69 @@ async function initContacts(){
   await includeHTML();
   loadContacts();
   fetchContacts();
-  //renderContacts();
+  renderContacts(data);
 }
 
-function displayContacts(data) {
+async function fetchContacts() {
+  try {
+      await loadContacts(); 
+      renderContacts(contacts); 
+  } catch (error) {
+      console.error("Error fetching contacts:", error);
+  }
+}
+
+async function pushContacts() {
+  let name = document.getElementById('fullName').value;
+  let email = document.getElementById('mail').value;
+  let phone = document.getElementById('telNumber').value;
+  let initials = getInitials(name);
+  let color = randomColor(userColors);
+  let id = new Date().getTime();
+  let contact = {
+      'color': `${color}`,
+      'email': `${email}`,
+      'id': `${id}`,
+      'initials': `${initials}`,
+      'name': `${name}`,
+      'phone': `${phone}`
+  };
+
+  contacts.push(contact); 
+  await saveContacts(); 
+}
+
+async function updateContact(event, id) {
+  event.preventDefault();
+
+  const name = document.getElementById('editFullName').value;
+  const email = document.getElementById('editMail').value;
+  const phone = document.getElementById('editTelNumber').value;
+
+  contactsData[id].name = name;
+  contactsData[id].email = email;
+  contactsData[id].phone = phone;
+
+  await saveContacts(); // Speichere die aktualisierten Kontakte in der Datenbank
+  renderContacts(contactsData);
+  closeEditContactPopUp();
+}
+
+async function deleteContact(id) {
+  console.log(`Delete contact with id ${id}`);
+
+  const index = contacts.findIndex(contact => contact.id === Number(id));
+  if (index !== -1) {
+      contacts.splice(index, 1); // Kontakt aus dem Array entfernen
+      delete contactsData[id]; // Kontakt auch aus contactsData entfernen
+      await saveContacts(); // Änderungen in der Datenbank speichern
+      fetchContacts(); // Kontakte erneut laden und anzeigen
+  } else {
+      console.error(`Contact with id ${id} not found`);
+  }
+}
+
+function renderContacts(data) {
   contactsData = {};
 
   const contactList = document.getElementById("contactList");
@@ -140,10 +199,6 @@ function backToList() {
   document.getElementById("contactDetailsSection").style.display = "none";
 }
 
-function deleteContact(id) {
-  console.log(`Delete contact with id ${id}`);
-}
-
 function openEditContactPopUp(id) {
   const contact = contactsData[id];
   
@@ -221,21 +276,6 @@ if (popup) {
 }
 }
 
-function updateContact(event, id) {
-  event.preventDefault();
-
-  const name = document.getElementById('editFullName').value;
-  const email = document.getElementById('editMail').value;
-  const phone = document.getElementById('editTelNumber').value;
-
-  contactsData[id].name = name;
-  contactsData[id].email = email;
-  contactsData[id].phone = phone;
-
-  displayContacts(contactsData);
-  closeEditContactPopUp();
-}
-
 function openAddContactPopUp() {
   const popupContainer = document.createElement("div");
   popupContainer.id = "addContactPopup";
@@ -311,15 +351,6 @@ function closeAddContactPopUp() {
   }
 }
 
-async function fetchContacts() {
-  try {
-    const contacts = await loadContacts();
-    displayContacts(contacts);
-  } catch (error) {
-    console.error("Error fetching contacts:", error);
-  }
-}
-
 function openContactMenu(id) {
   const contact = contactsData[id];
 
@@ -355,28 +386,8 @@ function createContact(event){
   event.preventDefault();
   pushContacts();
   saveContacts();
-  displayContacts();
+  renderContacts();
   closeAddContactPopUp();
-}
-
-async function pushContacts() {
-    let name = document.getElementById('fullName').value;
-    let email = document.getElementById('mail').value;
-    let phone = document.getElementById('telNumber').value;
-    let initials = getInitials(name);
-    let color = randomColor(userColors);
-    let id = new Date().getTime();
-    let contact = {
-      'color': `${color}`,
-      'email': `${email}`,
-      'id': `${id}`,
-      'initials': `${initials}`,
-      'name': `${name}`,
-      'phone': `${phone}`
-    };
-    
-    contacts.push(contact);
-  
 }
 
 function getInitials(name) {
