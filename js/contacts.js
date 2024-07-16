@@ -380,14 +380,14 @@ async function pushContacts() {
   
 }
 
-  function getInitials(name) {
-    let words = name.trim().split(/\s+/);
+function getInitials(name) {
+  let words = name.trim().split(/\s+/);
 
-    if (words.length === 1) {
-        return words[0].charAt(0).toUpperCase();
-    }
+  if (words.length === 1) {
+    return words[0].charAt(0).toUpperCase();
+  }
 
-    let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
+  let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
     return initials;
 }
 
