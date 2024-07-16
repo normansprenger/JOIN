@@ -10,22 +10,26 @@ body {
     min-height: 100vh;
 }
 
-#asideMiddleLinkBoard{
+#asideMiddleLinkBoard {
     background-color: #091931;
     color: white;
 }
 
-#asideMiddleLinkBoard img{
+#asideMiddleLinkBoard img {
     filter: brightness(2);
 }
 
-main{
+main {
     margin-top: 100px;
     margin-bottom: 80px;
-    padding-right: 10px;
+    padding-right: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#desktopContainerLinkBoard{
+#desktopContainerLinkBoard {
     background-color: #091931;
     border-radius: 8px;
     width: 76px;
@@ -33,9 +37,101 @@ main{
     color: white;
 }
 
-#desktopContainerLinkBoard img{
+#desktopContainerLinkBoard img {
     filter: brightness(2);
 }
 
+.boardHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 
+.boardHeadline {
+    font-weight: 700;
+    font-size: 47px;
+}
 
+.searchMobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    height: 48px;
+    margin-top: 40px;
+}
+
+.searchMobile:hover {
+    cursor: pointer;
+}
+
+.searchMobileInput {
+    flex: 1;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    margin-left: 16px;
+}
+
+.searchMobileInput::placeholder {
+    color: #D1D1D1;
+    font-size: 20px;
+}
+
+.searchMobileInput:focus {
+    outline: none;
+}
+
+.searchMobileInput:hover {
+    cursor: pointer;
+}
+
+.searchMobileSeparator {
+    height: 31px;
+    width: 1px;
+    background-color: #D1D1D1;
+}
+
+.searchIconMobile {
+    width: 32px;
+    height: 32px;
+}
+
+.taskContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 26px;
+    gap: 16px;
+}
+
+.taskContainerHead{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskContainerHeadline{
+    font-weight: 700;
+    font-size: 27px; 
+}
+
+.taskContainerContent{
+    overflow-x: auto;
+    display: flex;
+    gap: 16px;
+}
+
+.task{
+    width: 252px;
+    height: 263px;
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0px 0px 10px 3px #0000000a;
+    min-width: 252px;
+
+}

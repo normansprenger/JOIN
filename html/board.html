@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +16,52 @@
     <script src="../js/board.js"></script>
     <script src="../js/remoteStorage.js"></script>
 </head>
-<body onload="includeHTML()">
+
+<body onload="init()">
     <header w3-include-html="../assets/templates/header_template.html"></header>
     <aside w3-include-html="../assets/templates/aside_template.html"></aside>
-    <main>IN PROGRESS</main>
-    <footer w3-include-html="../assets/templates/footer_template.html"></footer>    
+    <main>
+        <div class="boardHead">
+            <span class="boardHeadline">Board</span>
+            <img src="../assets/img/addTaskBoardMobile.svg" alt="">
+        </div>
+        <div class="searchMobile">
+            <input class="searchMobileInput" type="text" placeholder="Find task">
+            <div class="searchMobileSeparator"></div>
+            <img class="searchIconMobile" src="../assets/img/searchIcon.svg" alt="">
+        </div>
+        <div class="taskContainer">
+            <div class="taskContainerHead">
+                <span class="taskContainerHeadline">In Progress</span>
+                <img src="../assets/img/addTasktaskContainerMobile.svg" alt="">
+            </div>
+            <div class="taskContainerContent">
+                <div class="task"></div>
+                <div class="task"></div>
+                
+
+            </div>
+        </div>
+        <div class="taskContainer">
+            <div class="taskContainerHead">
+                <span class="taskContainerHeadline">In Progress</span>
+                <img src="../assets/img/addTasktaskContainerMobile.svg" alt="">
+            </div>
+            <div class="taskContainerContent">
+                <div class="task"></div>
+            </div>
+        </div>
+        <div class="taskContainer">
+            <div class="taskContainerHead">
+                <span class="taskContainerHeadline">In Progress</span>
+                <img src="../assets/img/addTasktaskContainerMobile.svg" alt="">
+            </div>
+            <div class="taskContainerContent">
+                <div class="task"></div>
+            </div>
+        </div>
+    </main>
+    <footer w3-include-html="../assets/templates/footer_template.html"></footer>
 </body>
+
 </html>
