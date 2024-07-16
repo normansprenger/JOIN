@@ -134,8 +134,7 @@ function toggleContactView(id) {
     contactDetailsSection.style.display = "block";
   }
 }
-
-  
+ 
 function backToList() {
   document.querySelector(".listSection").style.display = "block";
   document.getElementById("contactDetailsSection").style.display = "none";
