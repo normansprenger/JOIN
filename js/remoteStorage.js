@@ -1,5 +1,5 @@
 let currentUser = []; // der Nutzer der momentan angemeldet ist -> wird aus dem SessionStorage geladen
-let lastPage = null; // hier wird die URL gespeichert welche verwendet wurde bevor man auf HELP LEGAL NOTICE oder PRIVACY POLICY geht damit man von dort aus zu der Seite zurückkehren kann.
+let currentPage = ''; // hier wird die URL gespeichert welche verwendet wurde bevor man auf HELP LEGAL NOTICE oder PRIVACY POLICY geht damit man von dort aus zu der Seite zurückkehren kann.
 
 let users = [];
 let contacts = [];
@@ -79,3 +79,9 @@ function logout(){
     window.location.href = '../../index.html';
 }
 
+function saveCurrentPage(){
+    const currentPage = window.location.pathname.split("/").pop();
+    
+    // Speichern des Seitennamens in sessionStorage
+    sessionStorage.setItem("currentPage", currentPage);
+}

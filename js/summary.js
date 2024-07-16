@@ -1,3 +1,5 @@
+let nextUrgentTask = [];
+
 async function initSummary() {
     checkUserSummary();
     await includeHTML();
@@ -5,6 +7,7 @@ async function initSummary() {
     fillUserInitials();
     fillSummaryInfos();
     showGreetingMobile();
+    saveCurrentPage();
 }
 
 
@@ -70,7 +73,8 @@ function updateGreetingUser() {
 }
 
 function showGreetingMobile() {
-    if (window.innerWidth < 1000) {
+    let lastPage = sessionStorage.getItem('currentPage');
+    if (window.innerWidth < 1000 && lastPage === 'index.html') {
         var startAnimationMobile = document.getElementById('startAnimationMobile');
         var mainElement = document.getElementById('main');
         startAnimationMobile.classList.add('opacityZero');
@@ -79,10 +83,13 @@ function showGreetingMobile() {
             mainElement.classList.remove('dnone');
             mainElement.classList.add('opacityFull');
         }, 1000);
-
-
+    } else {
+        document.getElementById('startAnimationMobile').classList.add('dnone');
+        document.getElementById('main').classList.remove('dnone');
+        document.getElementById('main').classList.add('opacityFull');
     }
 }
+
 
 function changeTodoImgHover() {
     document.getElementById('todoImg').src = "../assets/img/todoHover.svg"
@@ -111,6 +118,42 @@ function fillSummaryInfos() {
     document.getElementById('statTasksInBoardCounter').innerHTML = tasks.length;
     document.getElementById('statTasksInProgressCounter').innerHTML = tasks.filter(task => task.status === 'inProgress').length;
     document.getElementById('statAwaitFeedbackCounter').innerHTML = tasks.filter(task => task.status === 'awaitingFeedback').length;
+    fillTaskMiddleText();
+}
+
+
+function fillTaskMiddleText() {
+    let urgentTasks = tasks.filter(task => task.priority === 'urgent');
+
+    if (urgentTasks.length === 0) {
+        document.getElementById('urgentTaskDate').innerHTML = `no urgent tasks`;
+        return;
+    }
+
+    // Aktuelles Datum
+    let today = new Date();
+
+    // Finde den dringendsten Task
+    let nearestTask = urgentTasks[0];
+    let nearestDate = new Date(nearestTask.dueDate);
+
+    urgentTasks.forEach(task => {
+        const taskDueDate = new Date(task.dueDate);
+        if (taskDueDate < nearestDate) {
+            nearestTask = task;
+            nearestDate = taskDueDate;
+        }
+    });
+
+    // Speichere den dringendsten Task in der globalen Variable
+    nextUrgentTask = [{ ...nearestTask, dueDate: formatDate(nearestTask.dueDate) }];
+    document.getElementById('urgentTaskDate').innerHTML = nextUrgentTask[0]['dueDate'];
+
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 //let tasks =[
@@ -204,7 +247,7 @@ function fillSummaryInfos() {
 //     "dueDate": "2024-07-31",
 //     "id": 4,
 //     "priority": "medium",
-//     "status": "done",
+//     "status": "urgent",
 //     "subTasks": [
 //       {
 //         "completet": false,

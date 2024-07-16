@@ -180,6 +180,7 @@ function checkRememberMe() {
         sessionStorage.setItem('currentUser', currentUserAsString);
         localStorage.clear();
     }
+    saveCurrentPage();
     directToSummary();
 }
 
@@ -345,5 +346,13 @@ function guestLogin() {
     let currentUserAsString = JSON.stringify(currentUser);
     sessionStorage.setItem('currentUser', currentUserAsString);
     localStorage.clear();
+    saveCurrentPage();
     directToSummary();
+}
+
+function saveCurrentPage(){
+    const currentPage = window.location.pathname.split("/").pop();
+    
+    // Speichern des Seitennamens in sessionStorage
+    sessionStorage.setItem("currentPage", currentPage);
 }
