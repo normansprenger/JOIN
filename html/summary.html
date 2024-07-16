@@ -26,52 +26,58 @@
             <span class="headlineText">Key Metrics at a Glance</span>
             <div class="separator"></div>
         </div>
-        <div class="stats">
-            <div class="statsTop">
-                <div class="singleStatTop" onmouseover="changeTodoImgHover()" onmouseout="changeTodoImgNormal()"
-                    onclick="openBoardSite()">
-                    <img class="statImg" id="todoImg" src="../assets/img/todoNormal.svg" alt="">
-                    <div class="singleStatSubContainer">
-                        <div class="statNumber" id="statTodoCounter">1</div>
-                        <div class="singleStatText">To-do</div>
+        <div class="mainContainer">
+            <div class="stats">
+                <div class="statsTop">
+                    <div class="singleStatTop" onmouseover="changeTodoImgHover()" onmouseout="changeTodoImgNormal()"
+                        onclick="openBoardSite()">
+                        <img class="statImg" id="todoImg" src="../assets/img/todoNormal.svg" alt="">
+                        <div class="singleStatSubContainer">
+                            <div class="statNumber" id="statTodoCounter">1</div>
+                            <div class="singleStatText">To-do</div>
+                        </div>
+                    </div>
+                    <div class="singleStatTop" onmouseover="changeDoneImgHover()" onmouseout="changeDoneImgNormal()"
+                        onclick="openBoardSite()">
+                        <img class="statImg" id="doneImg" src="../assets/img/doneNormal.svg" alt="">
+                        <div class="singleStatSubContainer">
+                            <div class="statNumber" id="statDoneCounter">1</div>
+                            <div class="singleStatText">Done</div>
+                        </div>
                     </div>
                 </div>
-                <div class="singleStatTop" onmouseover="changeDoneImgHover()" onmouseout="changeDoneImgNormal()"
-                    onclick="openBoardSite()">
-                    <img class="statImg" id="doneImg" src="../assets/img/doneNormal.svg" alt="">
-                    <div class="singleStatSubContainer">
-                        <div class="statNumber" id="statDoneCounter">1</div>
-                        <div class="singleStatText">Done</div>
+                <div class="statMiddle" onclick="openBoardSite()">
+                    <div class="statMiddleLeft">
+                        <img class="statImg" id="urgentImg" src="../assets/img/taskUrgent.svg" alt="">
+                        <div class="statMiddleLeftSubContainer">
+                            <div class="statNumber" id="statUrgentCounter">1</div>
+                            <div class="singleStatText">Urgent</div>
+                        </div>
+                    </div>
+                    <div class="statMiddleSeparator"></div>
+                    <div class="statMiddleRight">
+                        <div id="urgentTaskDate">September 16, 2025</div>
+                        <div class="singleStatText">Upcoming Deadline</div>
+                    </div>
+                </div>
+                <div class="statsBottom">
+                    <div class="singleStatBottom" onclick="openBoardSite()">
+                        <div class="statNumber" id="statTasksInBoardCounter">2</div>
+                        <div class="singleStatTextBottom">Tasks in<br>Board</div>
+                    </div>
+                    <div class="singleStatBottom" onclick="openBoardSite()">
+                        <div class="statNumber" id="statTasksInProgressCounter">6</div>
+                        <div class="singleStatTextBottom">Tasks in<br>Progress</div>
+                    </div>
+                    <div class="singleStatBottom" onclick="openBoardSite()">
+                        <div class="statNumber" id="statAwaitFeedbackCounter">8</div>
+                        <div class="singleStatTextBottom">Awaiting<br>Feedback</div>
                     </div>
                 </div>
             </div>
-            <div class="statMiddle" onclick="openBoardSite()">
-                <div class="statMiddleLeft">
-                    <img class="statImg" id="urgentImg" src="../assets/img/taskUrgent.svg" alt="">
-                    <div class="statMiddleLeftSubContainer">
-                        <div class="statNumber" id="statUrgentCounter">1</div>
-                        <div class="singleStatText">Urgent</div>
-                    </div>
-                </div>
-                <div class="statMiddleSeparator"></div>
-                <div class="statMiddleRight">
-                    <div id="urgentTaskDate">September 16, 2025</div>
-                    <div class="singleStatText">Upcoming Deadline</div>
-                </div>
-            </div>
-            <div class="statsBottom">
-                <div class="singleStatBottom" onclick="openBoardSite()">
-                    <div class="statNumber" id="statTasksInBoardCounter">2</div>
-                    <div class="singleStatTextBottom">Tasks in<br>Board</div>
-                </div>
-                <div class="singleStatBottom" onclick="openBoardSite()">
-                    <div class="statNumber" id="statTasksInProgressCounter">6</div>
-                    <div class="singleStatTextBottom">Tasks in<br>Progress</div>
-                </div>
-                <div class="singleStatBottom" onclick="openBoardSite()">
-                    <div class="statNumber" id="statAwaitFeedbackCounter">8</div>
-                    <div class="singleStatTextBottom">Awaiting<br>Feedback</div>
-                </div>
+            <div class="greeting" id="greetingDesktop">
+                <span id="daytimeGreetingDesktop"></span>
+                <span id="userNameDesktop"></span></span>
             </div>
         </div>
     </main>

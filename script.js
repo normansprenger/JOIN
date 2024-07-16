@@ -350,9 +350,9 @@ function guestLogin() {
     directToSummary();
 }
 
-function saveCurrentPage(){
+function saveCurrentPage() {
     const currentPage = window.location.pathname.split("/").pop();
-    
+
     // Speichern des Seitennamens in sessionStorage
     sessionStorage.setItem("currentPage", currentPage);
 }

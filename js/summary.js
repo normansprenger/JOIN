@@ -47,6 +47,7 @@ function updateGreetingGuest() {
 
     // Findet das span-Element mit der ID 'daytimeGreeting'
     document.getElementById("daytimeGreeting").innerHTML = greeting;
+    document.getElementById("daytimeGreetingDesktop").innerHTML = greeting;
 }
 
 function updateGreetingUser() {
@@ -68,7 +69,9 @@ function updateGreetingUser() {
 
     // Findet das span-Element mit der ID 'daytimeGreeting'
     document.getElementById("daytimeGreeting").innerHTML = greeting;
+    document.getElementById("daytimeGreetingDesktop").innerHTML = greeting;
     document.getElementById("userName").innerHTML = currentUser['name'];
+    document.getElementById("userNameDesktop").innerHTML = currentUser['name'];
 
 }
 
