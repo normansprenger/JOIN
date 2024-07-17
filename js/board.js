@@ -1,5 +1,5 @@
 let toDos = [];
-let InProgress =[];
+let InProgress = [];
 
 async function init() {
     await includeHTML();
@@ -12,7 +12,7 @@ async function init() {
 
 function renderTasksBoard() {
     renderTodosBoard();
-    renderInProgressBoard();
+    //renderInProgressBoard();
     //renderAwaitFeedbackBoard();
     //renderDoneBoard();
 }
@@ -34,7 +34,7 @@ function renderTodosBoard() {
                                 <div class="progressText"><span id="progressCounter${taskId}"></span>/<span id="progressMax${taskId}">5</span> Subtasks</div>
                             </div>
                             <div class="taskBottom">
-                                <div class="assignedTo">
+                                <div class="assignedTo" id="assignedTo${taskId}">
                                     <div class="userIcon">
                                         <div class="userInitials">NS</div>
                                     </div>
@@ -43,59 +43,59 @@ function renderTodosBoard() {
                             </div>
                         </div>
                 `;
-    changeCategoryColor(taskId, toDos[i]['category']);
-    changeProgressInfos(taskId, toDos[i]['subTasks']);
-    changeAssignedToUsers(taskId, toDos[i]['assignedTo'])
+        changeCategoryColor(taskId, toDos[i]['category']);
+        changeProgressInfos(taskId, toDos[i]['subTasks']);
+        changeAssignedToUsers(taskId, toDos[i]['assignedTo'])
     }
 }
 
-function renderInProgressBoard() {
-    document.getElementById('taskContainerContentInProgress').innerHTML = ``;
-    InProgress = tasks.filter(task => task.status === "inProgress"); //sucht alle Tasks mit status toDo und schreibt sie in toDos
-    for (let i = 0; i < InProgress.length; i++) {
-        let taskId = InProgress[i]['id'];
-        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/ `
-        <div class="task" id="task${taskId}">
-                    <div class="taskCategory" id="category${taskId}">${InProgress[i]['category']}</div>
-                    <span class="taskTitle">${InProgress[i]['title']}</span>
-                    <span class="taskDescription">${InProgress[i]['description']}</span>
-                            <div class="progressContainer" id="progressContainer${taskId}">
-                                <div class="progressBar">
-                                    <div class="progress" id="progress${taskId}"></div>
-                                </div>
-                                <div class="progressText"><span id="progressCounter${taskId}"></span>/<span id="progressMax${taskId}">5</span> Subtasks</div>
-                            </div>
-                            <div class="taskBottom">
-                                <div class="assignedTo">
-                                    <div class="userIcon">
-                                        <div class="userInitials">NS</div>
-                                    </div>
-                                </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
-                            </div>
-                        </div>
-                `;
-    changeCategoryColor(taskId, InProgress[i]['category']);
-    changeProgressInfos(taskId, InProgress[i]['subTasks']);
-    changeAssignedToUsers(taskId, InProgress[i]['assignedTo'])
-    }
-}
+//function renderInProgressBoard() {
+//    document.getElementById('taskContainerContentInProgress').innerHTML = ``;
+//    InProgress = tasks.filter(task => task.status === "inProgress"); //sucht alle Tasks mit status toDo und schreibt sie in toDos
+//    for (let i = 0; i < InProgress.length; i++) {
+//        let taskId = InProgress[i]['id'];
+//        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/ `
+//        <div class="task" id="task${taskId}">
+//                    <div class="taskCategory" id="category${taskId}">${InProgress[i]['category']}</div>
+//                    <span class="taskTitle">${InProgress[i]['title']}</span>
+//                    <span class="taskDescription">${InProgress[i]['description']}</span>
+//                            <div class="progressContainer" id="progressContainer${taskId}">
+//                                <div class="progressBar">
+//                                    <div class="progress" id="progress${taskId}"></div>
+//                                </div>
+//                                <div class="progressText"><span id="progressCounter${taskId}"></span>/<span id="progressMax${taskId}">5</span> Subtasks</div>
+//                            </div>
+//                            <div class="taskBottom">
+//                                <div class="assignedTo">
+//                                    <div class="userIcon">
+//                                        <div class="userInitials">NS</div>
+//                                    </div>
+//                                </div>
+//                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+//                            </div>
+//                        </div>
+//                `;
+//    changeCategoryColor(taskId, InProgress[i]['category']);
+//    changeProgressInfos(taskId, InProgress[i]['subTasks']);
+//    changeAssignedToUsers(taskId, InProgress[i]['assignedTo'])
+//    }
+//}
 
 
-function changeCategoryColor(taskId, category){
+function changeCategoryColor(taskId, category) {
     let color = '';
-    if(category === "User Story"){
+    if (category === "User Story") {
         color = 'userStoryColor'
-    } 
-    else if (category === 'Technical Tasks'){
+    }
+    else if (category === 'Technical Tasks') {
         color = 'technicalTaskColor'
     }
     document.getElementById(`category${taskId}`).classList.add(`${color}`);
 }
 
 
-function changeProgressInfos(taskId, subTasks){
-    if(subTasks == undefined){
+function changeProgressInfos(taskId, subTasks) {
+    if (subTasks == undefined) {
         document.getElementById(`progressContainer${taskId}`).classList.add('dnone')
     } else {
         let length = subTasks.length;
@@ -107,10 +107,23 @@ function changeProgressInfos(taskId, subTasks){
     }
 }
 
-function changeAssignedToUsers(taskId, assignedTos){
+function changeAssignedToUsers(taskId, assignedTos) {
+    document.getElementById(`assignedTo${taskId}`).innerHTML = ``;
     for (let i = 0; i < assignedTos.length; i++) {
-        userId = assignedTos[i];
-        let contact = contacts.filter(task => task.status === "toDo")
-        
+        let userId = assignedTos[i];
+        let contact = findContactById(contacts, userId);
+        document.getElementById(`assignedTo${taskId}`).innerHTML += /*html*/ `
+        <div class="userIcon" id="userIcon${taskId}${i}">
+        <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
+        <div>
+        `;
+        let color = contact['color']
+        document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
+        document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
     }
+}
+
+
+function findContactById(contacts, id) {
+    return contacts.find(contact => contact.id === id);
 }

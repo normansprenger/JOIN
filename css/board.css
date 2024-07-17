@@ -219,7 +219,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: chocolate;
+    border:1px solid white;
 }
 
 .userInitials {
@@ -236,6 +236,81 @@ main {
     background-color: #1FD7C1;
 }
 
-.dnone{
+.dnone {
     display: none;
+}
+
+.CFF7A00 {
+    background-color: #FF7A00;
+    margin-left: -5px;
+}
+
+.CFF5EB3 {
+    background-color: #FF5EB3;
+    margin-left: -5px;
+}
+
+.C6E52FF {
+    background-color: #6E52FF;
+    margin-left: -5px;
+}
+
+.C9327FF {
+    background-color: #9327FF;
+    margin-left: -5px;
+}
+
+.C00BEE8 {
+    background-color: #00BEE8;
+    margin-left: -5px;
+}
+
+.C1FD7C1 {
+    background-color: #1FD7C1;
+    margin-left: -5px;
+}
+
+.CFF745E {
+    background-color: #FF745E;
+    margin-left: -5px;
+}
+
+.CFFA35E {
+    background-color: #FFA35E;
+    margin-left: -5px;
+}
+
+.CFC71FF {
+    background-color: #FC71FF;
+    margin-left: -5px;
+}
+
+.CFFC701 {
+    background-color: #FFC701;
+    margin-left: -5px;
+}
+
+.C0038FF {
+    background-color: #0038FF;
+    margin-left: -5px;
+}
+
+.CC3FF2B {
+    background-color: #C3FF2B;
+    margin-left: -5px;
+}
+
+.CFFE62B {
+    background-color: #FFE62B;
+    margin-left: -5px;
+}
+
+.CFF4646 {
+    background-color: #FF4646;
+    margin-left: -5px;
+}
+
+.CSFFBB2B {
+    background-color: #FFBB2B;
+    margin-left: -5px;
 }
