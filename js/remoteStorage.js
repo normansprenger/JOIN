@@ -58,7 +58,7 @@ async function saveTasks(path = "/tasks") {
 }
 
 //schaut in den sessionstorage und holt den currentuser, falls keiner vorhanden dann gehe zur Login
-function checkUser(){
+function checkUser() {
     let storedUserString = sessionStorage.getItem('currentUser');
     if (storedUserString) {
         currentUser = JSON.parse(storedUserString);
@@ -68,20 +68,21 @@ function checkUser(){
     }
 }
 
-function fillUserInitials(){
+function fillUserInitials() {
     document.getElementById('headerContainerRightUserIconInitials').innerHTML = currentUser['initials'];
 }
 
 // leert beide Speicher und kehrt zurück zu Login
-function logout(){
+function logout() {
     sessionStorage.clear();
     localStorage.clear();
     window.location.href = '../../index.html';
 }
 
-function saveCurrentPage(){
+function saveCurrentPage() {
     const currentPage = window.location.pathname.split("/").pop();
-    
+
     // Speichern des Seitennamens in sessionStorage
     sessionStorage.setItem("currentPage", currentPage);
 }
+
