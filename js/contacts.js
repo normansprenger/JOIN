@@ -1,21 +1,23 @@
+let userId = '';
 let contactsData = {};
 const userColors = [
   '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF',
   '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
 ];
 
-async function initContacts(){
+async function initContacts() {
   await includeHTML();
   loadContacts();
-  fetchContacts();
+  await fetchContacts();
+  chooseAddedUser();
 }
 
 async function fetchContacts() {
   try {
-      await loadContacts(); 
-      renderContacts(contacts); 
+    await loadContacts();
+    renderContacts(contacts);
   } catch (error) {
-      console.error("Error fetching contacts:", error);
+    console.error("Error fetching contacts:", error);
   }
 }
 
@@ -33,6 +35,7 @@ async function updateContact(event, id) {
   await saveContacts();
   renderContacts(contactsData);
   closeEditContactPopUp();
+  toggleContactView(id)
 }
 
 async function deleteContact(id) {
@@ -40,15 +43,16 @@ async function deleteContact(id) {
 
   // Finde den Kontakt im contactsData-Objekt und entferne ihn
   if (contactsData[id]) {
-      delete contactsData[id]; 
+    delete contactsData[id];
 
-      // Aktualisiere das contacts-Array, um den gelöschten Kontakt zu entfernen
-      contacts = Object.values(contactsData); // Konvertiere das Objekt zurück zu einem Array
+    // Aktualisiere das contacts-Array, um den gelöschten Kontakt zu entfernen
+    contacts = Object.values(contactsData); // Konvertiere das Objekt zurück zu einem Array
 
-      await saveContacts(); 
-      fetchContacts(); 
+    await saveContacts();
+    fetchContacts();
+    location.reload();
   } else {
-      console.error(`Contact with id ${id} not found`);
+    console.error(`Contact with id ${id} not found`);
   }
 }
 
@@ -60,7 +64,7 @@ function renderContacts(data) {
   const contactList = document.getElementById("contactList");
   contactList.innerHTML = "";
 
-  const contactsArray = Object.values(data); 
+  const contactsArray = Object.values(data);
   contactsArray.sort((a, b) => a.name.localeCompare(b.name));
 
   let currentLetter = "";
@@ -84,6 +88,7 @@ function renderContacts(data) {
 
     const contactElement = document.createElement("div");
     contactElement.className = "contactItem";
+    contactElement.id = `UserId${contact.id}`;
     contactElement.setAttribute("onclick", `toggleContactView(${contact.id})`);
     contactElement.innerHTML = /*HTML*/ `
             <div class="shortName" style="background-color: ${contact.color};">
@@ -134,9 +139,8 @@ function toggleContactView(id) {
 
   contactDetailsContainer.innerHTML = /*HTML*/ `
     <div class="contactDetailsHeader">
-      <div class="shortNameContactDetails" style="background-color: ${
-        contact.color
-      };">
+      <div class="shortNameContactDetails" style="background-color: ${contact.color
+    };">
         <p class="initialsContactDetails">${contact.initials}</p>
       </div>
       <div class="ContactDetailsContainer">
@@ -177,7 +181,7 @@ function toggleContactView(id) {
     contactDetailsSection.style.display = "block";
   }
 }
- 
+
 function backToList() {
   document.querySelector(".listSection").style.display = "block";
   document.getElementById("contactDetailsSection").style.display = "none";
@@ -187,7 +191,7 @@ function backToList() {
 
 function openEditContactPopUp(id) {
   const contact = contactsData[id];
-  
+
   if (!contact) {
     console.error(`Contact with ID ${id} not found`);
     return;
@@ -246,20 +250,20 @@ function openEditContactPopUp(id) {
         </div>
     `;
   document.body.appendChild(popupContainer);
-  
+
   setTimeout(() => {
     popupContainer.classList.add('show');
-}, 10);
+  }, 10);
 }
 
 function closeEditContactPopUp() {
-const popup = document.getElementById("editContactPopup");
-if (popup) {
-  popup.classList.remove('show');
-  setTimeout(() => {
-    document.body.removeChild(popup);
-  }, 500);
-}
+  const popup = document.getElementById("editContactPopup");
+  if (popup) {
+    popup.classList.remove('show');
+    setTimeout(() => {
+      document.body.removeChild(popup);
+    }, 500);
+  }
 }
 
 function openContactMenu(id) {
@@ -302,16 +306,19 @@ async function pushContacts() {
   let color = randomColor(userColors);
   let id = new Date().getTime();
   let contact = {
-      'color': `${color}`,
-      'email': `${email}`,
-      'id': `${id}`,
-      'initials': `${initials}`,
-      'name': `${name}`,
-      'phone': `${phone}`
+    'color': `${color}`,
+    'email': `${email}`,
+    'id': `${id}`,
+    'initials': `${initials}`,
+    'name': `${name}`,
+    'phone': `${phone}`
   };
+  userId = id;
+  sessionStorage.setItem("userId", userId);
+  contacts.push(contact);
+  await saveContacts();
+  location.reload();
 
-  contacts.push(contact); 
-  await saveContacts(); 
 }
 
 function openAddContactPopUp() {
@@ -375,17 +382,17 @@ function openAddContactPopUp() {
   document.body.appendChild(popupContainer);
 
   setTimeout(() => {
-      popupContainer.classList.add('show');
+    popupContainer.classList.add('show');
   }, 10);
 }
 
 function closeAddContactPopUp() {
   const popup = document.getElementById("addContactPopup");
   if (popup) {
-      popup.classList.remove('show');
-      setTimeout(() => {
-          document.body.removeChild(popup);
-      }, 500);
+    popup.classList.remove('show');
+    setTimeout(() => {
+      document.body.removeChild(popup);
+    }, 500);
   }
 }
 
@@ -409,12 +416,23 @@ function getInitials(name) {
   }
 
   let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
-    return initials;
+  return initials;
 }
 
 function randomColor(colors) {
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
 }
-  
+
 fetchContacts();
+
+function chooseAddedUser() {
+  userId = sessionStorage.getItem('userId');
+  if (!userId == '') {
+    document.getElementById(`UserId${userId}`).classList.add("selected");
+    if (window.innerWidth > 1000) {
+      toggleContactView(userId);
+    }
+    document.getElementById(`UserId${userId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
