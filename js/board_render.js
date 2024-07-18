@@ -34,13 +34,14 @@ function renderTodosBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+                                <div id="priority${taskId}" src="../assets/img/priorityLowBoard.svg" class="taskPriority"></div>
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }

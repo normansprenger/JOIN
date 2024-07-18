@@ -53,6 +53,11 @@ function changeAssignedToUsers(taskId, assignedTos) {
 }
 
 
+function changePriorityImg(taskId, priorityString){
+    document.getElementById(`priority${taskId}`).classList.add(`class${priorityString}`);
+}
+
+
 function findContactById(contacts, id) {
     return contacts.find(contact => contact.id === id);
 }

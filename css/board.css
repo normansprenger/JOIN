@@ -362,3 +362,21 @@ main {
     transform: scale(1.02);
     cursor: pointer;
 }
+
+.classlow{
+    background-image: url(../assets/img/priorityLowBoard.svg);
+    height: 32px;
+    width: 32px;
+}
+
+.classmedium{
+    background-image: url(../assets/img/priorityMediumBoard.svg);
+    height: 32px;
+    width: 32px;
+}
+
+.classurgent{
+    background-image: url(../assets/img/priorityUrgentBoard.svg);
+    height: 32px;
+    width: 32px;
+}
