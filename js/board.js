@@ -17,7 +17,7 @@ function changeCategoryColor(taskId, category) {
         color = 'userStoryColor'
     }
     else if (category === 'Technical Tasks') {
-        color = 'technicalTaskColor'
+        color = 'technicalTaskColor';
     }
     document.getElementById(`category${taskId}`).classList.add(`${color}`);
 }
