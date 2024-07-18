@@ -19,26 +19,6 @@ async function fetchContacts() {
   }
 }
 
-async function pushContacts() {
-  let name = document.getElementById('fullName').value;
-  let email = document.getElementById('mail').value;
-  let phone = document.getElementById('telNumber').value;
-  let initials = getInitials(name);
-  let color = randomColor(userColors);
-  let id = new Date().getTime();
-  let contact = {
-      'color': `${color}`,
-      'email': `${email}`,
-      'id': `${id}`,
-      'initials': `${initials}`,
-      'name': `${name}`,
-      'phone': `${phone}`
-  };
-
-  contacts.push(contact); 
-  await saveContacts(); 
-}
-
 async function updateContact(event, id) {
   event.preventDefault();
 
@@ -50,7 +30,7 @@ async function updateContact(event, id) {
   contactsData[id].email = email;
   contactsData[id].phone = phone;
 
-  await saveContacts(); // Speichere die aktualisierten Kontakte in der Datenbank
+  await saveContacts();
   renderContacts(contactsData);
   closeEditContactPopUp();
 }
@@ -58,16 +38,21 @@ async function updateContact(event, id) {
 async function deleteContact(id) {
   console.log(`Delete contact with id ${id}`);
 
-  const index = contacts.findIndex(contact => contact.id === Number(id));
-  if (index !== -1) {
-      contacts.splice(index, 1); // Kontakt aus dem Array entfernen
-      delete contactsData[id]; // Kontakt auch aus contactsData entfernen
-      await saveContacts(); // Änderungen in der Datenbank speichern
-      fetchContacts(); // Kontakte erneut laden und anzeigen
+  // Finde den Kontakt im contactsData-Objekt und entferne ihn
+  if (contactsData[id]) {
+      delete contactsData[id]; 
+
+      // Aktualisiere das contacts-Array, um den gelöschten Kontakt zu entfernen
+      contacts = Object.values(contactsData); // Konvertiere das Objekt zurück zu einem Array
+
+      await saveContacts(); 
+      fetchContacts(); 
   } else {
       console.error(`Contact with id ${id} not found`);
   }
 }
+
+/* render functions */
 
 function renderContacts(data) {
   contactsData = {};
@@ -198,6 +183,8 @@ function backToList() {
   document.getElementById("contactDetailsSection").style.display = "none";
 }
 
+/* Edit Functions */
+
 function openEditContactPopUp(id) {
   const contact = contactsData[id];
   
@@ -275,6 +262,58 @@ if (popup) {
 }
 }
 
+function openContactMenu(id) {
+  const contact = contactsData[id];
+
+  if (!contact) {
+    console.error(`Contact with ID ${id} not found`);
+    return;
+  }
+
+  const popup = document.createElement("div");
+  popup.className = "contactMenuPopup";
+
+  popup.innerHTML = /*HTML*/ `
+    <div class="contactMenuPopupContent">
+      <div class="editContact">
+          <img src="../assets/img/edit.svg" alt="Edit">
+          <p onclick="openEditContactPopUp(${id})">Edit</p>
+      </div>
+      <div class="deleteContact">
+          <img src="../assets/img/delete.svg" alt="Delete">
+          <p onclick="deleteContact(${id})">Delete</p>                
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  if (window.innerWidth <= 1000) {
+    popup.style.animation = "slideIn 0.2s ease forwards";
+  }
+}
+/* Add New Contact Functions / NEUEN KONTAKT HINZUFÜGEN! */
+
+async function pushContacts() {
+  let name = document.getElementById('fullName').value;
+  let email = document.getElementById('mail').value;
+  let phone = document.getElementById('telNumber').value;
+  let initials = getInitials(name);
+  let color = randomColor(userColors);
+  let id = new Date().getTime();
+  let contact = {
+      'color': `${color}`,
+      'email': `${email}`,
+      'id': `${id}`,
+      'initials': `${initials}`,
+      'name': `${name}`,
+      'phone': `${phone}`
+  };
+
+  contacts.push(contact); 
+  await saveContacts(); 
+}
+
 function openAddContactPopUp() {
   const popupContainer = document.createElement("div");
   popupContainer.id = "addContactPopup";
@@ -350,43 +389,16 @@ function closeAddContactPopUp() {
   }
 }
 
-function openContactMenu(id) {
-  const contact = contactsData[id];
-
-  if (!contact) {
-    console.error(`Contact with ID ${id} not found`);
-    return;
-  }
-
-  const popup = document.createElement("div");
-  popup.className = "contactMenuPopup";
-
-  popup.innerHTML = /*HTML*/ `
-    <div class="contactMenuPopupContent">
-      <div class="editContact">
-          <img src="../assets/img/edit.svg" alt="Edit">
-          <p onclick="openEditContactPopUp(${id})">Edit</p>
-      </div>
-      <div class="deleteContact">
-          <img src="../assets/img/delete.svg" alt="Delete">
-          <p onclick="deleteContact(${id})">Delete</p>                
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(popup);
-
-  if (window.innerWidth <= 1000) {
-    popup.style.animation = "slideIn 0.2s ease forwards";
-  }
-}
-
-function createContact(event){
+async function createContact(event) {
   event.preventDefault();
-  pushContacts();
-  saveContacts();
-  renderContacts();
-  closeAddContactPopUp();
+  try {
+    await pushContacts();
+    renderContacts();
+    closeAddContactPopUp();
+    window.location.href = 'contacts.html'; // Weiterleitung zur contacts.html
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Kontakts:', error);
+  }
 }
 
 function getInitials(name) {
