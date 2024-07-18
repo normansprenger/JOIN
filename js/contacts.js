@@ -7,6 +7,8 @@ const userColors = [
 
 async function initContacts() {
   await includeHTML();
+  checkUser();
+  fillUserInitials();
   loadContacts();
   await fetchContacts();
   chooseAddedUser();
@@ -434,5 +436,7 @@ function chooseAddedUser() {
       toggleContactView(userId);
     }
     document.getElementById(`UserId${userId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    userId = '';
+    sessionStorage.setItem("userId", userId);
   }
 }
