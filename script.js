@@ -13,6 +13,7 @@ let currentUser = [];
 
 // lädt User und schaut ob user noch gespeichert ist
 function init() {
+    startingAnimation();
     loadUsers();
     checkCurrentUser();
     enableDisableButton();
@@ -246,4 +247,9 @@ function saveCurrentPage() {
 
     // Speichern des Seitennamens in sessionStorage
     sessionStorage.setItem("currentPage", currentPage);
+}
+
+function startingAnimation(){
+    setTimeout(()=>{document.getElementById('startingImg').classList.add('startingImgEndPos')},500);
+    setTimeout(()=>{document.getElementById('startingBackground').classList.add('dnone')},2100);
 }

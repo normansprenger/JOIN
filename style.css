@@ -281,3 +281,32 @@ h1 {
     align-items: center;
     gap:21px;
 }
+
+.background{
+    background-color:rgb(246, 247, 248);
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.startingImg{
+    width: 274px;
+    height: 334px;
+    position: absolute;
+    left: calc(50% - 137px);
+    top: calc(50% - 167px);
+}
+
+.startingImgEndPos{
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    height: 78px !important;
+    width: 64px !important;
+}
+
+#startingImg{
+    transition: 1.5s ease;
+}
