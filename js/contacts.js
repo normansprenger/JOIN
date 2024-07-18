@@ -272,32 +272,50 @@ function openContactMenu(id) {
   const contact = contactsData[id];
 
   if (!contact) {
-    console.error(`Contact with ID ${id} not found`);
-    return;
+      console.error(`Contact with ID ${id} not found`);
+      return;
   }
 
   const popup = document.createElement("div");
   popup.className = "contactMenuPopup";
+  popup.style.position = "fixed";
 
   popup.innerHTML = /*HTML*/ `
-    <div class="contactMenuPopupContent">
-      <div class="editContact">
-          <img src="../assets/img/edit.svg" alt="Edit">
-          <p onclick="openEditContactPopUp(${id})">Edit</p>
+      <div class="contactMenuPopupContent" onclick="event.stopPropagation()">
+          <div class="editContact">
+              <img src="../assets/img/edit.svg" alt="Edit">
+              <p onclick="openEditContactPopUp(${id})">Edit</p>
+          </div>
+          <div class="deleteContact">
+              <img src="../assets/img/delete.svg" alt="Delete">
+              <p onclick="deleteContact(${id})">Delete</p>                
+          </div>
       </div>
-      <div class="deleteContact">
-          <img src="../assets/img/delete.svg" alt="Delete">
-          <p onclick="deleteContact(${id})">Delete</p>                
-      </div>
-    </div>
   `;
 
-  document.body.appendChild(popup);
+  const popupContainer = document.createElement("div");
+  popupContainer.style.position = "fixed";
+  popupContainer.style.top = 0;
+  popupContainer.style.left = 0;
+  popupContainer.style.width = "100%";
+  popupContainer.style.height = "100%";
+  popupContainer.style.zIndex = 1000;
+
+  popupContainer.appendChild(popup);
+  document.body.appendChild(popupContainer);
 
   if (window.innerWidth <= 1000) {
-    popup.style.animation = "slideIn 0.2s ease forwards";
+      popup.style.animation = "slideIn 0.2s ease forwards";
   }
+
+  popupContainer.onclick = function () {
+      popup.style.animation = "slideOut 0.2s ease forwards";
+      setTimeout(() => {
+          document.body.removeChild(popupContainer);
+      }, 300); 
+  };
 }
+
 /* Add New Contact Functions / NEUEN KONTAKT HINZUFÜGEN! */
 
 async function pushContacts() {
