@@ -36,7 +36,7 @@
                 <span class="taskContainerHeadline">To do</span>
                 <div class="taskContainerAddTaskImg"></div>
             </div>
-            <div class="taskContainerContent" id="taskContainerContentTodo">
+            <div class="taskContainerContent" id="taskContainerContentToDo" ondrop="moveTo('toDo')" ondragover="allowDrop(event)">
             </div>
         </div>
         <div class="taskContainer">
@@ -44,7 +44,7 @@
                 <span class="taskContainerHeadline">In Progress</span>
                 <div class="taskContainerAddTaskImg"></div>
             </div>
-            <div class="taskContainerContent" id="taskContainerContentInProgress">
+            <div class="taskContainerContent" id="taskContainerContentInProgress" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)">
             </div>
         </div>
         <div class="taskContainer">
@@ -52,7 +52,7 @@
                 <span class="taskContainerHeadline">Await feedback</span>
                 <div class="taskContainerAddTaskImg"></div>
             </div>
-            <div class="taskContainerContent" id="taskContainerAwaitFeedback">
+            <div class="taskContainerContent" id="taskContainerContentAwaitFeedback" ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event)">
             </div>
         </div>
         <div class="taskContainer">
@@ -60,7 +60,7 @@
                 <span class="taskContainerHeadline">Done</span>
                 <div class="taskContainerAddTaskImg"></div>
             </div>
-            <div class="taskContainerContent" id="taskContainerDone">
+            <div class="taskContainerContent" id="taskContainerContentDone" ondrop="moveTo('done')" ondragover="allowDrop(event)">
             </div>
         </div>
     </main>

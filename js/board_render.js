@@ -6,10 +6,10 @@ function renderTasksBoard() {
 }
 
 function renderTodosBoard() {
-    document.getElementById('taskContainerContentTodo').innerHTML = ``;
+    document.getElementById('taskContainerContentToDo').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "toDo"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
     if (filteredTasks.length < 1) {
-        document.getElementById('taskContainerContentTodo').innerHTML =/*html*/ `
+        document.getElementById('taskContainerContentToDo').innerHTML =/*html*/ `
         <div class="noTaskContainer">
             <span class="noTaskText">No tasks to do</span>
         </div>
@@ -17,8 +17,8 @@ function renderTodosBoard() {
     } else {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
-            document.getElementById('taskContainerContentTodo').innerHTML += /*html*/ `
-        <div class="task" id="task${taskId}" onclick="showTask(${taskId})">
+            document.getElementById('taskContainerContentToDo').innerHTML += /*html*/ `
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -60,7 +60,7 @@ function renderInProgressBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/ `
-        <div class="task" id="task${taskId}" onclick="showTask(${taskId})">
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -89,10 +89,10 @@ function renderInProgressBoard() {
 
 
 function renderAwaitFeedbackBoard() {
-    document.getElementById('taskContainerAwaitFeedback').innerHTML = ``;
+    document.getElementById('taskContainerContentAwaitFeedback').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "awaitingFeedback"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
     if (filteredTasks.length < 1) {
-        document.getElementById('taskContainerAwaitFeedback').innerHTML =/*html*/ `
+        document.getElementById('taskContainerContentAwaitFeedback').innerHTML =/*html*/ `
         <div class="noTaskContainer">
             <span class="noTaskText">No tasks awaiting Feedback</span>
         </div>
@@ -100,8 +100,8 @@ function renderAwaitFeedbackBoard() {
     } else {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
-            document.getElementById('taskContainerAwaitFeedback').innerHTML += /*html*/ `
-        <div class="task" id="task${taskId}" onclick="showTask(${taskId})">
+            document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/ `
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -130,10 +130,10 @@ function renderAwaitFeedbackBoard() {
 
 
 function renderDoneBoard() {
-    document.getElementById('taskContainerDone').innerHTML = ``;
+    document.getElementById('taskContainerContentDone').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "done"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
     if (filteredTasks.length < 1) {
-        document.getElementById('taskContainerDone').innerHTML =/*html*/ `
+        document.getElementById('taskContainerContentDone').innerHTML =/*html*/ `
         <div class="noTaskContainer">
             <span class="noTaskText">No tasks awaiting Feedback</span>
         </div>
@@ -141,8 +141,8 @@ function renderDoneBoard() {
     } else {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
-            document.getElementById('taskContainerDone').innerHTML += /*html*/ `
-        <div class="task" id="task${taskId}" onclick="showTask(${taskId})">
+            document.getElementById('taskContainerContentDone').innerHTML += /*html*/ `
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>

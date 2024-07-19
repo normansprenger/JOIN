@@ -1,5 +1,6 @@
 let filteredTasks = [];
 let InProgress = [];
+let currentDragElement;
 
 async function init() {
     await includeHTML();
@@ -53,7 +54,7 @@ function changeAssignedToUsers(taskId, assignedTos) {
 }
 
 
-function changePriorityImg(taskId, priorityString){
+function changePriorityImg(taskId, priorityString) {
     document.getElementById(`priority${taskId}`).classList.add(`class${priorityString}`);
 }
 
@@ -61,3 +62,176 @@ function changePriorityImg(taskId, priorityString){
 function findContactById(contacts, id) {
     return contacts.find(contact => contact.id === id);
 }
+
+
+function draggingStart(id) {
+    currentDragElement = id;
+    document.getElementById(`${id}`).classList.add('rotate-5deg')
+    let taskStatus = tasks.find(task => task.id === id)?.status;
+    renderEmptyTask(taskStatus);
+}
+
+
+function renderEmptyTask(taskStatus) {
+    if (taskStatus == 'toDo') {
+        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
+          <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+    } else if (taskStatus == 'inProgress'){
+        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
+          <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+    } else if (taskStatus == 'awaitingFeedback'){
+        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
+          <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+    } else if (taskStatus == 'done'){
+        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
+          <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
+        <div class="emptyTask"></div>  
+        `;
+    }
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+function moveTo(category){
+    let task = tasks.find(task => task.id === currentDragElement);
+    task['status'] = category;
+    saveTasks();
+    renderTasksBoard();
+}
+
+
+//let tasks = [
+//    {
+//        "assignedTo": [
+//            0,
+//            5,
+//            6
+//        ],
+//        "category": "User Story",
+//        "description": "Build start page with recipe recommendation.",
+//        "dueDate": "2024-07-31",
+//        "id": 0,
+//        "priority": "medium",
+//        "status": "toDo",
+//        "subTasks": [
+//            {
+//                "completet": true,
+//                "content": "Implement Recipe Recommendation",
+//                "id": 0
+//            },
+//            {
+//                "completet": false,
+//                "content": "Start Page Layout",
+//                "id": 1
+//            }
+//        ],
+//        "title": "Kochwelt Page & Recipe Recommender"
+//    },
+//    {
+//        "assignedTo": [
+//            2,
+//            7
+//        ],
+//        "category": "Technical Tasks",
+//        "description": "Define CSS naming conventions and structure",
+//        "dueDate": "2024-07-31",
+//        "id": 1,
+//        "priority": "urgent",
+//        "status": "inProgress",
+//        "subTasks": [
+//            {
+//                "completet": true,
+//                "content": "Establish CSS Methodology",
+//                "id": 0
+//            },
+//            {
+//                "completet": true,
+//                "content": "Setup Base Styles",
+//                "id": 1
+//            }
+//        ],
+//        "title": "CSS Architecture Planning"
+//    },
+//    {
+//        "assignedTo": [
+//            2,
+//            3,
+//            8
+//        ],
+//        "category": "Technical Tasks",
+//        "description": "Create reusable HTML base templates",
+//        "dueDate": "2024-07-31",
+//        "id": 2,
+//        "priority": "low",
+//        "status": "toDo",
+//        "title": "HTML Base Template Creation"
+//    },
+//    {
+//        "assignedTo": [
+//            1,
+//            4,
+//            8
+//        ],
+//        "category": "User Story",
+//        "description": "Implement daily recipe and portion calculator",
+//        "dueDate": "2024-07-31",
+//        "id": 3,
+//        "priority": "medium",
+//        "status": "awaitingFeedback",
+//        "title": "Daily Kochwelt Recipe"
+//    },
+//    {
+//        "assignedTo": [
+//            3,
+//            4,
+//            8
+//        ],
+//        "category": "User Story",
+//        "description": "Create a contac form and imprint page",
+//        "dueDate": "2024-07-31",
+//        "id": 4,
+//        "priority": "medium",
+//        "status": "done",
+//        "subTasks": [
+//            {
+//                "completet": false,
+//                "content": "Create contact form",
+//                "id": 0
+//            },
+//            {
+//                "completet": false,
+//                "content": "set up imprint page",
+//                "id": 1
+//            }
+//        ],
+//        "title": "Contact Form & Imprint"
+//    }
+// ]
