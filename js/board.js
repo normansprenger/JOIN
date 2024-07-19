@@ -65,11 +65,18 @@ function findContactById(contacts, id) {
 
 
 function draggingStart(id) {
+    let alltexts = document.querySelectorAll('noTaskText');
+    alltexts.classList.add('dnone');
     currentDragElement = id;
     document.getElementById(`${id}`).classList.add('rotate-5deg')
     let taskStatus = tasks.find(task => task.id === id)?.status;
     renderEmptyTask(taskStatus);
 }
+
+//function draggingEnd(id) {
+//    document.getElementById(`${id}`).classList.remove('rotate-5deg');
+//    renderTasksBoard();
+//}
 
 
 function renderEmptyTask(taskStatus) {
