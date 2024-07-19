@@ -5,6 +5,14 @@ const userColors = [
   '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
 ];
 
+/**
+ * Initializes the contacts by including HTML, checking the user,
+ * filling user initials, loading contacts, fetching contacts, 
+ * and choosing the added user.
+ * @async
+ * @function initContacts
+ * @returns {Promise<void>}
+ */
 async function initContacts() {
   await includeHTML();
   checkUser();
@@ -14,6 +22,13 @@ async function initContacts() {
   chooseAddedUser();
 }
 
+/**
+ * Fetches contacts, loads them, and renders them.
+ * If an error occurs during fetching, it logs the error to the console.
+ * @async
+ * @function fetchContacts
+ * @returns {Promise<void>}
+ */
 async function fetchContacts() {
   try {
     await loadContacts();
@@ -23,6 +38,15 @@ async function fetchContacts() {
   }
 }
 
+/**
+ * Updates a contact's information based on the input fields, saves the contacts,
+ * re-renders the contacts, closes the edit contact pop-up, and toggles the contact view.
+ * @async
+ * @function updateContact
+ * @param {Event} event - The event triggered by submitting the contact update form.
+ * @param {number} id - The ID of the contact to be updated.
+ * @returns {Promise<void>}
+ */
 async function updateContact(event, id) {
   event.preventDefault();
 
@@ -40,6 +64,14 @@ async function updateContact(event, id) {
   toggleContactView(id);
 }
 
+/**
+ * Deletes a contact by its ID, saves the updated contacts, fetches the contacts,
+ * and reloads the page. Logs an error if the contact with the given ID is not found.
+ * @async
+ * @function deleteContact
+ * @param {number} id - The ID of the contact to be deleted.
+ * @returns {Promise<void>}
+ */
 async function deleteContact(id) {
   if (contactsData[id]) {
     delete contactsData[id];
@@ -56,6 +88,16 @@ async function deleteContact(id) {
 
 /* render Functions */
 
+/**
+ * Renders the contacts list on the page.
+ * 
+ * @param {Object} data - The contact data, where each key is a contact ID and each value is a contact object.
+ * @property {string} data[].id - The ID of the contact.
+ * @property {string} data[].name - The name of the contact.
+ * @property {string} data[].email - The email of the contact.
+ * @property {string} data[].color - The background color for the contact's initials.
+ * @property {string} data[].initials - The initials of the contact.
+ */
 function renderContacts(data) {
   contactsData = {};
 
@@ -100,6 +142,11 @@ function renderContacts(data) {
   });
 }
 
+/**
+ * Toggles the detailed view of a contact when clicked.
+ * 
+ * @param {number} id - The ID of the contact to display.
+ */
 function toggleContactView(id) {
   const contact = contactsData[id];
 
@@ -145,6 +192,16 @@ function toggleContactView(id) {
   }
 }
 
+/**
+ * Creates the header HTML for the contact details view.
+ * 
+ * @param {Object} contact - The contact object.
+ * @property {string} contact.id - The ID of the contact.
+ * @property {string} contact.name - The name of the contact.
+ * @property {string} contact.color - The background color for the contact's initials.
+ * @property {string} contact.initials - The initials of the contact.
+ * @returns {string} The HTML string for the contact details header.
+ */
 function createContactDetailsHeader(contact) {
   return /*HTML*/ `
     <div class="contactDetailsHeader">
@@ -156,11 +213,11 @@ function createContactDetailsHeader(contact) {
         <div class="EditDeleteContainer">
           <div class="edit" onclick="openEditContactPopUp(${contact.id})">
             <img src="../assets/img/edit.svg" alt="Edit">
-            <p >Edit</p>  
+            <p>Edit</p>  
           </div>
           <div class="delete" onclick="deleteContact(${contact.id})">
             <img src="../assets/img/delete.svg" alt="Delete">
-            <p >Delete</p>
+            <p>Delete</p>
           </div>
         </div>
       </div>
@@ -168,6 +225,14 @@ function createContactDetailsHeader(contact) {
   `;
 }
 
+/**
+ * Creates the body HTML for the contact details view.
+ * 
+ * @param {Object} contact - The contact object.
+ * @property {string} contact.email - The email of the contact.
+ * @property {string} contact.phone - The phone number of the contact.
+ * @returns {string} The HTML string for the contact details body.
+ */
 function createContactDetailsBody(contact) {
   return /*HTML*/ `
     <div class="contactDetailsBodyContainer">
@@ -182,12 +247,15 @@ function createContactDetailsBody(contact) {
       </div>
       <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
       <div class="ContactMenu" id="ContactMenu" onclick="openContactMenu(${contact.id})">
-        <img src="../assets/img/more_vert.svg" alt="Menü">
+        <img src="../assets/img/more_vert.svg" alt="Menu">
       </div>
     </div>
   `;
 }
 
+/**
+ * Switches the view back to the contacts list.
+ */
 function backToList() {
   document.querySelector(".listSection").style.display = "block";
   document.getElementById("contactDetailsSection").style.display = "none";
@@ -195,6 +263,11 @@ function backToList() {
 
 /* Edit Functions */
 
+/**
+ * Creates the container element for the edit contact popup.
+ * 
+ * @returns {HTMLDivElement} The div element for the popup container.
+ */
 function createPopupContainer() {
   const popupContainer = document.createElement("div");
   popupContainer.id = "editContactPopup";
@@ -202,6 +275,11 @@ function createPopupContainer() {
   return popupContainer;
 }
 
+/**
+ * Creates the title section for the edit contact popup.
+ * 
+ * @returns {string} The HTML string for the popup title.
+ */
 function createPopupTitle() {
   return /*HTML*/ `
     <div class="popupContentEditContactTitle" onclick="event.stopPropagation()"> 
@@ -214,6 +292,14 @@ function createPopupTitle() {
   `;
 }
 
+/**
+ * Creates the short name container for the edit contact popup.
+ * 
+ * @param {Object} contact - The contact object.
+ * @property {string} contact.color - The background color for the contact's initials.
+ * @property {string} contact.initials - The initials of the contact.
+ * @returns {string} The HTML string for the short name container.
+ */
 function createShortNameContainer(contact) {
   return /*HTML*/ `
     <div class="ShortNameContainer">
@@ -226,6 +312,11 @@ function createShortNameContainer(contact) {
   `;
 }
 
+/**
+ * Creates the close button for the desktop view of the edit contact popup.
+ * 
+ * @returns {string} The HTML string for the close button.
+ */
 function createCloseButtonDesktop() {
   return /*HTML*/ `
     <div class="popupCloseEditContactDesktop">
@@ -234,6 +325,16 @@ function createCloseButtonDesktop() {
   `;
 }
 
+/**
+ * Creates the form for editing the contact.
+ * 
+ * @param {Object} contact - The contact object.
+ * @property {string} contact.id - The ID of the contact.
+ * @property {string} contact.name - The name of the contact.
+ * @property {string} contact.email - The email of the contact.
+ * @property {string} contact.phone - The phone number of the contact.
+ * @returns {string} The HTML string for the form.
+ */
 function createForm(contact) {
   return /*HTML*/ `
     <form class="DialogEditContactForm" onsubmit="updateContact(event, ${contact.id})">
@@ -249,6 +350,12 @@ function createForm(contact) {
   `;
 }
 
+/**
+ * Creates the content for the edit contact popup.
+ * 
+ * @param {Object} contact - The contact object.
+ * @returns {string} The HTML string for the popup content.
+ */
 function createPopupContent(contact) {
   return /*HTML*/ `
     <div class="editPopUpContent" onclick="closeEditContactPopUp()">
@@ -264,6 +371,15 @@ function createPopupContent(contact) {
   `;
 }
 
+/**
+ * Creates an input container for the form in the edit contact popup.
+ * 
+ * @param {string} id - The ID of the input element.
+ * @param {string} type - The type of the input element.
+ * @param {string} value - The value of the input element.
+ * @param {string} placeholder - The placeholder text for the input element.
+ * @returns {string} The HTML string for the input container.
+ */
 function createInputContainer(id, type, value, placeholder) {
   return /*HTML*/ `
     <div class="inputContainer">
@@ -273,6 +389,11 @@ function createInputContainer(id, type, value, placeholder) {
   `;
 }
 
+/**
+ * Opens the edit contact popup.
+ * 
+ * @param {number} id - The ID of the contact to edit.
+ */
 function openEditContactPopUp(id) {
   const contact = contactsData[id];
 
@@ -290,6 +411,9 @@ function openEditContactPopUp(id) {
   }, 10);
 }
 
+/**
+ * Closes the edit contact popup.
+ */
 function closeEditContactPopUp() {
   const popup = document.getElementById("editContactPopup");
   if (popup) {
@@ -300,6 +424,11 @@ function closeEditContactPopUp() {
   }
 }
 
+/**
+ * Opens the contact menu popup for a contact.
+ * 
+ * @param {number} id - The ID of the contact.
+ */
 function openContactMenu(id) {
   const contact = contactsData[id];
   const popup = document.createElement("div");
@@ -323,6 +452,11 @@ function openContactMenu(id) {
   };
 }
 
+/**
+ * Creates the container for the contact menu popup.
+ * 
+ * @returns {HTMLDivElement} The div element for the popup container.
+ */
 function createPopupContainerFromContactMenu() {
   const popupContainer = document.createElement("div");
   popupContainer.style.position = "fixed";
@@ -334,6 +468,12 @@ function createPopupContainerFromContactMenu() {
   return popupContainer;
 }
 
+/**
+ * Creates the content for the contact menu popup.
+ * 
+ * @param {number} id - The ID of the contact.
+ * @returns {string} The HTML string for the popup content.
+ */
 function createPopupContentFromContactMenu(id) {
   return /*HTML*/ `
     <div class="contactMenuPopupContent" onclick="event.stopPropagation()">
@@ -343,26 +483,44 @@ function createPopupContentFromContactMenu(id) {
   `;
 }
 
+/**
+ * Creates the edit contact option in the contact menu popup.
+ * 
+ * @param {number} id - The ID of the contact.
+ * @returns {string} The HTML string for the edit contact option.
+ */
 function createEditContactOption(id) {
   return /*HTML*/ `
-    <div class="editContact">
+    <div class="editContact" onclick="openEditContactPopUp(${id})">
         <img src="../assets/img/edit.svg" alt="Edit">
-        <p onclick="openEditContactPopUp(${id})">Edit</p>
+        <p>Edit</p>
     </div>
   `;
 }
 
+/**
+ * Creates the delete contact option in the contact menu popup.
+ * 
+ * @param {number} id - The ID of the contact.
+ * @returns {string} The HTML string for the delete contact option.
+ */
 function createDeleteContactOption(id) {
   return /*HTML*/ `
-    <div class="deleteContact">
+    <div class="deleteContact" onclick="deleteContact(${id})">
         <img src="../assets/img/delete.svg" alt="Delete">
-        <p onclick="deleteContact(${id})">Delete</p>                
+        <p>Delete</p>                
     </div>
   `;
 }
 
 /* Add New Contact Functions */
 
+/**
+ * Adds a new contact to the contact list and saves it.
+ * 
+ * @async
+ * @returns {Promise<void>}
+ */
 async function pushContacts() {
   let name = document.getElementById("fullName").value;
   let email = document.getElementById("mail").value;
@@ -385,6 +543,11 @@ async function pushContacts() {
   location.reload();
 }
 
+/**
+ * Creates the container element for the add contact popup.
+ * 
+ * @returns {HTMLDivElement} The div element for the popup container.
+ */
 function createPopupContainerFromAddContactPopUp() {
   const popupContainer = document.createElement("div");
   popupContainer.id = "addContactPopup";
@@ -392,6 +555,11 @@ function createPopupContainerFromAddContactPopUp() {
   return popupContainer;
 }
 
+/**
+ * Creates the animation background for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the animation background.
+ */
 function createPopupAnimationBackgroundFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="popupAnimationBackground" onclick="closeAddContactPopUp()">
@@ -400,6 +568,11 @@ function createPopupAnimationBackgroundFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates the content for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the popup content.
+ */
 function createPopupContentFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="popupContent">
@@ -409,6 +582,11 @@ function createPopupContentFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates the title section for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the popup title.
+ */
 function createPopupContentTitleFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="popupContentAddContactTitle" onclick="event.stopPropagation()"> 
@@ -425,6 +603,11 @@ function createPopupContentTitleFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates the details section for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the popup details.
+ */
 function createPopupContentDetailsFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="popupContentAddContactDetails" onclick="event.stopPropagation()">
@@ -434,6 +617,11 @@ function createPopupContentDetailsFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates the short name container for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the short name container.
+ */
 function createShortNameContainerFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="ShortNameContainer">
@@ -444,6 +632,11 @@ function createShortNameContainerFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates the form content for the add contact popup.
+ * 
+ * @returns {string} The HTML string for the form content.
+ */
 function createFormFromAddContactPopUp() {
   return /*HTML*/ `
     <div class="DialogAddEdit">
@@ -465,6 +658,14 @@ function createFormFromAddContactPopUp() {
   `;
 }
 
+/**
+ * Creates an input container for the add contact popup form.
+ * 
+ * @param {string} id - The id of the input element.
+ * @param {string} type - The type of the input element.
+ * @param {string} placeholder - The placeholder text for the input element.
+ * @returns {string} The HTML string for the input container.
+ */
 function createInputContainerFromAddContactPopUp(id, type, placeholder) {
   return /*HTML*/ `
     <div class="inputContainer">
@@ -474,6 +675,9 @@ function createInputContainerFromAddContactPopUp(id, type, placeholder) {
   `;
 }
 
+/**
+ * Opens the add contact popup.
+ */
 function openAddContactPopUp() {
   const popupContainer = createPopupContainerFromAddContactPopUp();
   popupContainer.innerHTML = createPopupAnimationBackgroundFromAddContactPopUp();
@@ -484,6 +688,9 @@ function openAddContactPopUp() {
   }, 10);
 }
 
+/**
+ * Closes the add contact popup.
+ */
 function closeAddContactPopUp() {
   const popup = document.getElementById("addContactPopup");
   if (popup) {
@@ -494,6 +701,13 @@ function closeAddContactPopUp() {
   }
 }
 
+/**
+ * Creates a new contact and handles form submission.
+ * 
+ * @param {Event} event - The form submission event.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function createContact(event) {
   event.preventDefault();
   try {
@@ -503,10 +717,16 @@ async function createContact(event) {
     renderContacts();
     window.location.href = "contacts.html";
   } catch (error) {
-    console.error("Fehler beim Erstellen des Kontakts:", error);
+    console.error("Error creating contact:", error);
   }
 }
 
+/**
+ * Gets the initials from a given name.
+ * 
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The initials of the contact.
+ */
 function getInitials(name) {
   let words = name.trim().split(/\s+/);
 
@@ -519,14 +739,23 @@ function getInitials(name) {
   return initials;
 }
 
+/**
+ * Chooses a random color from an array of colors.
+ * 
+ * @param {string[]} colors - An array of color strings.
+ * @returns {string} A random color from the array.
+ */
 function randomColor(colors) {
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
 }
 
+/**
+ * Highlights the newly added user in the contact list.
+ */
 function chooseAddedUser() {
   userId = sessionStorage.getItem("userId");
-  if (!userId == "") {
+  if (userId) {
     document.getElementById(`UserId${userId}`).classList.add("selected");
     if (window.innerWidth > 1000) {
       toggleContactView(userId);
@@ -540,7 +769,22 @@ function chooseAddedUser() {
   }
 }
 
-function showAddedMessage(){
-  document.getElementById('userAddedText').classList.add('userAddedTextAfterMobile');
-  setTimeout(()=>{document.getElementById('userAddedText').classList.remove('userAddedTextAfterMobile');},2100)
+/**
+ * Displays a message indicating a user was added.
+ */
+function showAddedMessage() {
+  const mobileElement = document.getElementById('userAddedTextMobile');
+  const desktopElement = document.getElementById('userAddedTextDesktop');
+
+  if (window.innerWidth <= 1000) {
+    mobileElement.classList.add('userAddedTextAfterMobile');
+    setTimeout(() => {
+      mobileElement.classList.remove('userAddedTextAfterMobile');
+    }, 2100);
+  } else {
+    desktopElement.classList.add('userAddedTextAfterDesktop');
+    setTimeout(() => {
+      desktopElement.classList.remove('userAddedTextAfterDesktop');
+    }, 2100);
+  }
 }

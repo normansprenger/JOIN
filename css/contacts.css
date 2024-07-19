@@ -303,7 +303,64 @@ main {
     background-size: 16px;
 }
 
+.userAddedTextDesktop {
+    position: fixed;
+    right: -880px;
+    bottom: 200px;
+    z-index: 10;
+    background-color: #2A3647;
+    color: white;
+    font-weight: 400;
+    font-size: 17px;
+    border-radius: 20px;
+    padding: 27px;
+    transition: right 2s ease; 
+}
+
+.userAddedTextAfterDesktop {
+    right: 880px !important;
+}
+
+.userAddedTextMobile {
+    display: none;
+}
+
+@media (max-width: 1300px) {
+    .LeftPartOverview {
+        align-items: start;
+        flex-direction: column;
+        padding-left: 25px;
+        gap: 0;
+    }
+    #dynamicContactDetails {
+        padding-left: 25px;
+    }
+}
+
 @media (max-width: 1000px) {
+    .userAddedTextDesktop {
+        display: none;
+    }
+
+    .userAddedTextMobile {
+        display: block; 
+        position: fixed;
+        left: calc(50% - 144px);
+        bottom: -200px;
+        z-index: 10;
+        background-color: #2A3647;
+        color: white;
+        font-weight: 400;
+        font-size: 17px;
+        border-radius: 20px;
+        padding: 27px;
+        transition: bottom 2s ease; 
+        }
+        
+    .userAddedTextAfterMobile {
+        bottom: 200px !important;
+    }
+
     main {
         margin-top: 80px;
     }
@@ -443,30 +500,5 @@ main {
     .contactDetails {
         max-width: 120px;
     }
-}
-
-.userAddedText{
-position: fixed;
-left: calc(50% - 144px);
-bottom: -200px;
-z-index: 10;
-background-color: #2A3647;
-color: white;
-font-weight: 400;
-font-size: 17px;
-border-radius: 20px;
-padding: 27px;
-}
-
-/*left: calc(50% - 144px);
-bottom: 200px;*/
-
-.userAddedTextAfterMobile{
-    position: fixed;
-    bottom: 200px !important;
-}
-
-#userAddedText{
-    transition: 2s ease;
 }
 
