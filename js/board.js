@@ -46,7 +46,7 @@ function changeAssignedToUsers(taskId, assignedTos) {
         <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
         <div>
         `;
-        let color = contact['color']
+        let color = contact['color'];
         document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
         document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
     }
