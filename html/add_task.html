@@ -18,78 +18,66 @@
 <body onload="includeHTML()">
     <header w3-include-html="../assets/templates/header_template.html"></header>
     <aside w3-include-html="../assets/templates/aside_template.html"></aside>
-        <main class="main-content">
-            <h1 class="main-title">Add Task</h1>
-            <form class="task-form" id="task-form">
-                <div class="form-group">
-                    <label for="title" class="input-label">Title<span class="required">*</span></label>
-                    <input type="text" id="title" class="input-box title-placeholder" placeholder="Enter a title">
+        <main>
+            <section class="addTaskMainContainer">
+                <h1 class="addTaskTitle">Add Task</h1>
+                <div class="mainAddTask">
+                    <form class="addTasksLeft">
+                        <div class="addTaskTitleContainer">
+                            <label for="title">Title<span style="color: red">*</span></label>
+                            <input type="text" id="title" name="title" placeholder="Enter a title" required>
+                        </div>
+                        <div class="addTaskDescriptionContainer">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" rows="4" cols="50" placeholder="Enter a Description"></textarea>
+                        </div>
+                        <div class="addTaskAssignedToContainer">
+                            <label for="assigned">Assigned to</label>
+                            <select onclick="renderContactsInAddTasks()" name="assigned" id="assignedTo">
+                                <!-- <img src="../assets/img/addTaskAssignedToSelect.svg"> Bild muss noch eingefügt werden mit 16px Padding nach rechts -->
+                                <option disabled selected>Select contacts to assign</option>
+                            </select>
+                        </div>
+                    </form>
+                    <form class="addTasksRight">
+                        <div class="addTaskDueDateContainer">
+                            <label for="date">Due date<span style="color: red">*</span></label>
+                            <input type="date" id="date" name="date" placeholder="yyyy/mm/dd" min="" required>
+                            <!-- Der Placeholder funktioniert leider nicht und das Tagesdatum darf nicht nach hinten angewählt werden + Kalender Bild muss eingefügt sein -->
+                        </div>
+                        <div class="addTaskPrioContainer">
+                            <p>Prio</p>
+                            <div class="addTaskPrioButtonContainer">
+                                <button id="" onclick="addPrioButtonColor()" class="buttonPrio">Urgent<img src="../assets/img/addTaskUrgentLogo.svg"></button>
+                                <button id="" onclick="addPrioButtonColor()" class="buttonPrio buttonPrioMediumOrange">Medium<img src="../assets/img/addTaskMediumLogo.svg"></button>
+                                <button id="" onclick="addPrioButtonColor()" class="buttonPrio">Low<img src="../assets/img/addTaskLowLogo.svg"></button>
+                            </div>
+                        </div>
+                        <div class="addTaskCategoryContainer">
+                            <label for="category">Category<span style="color: red">*</span></label>
+                            <select name="category" id="category" required>
+                                <option disabled selected>Select task category</option>
+                                <option value="User Story">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                            </select>
+                        </div>
+                        <div class="addTaskSubtaskContainer">
+                            <label for="subtask">Subtasks
+                                <span id="textSubtask">Please enter a text</span>
+                            </label>
+                            <input type="text" placeholder="Add new subtask" maxlength="30" id="inputSubTask">
+                            <!-- Bild + muss noch hinzugefügt werden -->
+                        </div>
+                        <div class="addTaskCreateTaskContainer">
+                                <div>
+                                    <span style="color: red">*</span><span>This field is required</span>
+                                </div>
+                                <button class="addTaskCreateTaskButton">Create Task<img src="../assets/img/check.svg"></button>
+                        </div>
+                    </form>
                 </div>
-                <div class="custom-group">
-                    <label for="description" class="input-label">Description</label>
-                    <input type="text" id="description" class="Descriptionbox" placeholder="Enter a description">
-                </div>
-                
-                <div class="form-group">
-                    <label for="assigned-to" class="input-label">Assigned to</label>
-                    <select id="assigned-to" name="assigned-to" class="select-placeholder">
-                        <option value="" disabled selected>Select contacts to assign</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="due-date" class="input-label">Due date<span class="required">*</span></label>
-                    <div class="input-container">
-                        <input type="text" id="due-date" name="due-date" class="input-box due-date-placeholder" placeholder="dd/mm/yyyy">
-                        <img src="../assets/img/calenderAddTask.svg" alt="Calendar Icon" class="icon" onclick="setTodayDate()">
-                    </div>
-                    <small id="error-message" class="error-message"></small>
-                </div>
-                
-                <div class="form-group">
-                    <label class="input-label">Prio</label>
-                    <div class="priority-options">
-                        <button type="button" class="btn secondary1">
-                            <span>Urgent</span>
-                            <img src="../assets/img/priorityUrgentBoard.svg" alt="Icon" class="btn-icon">
-                        </button>
-    
-                        <button type="button" class="btn secondary2">
-                            <span>Medium</span>
-                            <img src="../assets/img/priorityMediumBoard.svg" alt="Icon" class="btn-icon">
-                        </button>
-                        
-                        <button type="button" class="btn secondary3 longer"> 
-                            
-                            <span>Low</span>
-                            <img src="../assets/img/priorityLowBoard.svg" alt="Icon" class="btn-icon">
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="category" class="input-label">Category <span class="required">*</span></label>
-                    <select id="category" class="form-select category-placeholder" aria-label="Default select example">
-                        <option value="" disabled selected hidden>Select task category</option>
-                        <option value="1">Technical Task</option>
-                        <option value="2">User Story</option>
-                    </select>
-                </div>
-    
-                <form class="Subtask" id="task">
-                    <div class="form-group">
-                        <label for="" class="input-label">Subtasks</label>
-                        <input type="text" id="title" class="input-box title-placeholder" placeholder="Add new subtask">
-                    </div>
-    
-                <div class="container">
-                    <span class="text"><span class="required">*</span>This field is required</span>
-                    <button type="button" class="small-button">
-                        <span>Create Task</span>
-                        <img src="../assets/img/checkAddTasks.svg" alt="" class="check-icon">
-                    </button>
-                </div>
-                
-            </form>
+
+            </section>
         </main>
     <footer w3-include-html="../assets/templates/footer_template.html"></footer>    
 </body>

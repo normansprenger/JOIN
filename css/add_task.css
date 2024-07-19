@@ -20,12 +20,6 @@ body {
     filter: brightness(2);
 }
 
-main{
-    margin-top: 100px;
-    margin-bottom: 80px;
-    padding-right: 10px;
-}
-
 #desktopContainerLinkAddTask{
     background-color: #091931;
     border-radius: 8px;
@@ -38,213 +32,221 @@ main{
     filter: brightness(2);
 }
 
-.main-title {
-    font-weight: 700;
+main{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.addTaskMainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+.addTaskTitle {
+    margin-top: 48px;
+    gap: 20px;
     font-size: 47px;
-    line-height: 56.4px;
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    width: 214px
+    font-weight: 700;
 }
 
-.task-form .form-group {
-    margin-bottom: 20px;
-}
-
-.input-label {
+.mainAddTask label {
     font-size: 16px;
-    display: block;
-    margin-bottom: 5px;
+    font-weight: 400;
+    margin-bottom: 8px;
 }
 
-.input-container {
-    position: relative;
-}
-
-.input-box {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    padding-right: 30px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.Descriptionbox{
-    width: 396px;
-    height: 88px;
-    border-radius: 10px;
-    border: 1px;
-    padding:18px, 21px, 18px, 21px;
-    gap: 10px;  
-    padding-right: 30px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    margin-bottom: 30px;
-}
-
-.icon {
-    position: absolute;
-    right: 10px;
-    top: 42%;
-    transform: translateY(-50%);
-    cursor: pointer; /* Icon klickbar machen */
-    margin-right: 3%;
-}
-
-.input-label .required {
-    color: red;
-}
-
-.input-box.title-placeholder::placeholder {
-    color: #aaa;
-}
-
-.input-box.description-placeholder::placeholder {
-    color: #aaa;
-}
-
-.input-box.due-date-placeholder::placeholder {
-    color: #aaa;
-}
-
-.select-placeholder {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.category-placeholder {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-.btn.longer{
-    padding-right: 40px; /* Verlängert den rechten Button nach rechts */
-
-}
-
-.priority-options {
+.addTasksLeft {
     display: flex;
-    gap: 10px;
-    margin-top: 5px;
-    margin-bottom: 40px;
-}
-
-.btn {
-    padding: 10px 20px ;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: black;
-    cursor: pointer;
-    font-size: 16px;
-    background-color: white;
-    transition: background-color 0.1s, border-color 0.1s, color 0.1s;
-
-}
-
-.secondary1 {
-    background-color: white;
-}
-
-.secondary2 {
-    background-color: white;
-}
-
-.secondary3 {
-    background-color: white;
-}
-
-.secondary1:active {
-    background-color: red;
-    color: white;
-    border-color: red;
-    
-}
-
-.secondary2:active {
-    background-color: orange;
-    color: white;
-    border-color: orange;
-}
-
-.secondary3:active {
-    background-color: green;
-    color: white;
-    border-color: green;
-}
-
-.text .required {
-    color: red;
-}
-
-.error-message {
-    display: none;
-    color: red;
-}
-
-.container {
-    display: flex;
-    align-items: center;
-}
-
-.small-button {
-    margin-left: auto;
-    width: 183px;
-    height: 56px;
-    padding: 16px;
-    background-color: #2A3647;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-weight: 700px;
-    font-size: 21px;
-    line-height: 25.2px;
-}
-
-.custom-group .input-box {
+    flex-direction: column;
+    height: unset;
     width: 100%;
-    padding: 10px;
-    gap: 10px;
-    font-size: 16px;
-    border-radius: 10px; /* Keine abgerundeten Ecken für die Eingabefelder */
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    height: 88px; /* Höhe der Eingabefelder innerhalb der Gruppe */
-    text-align: left;
-    align-items: flex-start; /* Text oben ausrichten */
-    justify-content: flex-start; /* Text links ausrichten */
 }
 
-.btn-icon {
-    width: 20px; /* Breite des Icons anpassen */
-    height: 14,51; /* Höhe des Icons anpassen */
-    margin-left: 5px; /* Abstand zwischen dem Text und dem Icon */
-    vertical-align: middle; /* Vertikal zentrieren */
-    
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.button-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-button {
+    background-color: white;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 16px;
+    width: 2px;
+}
+
+::-webkit-scrollbar-button:end:increment {
+    background-image: url(../assets/img/scrollbarDown.svg)
+}
+
+::-webkit-scrollbar-button:start:decrement {
+   background-image: url(../assets/img/scrollbarUp.svg)
+}
+
+@media (max-width: 1000px) {
+    .addTaskTitleContainer,
+    .addTaskDescriptionContainer,
+    .addTaskAssignedToContainer,
+    .addTaskDueDateContainer,
+    .addTaskPrioContainer,
+    .addTaskCategoryContainer,
+    .addTaskSubtaskContainer {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+    }
+
+    .addTaskTitleContainer input {
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        transition: border-color 0.3s;
+        padding: 10px 21px 10px 21px;
+        font-size: 16px;
+    }
+
+    .addTaskTitleContainer input:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskDescriptionContainer textarea {
+        height: 88px;
+        padding: 18px 21px 18px 21px;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        resize: none;
+        margin-bottom: 10px;
+        font-family: 'Inter';
+        font-size: 16px;
+    }
+
+    .addTaskDescriptionContainer textarea:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskAssignedToContainer select {
+        justify-content: space-between;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        transition: border-color 0.3s;
+        padding: 12px 16px 12px 16px;
+        font-size: 16px;
+    }
+
+    .addTaskAssignedToContainer select:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskDueDateContainer input {
+        justify-content: space-between;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        transition: border-color 0.3s;
+        padding: 8px 21px 8px 21px;
+        font-size: 16px;
+    }
+
+    .addTaskDueDateContainer input:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskPrioButtonContainer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .buttonPrio {
+        height: 41px;
+        border-radius: 10px;
+        padding: 18px 10px 18px 10px;
+        margin-bottom: 8px;
+        border: 1px solid #D1D1D1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        background-color: white;
+        width: 100%;
+        gap: 8px;
+        font-weight: 400;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .buttonPrio:hover {
+        cursor: pointer;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .buttonPrioMediumOrange {
+        background-color: #FFA800 !important; 
+        color: white !important;
+        font-weight: 700 !important;
+    }
+
+    .addTaskCategoryContainer select {
+        justify-content: space-between;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        transition: border-color 0.3s;
+        padding: 12px 16px 12px 16px;
+        font-size: 16px;
+    }
+
+    .addTaskCategoryContainer select:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskSubtaskContainer input {
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        transition: border-color 0.3s;
+        padding: 10px 21px 10px 21px;
+        font-size: 16px;
+    }
+
+    .addTaskSubtaskContainer input:focus {
+        border-color: #29ABE2; 
+        outline: none; 
+    }
+
+    .addTaskCreateTaskContainer {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .addTaskCreateTaskButton {
+        background-color: #2A3647;
+        color: white;
+        border-radius: 10px;
+        padding: 16px;
+        font-size: 21px;
+        font-weight: 700;
+        cursor: pointer;
+        gap: 4px;
+        border: none;
+    }
+
+    .addTaskCreateTaskButton:hover {
+        background-color: #29ABE2;
+    }
 }
