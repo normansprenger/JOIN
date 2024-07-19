@@ -76,8 +76,14 @@ function draggingStart(id) {
 //    renderTasksBoard();
 //}
 
-
 function renderEmptyTask(taskStatus) {
+    let elements = document.querySelectorAll('div.noTaskContainer');
+    
+    // Über alle ausgewählten Elemente iterieren
+    elements.forEach(function(element) {
+        // Die Klasse dnone zu jedem Element hinzufügen
+        element.classList.add('dnone');
+    });
     if (taskStatus == 'toDo') {
         document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
           <div class="emptyTask"></div>  
