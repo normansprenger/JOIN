@@ -65,16 +65,41 @@ function findContactById(contacts, id) {
 
 
 function draggingStart(id) {
+    clearNoTaskContainers();
     currentDragElement = id;
     document.getElementById(`${id}`).classList.add('rotate-5deg');
     let taskStatus = tasks.find(task => task.id === id)?.status;
     renderEmptyTask(taskStatus);
 }
 
-//function draggingEnd(id) {
-//    document.getElementById(`${id}`).classList.remove('rotate-5deg');
-//    renderTasksBoard();
-//}
+function draggingEnd(id) {
+    document.getElementById(`${id}`).classList.remove('rotate-5deg');
+    renderTasksBoard();
+}
+
+
+function clearNoTaskContainers() {
+    // Alle div-Elemente mit der Klasse noTaskContainer auswählen
+    var elements = document.querySelectorAll('div.noTaskContainer');
+
+    // Über alle ausgewählten Elemente iterieren
+    elements.forEach(function (element) {
+        // Die Klasse dnone zu jedem Element hinzufügen
+        element.classList.add('dnone');
+    });
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function moveTo(category) {
+    let task = tasks.find(task => task.id === currentDragElement);
+    task['status'] = category;
+    saveTasks();
+    renderTasksBoard();
+}
+
 
 function renderEmptyTask(taskStatus) {
     if (taskStatus == 'toDo') {
@@ -87,7 +112,7 @@ function renderEmptyTask(taskStatus) {
         document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
         <div class="emptyTask"></div>  
         `;
-    } else if (taskStatus == 'inProgress'){
+    } else if (taskStatus == 'inProgress') {
         document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
           <div class="emptyTask"></div>  
         `;
@@ -97,7 +122,7 @@ function renderEmptyTask(taskStatus) {
         document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
         <div class="emptyTask"></div>  
         `;
-    } else if (taskStatus == 'awaitingFeedback'){
+    } else if (taskStatus == 'awaitingFeedback') {
         document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
           <div class="emptyTask"></div>  
         `;
@@ -107,7 +132,7 @@ function renderEmptyTask(taskStatus) {
         document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
         <div class="emptyTask"></div>  
         `;
-    } else if (taskStatus == 'done'){
+    } else if (taskStatus == 'done') {
         document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
           <div class="emptyTask"></div>  
         `;
@@ -120,16 +145,6 @@ function renderEmptyTask(taskStatus) {
     }
 }
 
-function allowDrop(ev) {
-    ev.preventDefault();
-  }
-
-function moveTo(category){
-    let task = tasks.find(task => task.id === currentDragElement);
-    task['status'] = category;
-    saveTasks();
-    renderTasksBoard();
-}
 
 
 //let tasks = [
