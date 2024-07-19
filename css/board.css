@@ -133,6 +133,7 @@ main {
     gap: 16px;
     cursor: pointer;
     min-height: 20px;
+    padding: 10px;
 }
 
 .task {
@@ -148,6 +149,7 @@ main {
     align-items: start;
     padding: 16px;
     transition: 0.2s ease;
+    z-index: 100;
 }
 
 .emptyTask{

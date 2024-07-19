@@ -1,6 +1,6 @@
 let filteredTasks = [];
 let InProgress = [];
-let currentDragElement;
+let currentDragElement = [];
 
 async function init() {
     await includeHTML();
@@ -66,7 +66,7 @@ function findContactById(contacts, id) {
 
 function draggingStart(id) {
     currentDragElement = id;
-    document.getElementById(`${id}`).classList.add('rotate-5deg')
+    document.getElementById(`${id}`).classList.add('rotate-5deg');
     let taskStatus = tasks.find(task => task.id === id)?.status;
     renderEmptyTask(taskStatus);
 }
@@ -77,13 +77,6 @@ function draggingStart(id) {
 //}
 
 function renderEmptyTask(taskStatus) {
-    let elements = document.querySelectorAll('div.noTaskContainer');
-    
-    // Über alle ausgewählten Elemente iterieren
-    elements.forEach(function(element) {
-        // Die Klasse dnone zu jedem Element hinzufügen
-        element.classList.add('dnone');
-    });
     if (taskStatus == 'toDo') {
         document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
           <div class="emptyTask"></div>  

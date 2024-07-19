@@ -7,7 +7,7 @@ function renderTasksBoard() {
 
 function renderTodosBoard() {
     document.getElementById('taskContainerContentToDo').innerHTML = ``;
-    filteredTasks = tasks.filter(task => task.status === "toDo"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
+    filteredTasks = tasks.filter(task => task.status === "toDo");
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentToDo').innerHTML =/*html*/ `
         <div class="noTaskContainer">
@@ -48,7 +48,7 @@ function renderTodosBoard() {
 
 function renderInProgressBoard() {
     document.getElementById('taskContainerContentInProgress').innerHTML = ``;
-    filteredTasks = tasks.filter(task => task.status === "inProgress"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
+    filteredTasks = tasks.filter(task => task.status === "inProgress"); 
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentInProgress').innerHTML =/*html*/ `
         <div class="noTaskContainer">
@@ -89,7 +89,7 @@ function renderInProgressBoard() {
 
 function renderAwaitFeedbackBoard() {
     document.getElementById('taskContainerContentAwaitFeedback').innerHTML = ``;
-    filteredTasks = tasks.filter(task => task.status === "awaitingFeedback"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
+    filteredTasks = tasks.filter(task => task.status === "awaitingFeedback");
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentAwaitFeedback').innerHTML =/*html*/ `
         <div class="noTaskContainer">
@@ -130,7 +130,7 @@ function renderAwaitFeedbackBoard() {
 
 function renderDoneBoard() {
     document.getElementById('taskContainerContentDone').innerHTML = ``;
-    filteredTasks = tasks.filter(task => task.status === "done"); //sucht alle Tasks mit status toDo und schreibt sie in filteredTasks
+    filteredTasks = tasks.filter(task => task.status === "done");
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentDone').innerHTML =/*html*/ `
         <div class="noTaskContainer">
