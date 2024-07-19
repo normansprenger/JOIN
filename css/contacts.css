@@ -444,3 +444,29 @@ main {
         max-width: 120px;
     }
 }
+
+.userAddedText{
+position: fixed;
+left: calc(50% - 144px);
+bottom: -200px;
+z-index: 10;
+background-color: #2A3647;
+color: white;
+font-weight: 400;
+font-size: 17px;
+border-radius: 20px;
+padding: 27px;
+}
+
+/*left: calc(50% - 144px);
+bottom: 200px;*/
+
+.userAddedTextAfterMobile{
+    position: fixed;
+    bottom: 200px !important;
+}
+
+#userAddedText{
+    transition: 2s ease;
+}
+

@@ -154,13 +154,13 @@ function createContactDetailsHeader(contact) {
       <div class="ContactDetailsContainer">
         <h2>${contact.name}</h2>
         <div class="EditDeleteContainer">
-          <div class="edit">
+          <div class="edit" onclick="openEditContactPopUp(${contact.id})">
             <img src="../assets/img/edit.svg" alt="Edit">
-            <p onclick="openEditContactPopUp(${contact.id})">Edit</p>  
+            <p >Edit</p>  
           </div>
-          <div class="delete">
+          <div class="delete" onclick="deleteContact(${contact.id})">
             <img src="../assets/img/delete.svg" alt="Delete">
-            <p onclick="deleteContact(${contact.id})">Delete</p>
+            <p >Delete</p>
           </div>
         </div>
       </div>
@@ -500,6 +500,7 @@ async function createContact(event) {
     await pushContacts();
     renderContacts();
     closeAddContactPopUp();
+    renderContacts();
     window.location.href = "contacts.html";
   } catch (error) {
     console.error("Fehler beim Erstellen des Kontakts:", error);
@@ -535,5 +536,11 @@ function chooseAddedUser() {
       .scrollIntoView({ behavior: "smooth", block: "start" });
     userId = "";
     sessionStorage.setItem("userId", userId);
+    showAddedMessage();
   }
+}
+
+function showAddedMessage(){
+  document.getElementById('userAddedText').classList.add('userAddedTextAfterMobile');
+  setTimeout(()=>{document.getElementById('userAddedText').classList.remove('userAddedTextAfterMobile');},2100)
 }
