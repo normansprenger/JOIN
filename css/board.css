@@ -132,6 +132,7 @@ main {
     flex-direction: row;
     gap: 16px;
     cursor: pointer;
+    min-height: 20px;
 }
 
 .task {
@@ -253,7 +254,7 @@ main {
 }
 
 .dnone {
-    display: none;
+    display: none !important;
 }
 
 .CFF7A00 {

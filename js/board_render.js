@@ -11,14 +11,14 @@ function renderTodosBoard() {
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentToDo').innerHTML =/*html*/ `
         <div class="noTaskContainer">
-            <span class="noTaskText">No tasks to do</span>
+            <span class="noTaskText">No tasks in progress</span>
         </div>
         `
     } else {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentToDo').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -34,14 +34,13 @@ function renderTodosBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <div id="priority${taskId}" src="../assets/img/priorityLowBoard.svg" class="taskPriority"></div>
+                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
-            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }
@@ -60,7 +59,7 @@ function renderInProgressBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -101,7 +100,7 @@ function renderAwaitFeedbackBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
@@ -135,14 +134,14 @@ function renderDoneBoard() {
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentDone').innerHTML =/*html*/ `
         <div class="noTaskContainer">
-            <span class="noTaskText">No tasks awaiting Feedback</span>
+            <div class="noTaskText">No tasks done</div>
         </div>
         `
     } else {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentDone').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})">
                     <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
