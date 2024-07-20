@@ -256,3 +256,10 @@ main{
         background-color: #29ABE2;
     }
 }
+
+@media (max-width: 400px) {
+    .addTaskPrioButtonContainer {
+        gap: 8px;
+        flex-direction: column;
+    }
+}
