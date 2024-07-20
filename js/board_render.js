@@ -40,7 +40,7 @@ function renderTodosBoard() {
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
@@ -82,7 +82,7 @@ function renderInProgressBoard() {
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
@@ -124,7 +124,7 @@ function renderAwaitFeedbackBoard() {
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
@@ -166,7 +166,7 @@ function renderDoneBoard() {
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changeAssignedTos(taskId, filteredTasks[i]['assignedTo'])
             changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }

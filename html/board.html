@@ -69,11 +69,12 @@
         </div>
     </main>
     <footer w3-include-html="../assets/templates/footer_template.html"></footer>
-    <div class="dialogBackground" id="dialogBackground">
-        <div class="singleTask">
+    <div class="dialogBackground dnone" id="dialogBackground" onclick="closeSingleView(event)">
+        <div class="singleTask" id="singleTask" onclick="stopPropagation(event)">
             <div class="singleTaskHead">
                 <div class="singleTaskCategory">User Story</div>
-                <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg">
+                <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg"
+                    onclick="closeSingleView(event)">
             </div>
             <div class="singleTaskTitle">Kochwelt Page & Recipe</div>
             <div>Build starte Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, consequatur.</div>

@@ -37,7 +37,7 @@ function changeProgressInfos(taskId, subTasks) {
     }
 }
 
-function changeAssignedToUsers(taskId, assignedTos) {
+function changeAssignedTos(taskId, assignedTos) {
     document.getElementById(`assignedTo${taskId}`).innerHTML = ``;
     for (let i = 0; i < assignedTos.length; i++) {
         let userId = assignedTos[i];
@@ -145,7 +145,80 @@ function renderEmptyTask(taskStatus) {
     }
 }
 
+function closeSingleView(event) {
+    if (event.target === event.currentTarget) {
+        document.getElementById('dialogBackground').classList.add('dnone');
+        document.getElementById('singleTask').classList.remove('singleTaskEndposition');
+    }
+}
 
+function stopPropagation(event) {
+    event.stopPropagation;
+}
+
+function showTask(taskId){
+    renderSingleTask(taskId);
+    document.getElementById('dialogBackground').classList.remove('dnone');
+    setTimeout(()=>{document.getElementById('singleTask').classList.add('singleTaskEndposition')},0);
+
+}
+
+function renderSingleTask(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    let taskpriority = task['priority'].charAt(0).toUpperCase()  + task['priority'].slice(1);;
+    document.getElementById('singleTask').innerHTML = /*html*/`
+            <div class="singleTaskHead">
+                <div class="singleTaskCategory">${task['category']}</div>
+                <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
+            </div>
+            <div class="singleTaskTitle">${task['title']}</div>
+            <div>${task['description']}</div>
+            <div class="singleTaskDueDate">
+                <div>Due Date:</div>
+                <div>${task['dueDate']}</div>
+            </div>
+            <div class="singleTaskPriority">
+                <div>Priority:</div>
+                <div class="singleTaskPrioritySub">
+                    <div>${taskpriority}</div>
+                    <div class="singleTaskPriorityImg class${task['priority']}"></div>
+                </div>
+            </div>
+            <div id="singleTaskAssignedTo" class="singleTaskAssignedTo">AssignedTo</div>
+            <div class="singleTaskSubTasks">Subtasks</div>
+            <div class="singleTaskDeleteEdit">
+                <div class="singleTaskDelete">
+                    <img src="../assets/img/delete.svg" alt="">
+                    <div>Delete</div>
+                </div>
+                <div class="singleTaskDeleteEditSeparator">
+
+                </div>
+                <div class="singleTaskDelete">
+                    <img src="../assets/img/edit.svg" alt="">
+                    <div>Edit</div>
+                </div>
+    `;
+    renderAssignedToSingleTask(task);
+}
+
+function renderAssignedToSingleTask(task) {
+    let taskId = task['id'];
+    let assignedTos = task['assignedTo']
+    document.getElementById(`singleTaskAssignedTo`).innerHTML = ``;
+    for (let i = 0; i < assignedTos.length; i++) {
+        let userId = assignedTos[i];
+        let contact = findContactById(contacts, userId);
+        document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
+        <div class="userIcon" id="userIcon${taskId}${i}">
+        <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
+        <div>
+        `;
+        let color = contact['color'];
+        document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
+        document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
+    }
+}
 
 //let tasks = [
 //    {

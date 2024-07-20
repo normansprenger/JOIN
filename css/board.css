@@ -411,6 +411,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
 }
 
@@ -428,6 +429,14 @@ main {
     margin-right: 10px;
     font-size: 16px;
     font-weight: 400;
+    cursor:auto;
+    position: relative;
+    right: -100vw;
+    transition: 0.3s ease;
+}
+
+.singleTaskEndposition{
+    right: 0 !important;
 }
 
 .singleTaskHead {
@@ -487,7 +496,6 @@ main {
 }
 
 .singleTaskPriorityImg {
-    background-image: url(../assets/img/priorityLowBoard.svg);
     height: 32px;
     width: 32px;
 }
