@@ -168,7 +168,7 @@ function renderSingleTask(taskId){
     let taskpriority = task['priority'].charAt(0).toUpperCase()  + task['priority'].slice(1);;
     document.getElementById('singleTask').innerHTML = /*html*/`
             <div class="singleTaskHead">
-                <div class="singleTaskCategory">${task['category']}</div>
+                <div id="singleTaskCategory" class="singleTaskCategory">${task['category']}</div>
                 <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
             </div>
             <div class="singleTaskTitle">${task['title']}</div>
@@ -199,24 +199,42 @@ function renderSingleTask(taskId){
                     <div>Edit</div>
                 </div>
     `;
-    renderAssignedToSingleTask(task);
+    changeSingleTaskCategoryColor(task);
+    renderSingleTaskAssignedTo(task);
 }
 
-function renderAssignedToSingleTask(task) {
-    let taskId = task['id'];
+function changeSingleTaskCategoryColor(task) {
+    category = task['category'];
+    let color = '';
+    if (category === "User Story") {
+        color = 'userStoryColor'
+    }
+    else if (category === 'Technical Tasks') {
+        color = 'technicalTaskColor';
+    }
+    document.getElementById(`singleTaskCategory`).classList.add(`${color}`);
+}
+
+function renderSingleTaskAssignedTo(task) {
     let assignedTos = task['assignedTo']
-    document.getElementById(`singleTaskAssignedTo`).innerHTML = ``;
+    document.getElementById(`singleTaskAssignedTo`).innerHTML = `
+    <div>Assigned to:</div>
+    `;
     for (let i = 0; i < assignedTos.length; i++) {
         let userId = assignedTos[i];
         let contact = findContactById(contacts, userId);
         document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
-        <div class="userIcon" id="userIcon${taskId}${i}">
-        <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
-        <div>
+        <div class="singleTaskAssignedToSub">
+            <div class="userIcon" id="userIcon${i}">
+                <div class="userInitials" id="userInitials${i}"></div>
+            <div>
+            <div class="singleTaskUserName" id="userName${i}"></div>
+        </div>
         `;
         let color = contact['color'];
-        document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
-        document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
+        document.getElementById(`userIcon${i}`).classList.add(`${color}`.replace("#", 'C'));
+        document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
+        document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
     }
 }
 

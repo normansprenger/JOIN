@@ -449,7 +449,6 @@ main {
     font-size: 16px;
     font-weight: 400;
     color: white;
-    background-color: black;
     padding: 4px 16px;
     border-radius: 8px;
 }
@@ -499,6 +498,24 @@ main {
     height: 32px;
     width: 32px;
 }
+
+.singleTaskAssignedTo{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.singleTaskAssignedToSub{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+
+
+
+
 
 .singleTaskDeleteEdit {
     display: flex;
