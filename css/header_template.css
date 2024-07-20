@@ -29,7 +29,7 @@ header {
 
 .headerContainerLeftImg {
     width: 32px;
-    padding-left: 10px;
+    padding-left: 16px;
 }
 
 .headerContainerRight {
@@ -47,7 +47,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 16px;
     color: #29ABE2;
     font-weight: bold;
     font-size: 15px;
