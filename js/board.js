@@ -156,16 +156,16 @@ function stopPropagation(event) {
     event.stopPropagation;
 }
 
-function showTask(taskId){
+function showTask(taskId) {
     renderSingleTask(taskId);
     document.getElementById('dialogBackground').classList.remove('dnone');
-    setTimeout(()=>{document.getElementById('singleTask').classList.add('singleTaskEndposition')},0);
+    setTimeout(() => { document.getElementById('singleTask').classList.add('singleTaskEndposition') }, 0);
 
 }
 
-function renderSingleTask(taskId){
+function renderSingleTask(taskId) {
     let task = tasks.find(task => task.id === taskId);
-    let taskpriority = task['priority'].charAt(0).toUpperCase()  + task['priority'].slice(1);;
+    let taskpriority = task['priority'].charAt(0).toUpperCase() + task['priority'].slice(1);;
     document.getElementById('singleTask').innerHTML = /*html*/`
             <div class="singleTaskHead">
                 <div id="singleTaskCategory" class="singleTaskCategory">${task['category']}</div>
@@ -185,7 +185,7 @@ function renderSingleTask(taskId){
                 </div>
             </div>
             <div id="singleTaskAssignedTo" class="singleTaskAssignedTo">AssignedTo</div>
-            <div class="singleTaskSubTasks">Subtasks</div>
+            <div id="singleTaskSubTasks" class="singleTaskSubTasks">Subtasks</div>
             <div class="singleTaskDeleteEdit">
                 <div class="singleTaskDelete">
                     <img src="../assets/img/delete.svg" alt="">
@@ -198,9 +198,11 @@ function renderSingleTask(taskId){
                     <img src="../assets/img/edit.svg" alt="">
                     <div>Edit</div>
                 </div>
+            </div>
     `;
     changeSingleTaskCategoryColor(task);
     renderSingleTaskAssignedTo(task);
+    renderSingleTaskSubtasks(task);
 }
 
 function changeSingleTaskCategoryColor(task) {
@@ -227,7 +229,7 @@ function renderSingleTaskAssignedTo(task) {
         <div class="singleTaskAssignedToSub">
             <div class="userIcon" id="userIcon${i}">
                 <div class="userInitials" id="userInitials${i}"></div>
-            <div>
+            </div>
             <div class="singleTaskUserName" id="userName${i}"></div>
         </div>
         `;
@@ -236,6 +238,21 @@ function renderSingleTaskAssignedTo(task) {
         document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
         document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
     }
+}
+
+function renderSingleTaskSubtasks(task) {
+    document.getElementById('singleTaskSubTasks').innerHTML = `
+    <div>Subtasks:</div>
+    `
+    let subTasks = task['subTasks'];
+    if (subTasks.length > 0) {
+        document.getElementById('singleTaskSubTasks').innerHTML += `
+        
+        `
+    } else {
+        document.getElementById('singleTaskSubTasks').innerHTML = '';
+    }
+
 }
 
 //let tasks = [
