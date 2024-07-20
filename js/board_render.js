@@ -34,13 +34,14 @@ function renderTodosBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+                                <div id="priority${taskId}" class="taskPriority"></div>
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }
@@ -75,13 +76,14 @@ function renderInProgressBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+                                <div id="priority${taskId}" class="taskPriority"></div>
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }
@@ -116,13 +118,14 @@ function renderAwaitFeedbackBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+                                <div id="priority${taskId}" class="taskPriority"></div>
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
-            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo']);
+            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }
@@ -157,13 +160,14 @@ function renderDoneBoard() {
                                         <div class="userInitials">NS</div>
                                     </div>
                                 </div>
-                                <img src="../assets/img/priorityLowBoard.svg" class="taskPriority">
+                                <div id="priority${taskId}" class="taskPriority"></div>
                             </div>
                         </div>
                 `;
             changeCategoryColor(taskId, filteredTasks[i]['category']);
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedToUsers(taskId, filteredTasks[i]['assignedTo'])
+            changePriorityImg(taskId, filteredTasks[i]['priority']);
         }
     }
 }
