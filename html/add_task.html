@@ -46,7 +46,7 @@
                     <form class="addTasksRight">
                         <div class="addTaskDueDateContainer">
                             <label for="date">Due date<span style="color: red">*</span></label>
-                            <input type="date" id="date" name="date" placeholder="yyyy/mm/dd" min="" required>
+                            <input type="date" id="dateInput" name="date" placeholder="yyyy/mm/dd" min={dateTimeLocal} required>
                             <!-- Der Placeholder funktioniert leider nicht und das Tagesdatum darf nicht nach hinten angewählt werden + Kalender Bild muss eingefügt sein -->
                         </div>
                         <div class="addTaskPrioContainer">

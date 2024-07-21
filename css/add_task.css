@@ -151,6 +151,21 @@ main{
     outline: none; 
 }
 
+#dateInput {
+    background-image: url(../assets/img/calenderAddTask.svg);
+    background-size: 20px;
+    background-position: right 16px center;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px; 
+    z-index: 999;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;  /*  Kalender nun weg, jedoch auch die funktion um denn Kalender zu öffnen! */
+}
+
 .addTaskPrioButtonContainer {
     display: flex;
     justify-content: space-between;
