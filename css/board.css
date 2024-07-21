@@ -542,3 +542,34 @@ main {
     height: 24px;
     background-color: #D1D1D1;
 }
+
+.singleTaskSubTasks{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.subTask{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.subTaskCheckImg{
+    height: 24px;
+    width: 24px;
+}
+
+.subTaskCheckImg:hover{
+    transform: scale(1.03);
+    cursor: pointer;
+}
+
+.subTaskCompletedfalse{
+    background-image: url(../assets/img/checkEmpty.svg);
+}
+
+.subTaskCompletedtrue{
+    background-image: url(../assets/img/checked.svg);
+}
