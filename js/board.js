@@ -155,6 +155,7 @@ function closeSingleView(event) {
     if (event.target === event.currentTarget) {
         document.getElementById('dialogBackground').classList.add('dnone');
         document.getElementById('singleTask').classList.remove('singleTaskEndposition');
+        document.getElementById('body').classList.add('overFlowAuto');
     }
 }
 
@@ -168,6 +169,7 @@ function showTask(taskId) {
     renderSingleTask(taskId);
     document.getElementById('dialogBackground').classList.remove('dnone');
     setTimeout(() => { document.getElementById('singleTask').classList.add('singleTaskEndposition') }, 0);
+    document.getElementById('body').classList.remove('overFlowAuto');
 
 }
 
@@ -203,7 +205,7 @@ function renderSingleTask(taskId) {
                 <div class="singleTaskDeleteEditSeparator">
 
                 </div>
-                <div class="singleTaskDelete">
+                <div class="singleTaskDelete" onclick="editTask(${taskId})">
                     <img src="../assets/img/edit.svg" alt="">
                     <div>Edit</div>
                 </div>
@@ -298,4 +300,9 @@ function deleteTask(taskId){
     tasks = tasks.filter(task => task.id !== taskId);
     saveTasks();
     location.reload();
+}
+
+function editTask(taskId){
+    document.getElementById('singleTask').innerHTML= ``;
+    
 }

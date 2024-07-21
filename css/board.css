@@ -8,7 +8,10 @@ body {
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
-    overflow: auto !important;
+}
+
+.overFlowAuto{
+    overflow: auto! important;
 }
 
 #asideMiddleLinkBoard {
@@ -573,3 +576,4 @@ main {
 .subTaskCompletedtrue{
     background-image: url(../assets/img/checked.svg);
 }
+
