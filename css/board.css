@@ -638,12 +638,14 @@ main {
     flex-direction: column;
 }
 
-#ContactsDropDown{
-    border-radius: 10px;
-    border: 1px solid #D1D1D1;
+#contactsDropDown{
+    border: unset;
     font-size: 16px;
-    padding: 12px 21px;
-    width: calc(100%-42px);
+    flex: 1;
+}
+
+#contactsDropDown:focus{
+    outline: none;
 }
 
 .editAssignedTosChosen{
@@ -724,3 +726,54 @@ main {
 .whiteningFilter{
     filter: brightness(0) invert(1);
 }
+
+.optionLeft{
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.editTaskAssignedUserInitials{
+    color: white;
+    font-size: 12px;
+}
+
+.editTaskAssignedUserIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+}
+
+
+.contactsDropDownInputContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+}
+
+.openCloseChoosingListImg{
+    background-image: url(../assets/img/arrowDropDown.svg);
+    height: 24px;
+    width: 24px;
+}
+
+#choosingList{
+    width: calc(100%-2px);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #D1D1D1;
+    min-height: 70px;
+    margin-top: -50px;
+    border-radius: 10px;
+}
+
+

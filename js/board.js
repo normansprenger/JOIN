@@ -332,10 +332,12 @@ function editTask(taskId) {
             </div>
         </div>
         <div class="editAssignedTo">
-            <label for="ContactsDropDown">AssignedTo</label>
-            <select name="Contacts" id="ContactsDropDown" aria-placeholder="SelectContacts to assign">
-            <option value="" disabled selected>Select Contacts to assign</option>
-            </select>
+            <label for="contactsDropDown">AssignedTo</label>
+            <div class="contactsDropDownInputContainer">
+                <input placeholder="Select contacts to assign" type="text" id="contactsDropDown">
+                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()"></div>
+            </div>
+            <div id="choosingList" class="choosingList dnone" id></div>
             <div class="editAssignedTosChosen">
                 <div class="userIcon">
                     <div class="userInitials"></div>
@@ -353,9 +355,11 @@ function editTask(taskId) {
     </form>
     `;
     getPreloadedInputValues(taskId);
+    getPreloadedPriority(taskId);
+    //getPreloadedAssignedTo(taskId);
 }
 
-function getPreloadedInputValues(taskId){
+function getPreloadedInputValues(taskId) {
     let task = tasks.find(task => task.id === taskId);
     let preloadedTitle = task['title'];
     document.getElementById('editTitle').value = preloadedTitle;
@@ -363,27 +367,32 @@ function getPreloadedInputValues(taskId){
     document.getElementById('editDescription').value = preloadedDescription;
     let preloadedDueDate = task['dueDate'];
     document.getElementById('editDueDate').value = preloadedDueDate;
+}
+
+function getPreloadedPriority(taskId) {
+    let task = tasks.find(task => task.id === taskId);
     let preloadedPriority = task['priority'];
-    if (preloadedPriority == 'urgent'){
+    if (preloadedPriority == 'urgent') {
         changeChosenPriorityToUrgent();
-    } else if(preloadedPriority == 'medium'){
+    } else if (preloadedPriority == 'medium') {
         changeChosenPriorityToMedium();
     } else {
         changeChosenPriorityToLow();
     }
 }
 
-function changeChosenPriorityToUrgent(){
- chosenPriority = 'urgent';
- document.getElementById('prioritySubUrgent').classList.add('backgroundColorUrgent');
- document.getElementById('editPriorityUrgentImg').classList.add('whiteningFilter');
- document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
- document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
- document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
- document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
+
+function changeChosenPriorityToUrgent() {
+    chosenPriority = 'urgent';
+    document.getElementById('prioritySubUrgent').classList.add('backgroundColorUrgent');
+    document.getElementById('editPriorityUrgentImg').classList.add('whiteningFilter');
+    document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
+    document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
+    document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
+    document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
 }
 
-function changeChosenPriorityToMedium(){
+function changeChosenPriorityToMedium() {
     chosenPriority = 'medium';
     document.getElementById('prioritySubMedium').classList.add('backgroundColorMedium');
     document.getElementById('editPriorityMediumImg').classList.add('whiteningFilter');
@@ -391,9 +400,9 @@ function changeChosenPriorityToMedium(){
     document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
     document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
     document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
-   }
+}
 
-function changeChosenPriorityToLow(){
+function changeChosenPriorityToLow() {
     chosenPriority = 'low';
     document.getElementById('prioritySubLow').classList.add('backgroundColorLow');
     document.getElementById('editPriorityLowImg').classList.add('whiteningFilter');
@@ -401,5 +410,13 @@ function changeChosenPriorityToLow(){
     document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
     document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
     document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
-   }
+}
 
+function toggleShowChoosingList(){
+    let list = document.getElementById('choosingList');
+    if (list.classList.contains('dnone')){
+        list.classList.remove('dnone')
+    }else{
+        list.classList.add('dnone')
+    }
+}
