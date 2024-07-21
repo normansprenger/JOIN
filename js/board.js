@@ -1,6 +1,7 @@
 let filteredTasks = [];
 let InProgress = [];
 let currentDragElement = [];
+let chosenPriority;
 
 
 async function init() {
@@ -313,21 +314,21 @@ function editTask(taskId) {
         <input id="editDueDate"
                name="editDueDate"
                type="date"
-               min="2024-01-01"
+               min="2022-01-01"
                step="1">
         <label for="editPriority">Priority</label>
         <div class="editPriority" name="editPriority">
-            <div class="prioritySub">
-                <div class="editPriorityText">Urgent</div>
-                <img src="../assets/img/priorityUrgentBoard.svg" alt="">
+            <div class="prioritySub" id="prioritySubUrgent" onclick="changeChosenPriorityToUrgent()">
+                <div class="editPriorityText" id="editPriorityUrgentText">Urgent</div>
+                <div class="priorityUrgentImgNormal" id="editPriorityUrgentImg"></div>
             </div>
-            <div class="prioritySub">
-                <div class="editPriorityText">Medium</div>
-                <img src="../assets/img/priorityMediumBoard.svg" alt="">
+            <div class="prioritySub" id="prioritySubMedium" onclick="changeChosenPriorityToMedium()">
+                <div class="editPriorityText" id="editPriorityMediumText">Medium</div>
+                <div class="priorityMediumImgNormal" id="editPriorityMediumImg"></div>
             </div>
-            <div class="prioritySub">
-                <div class="editPriorityText">Low</div>
-                <img src="../assets/img/priorityLowBoard.svg" alt="">
+            <div class="prioritySub" id="prioritySubLow" onclick="changeChosenPriorityToLow()">
+                <div class="editPriorityText"id="editPriorityUrgentText">Low</div>
+                <div class="priorityLowImgNormal" id="editPriorityLowImg"></div>
             </div>
         </div>
         <div class="editAssignedTo">
@@ -360,4 +361,45 @@ function getPreloadedInputValues(taskId){
     document.getElementById('editTitle').value = preloadedTitle;
     let preloadedDescription = task['description'];
     document.getElementById('editDescription').value = preloadedDescription;
+    let preloadedDueDate = task['dueDate'];
+    document.getElementById('editDueDate').value = preloadedDueDate;
+    let preloadedPriority = task['priority'];
+    if (preloadedPriority == 'urgent'){
+        changeChosenPriorityToUrgent();
+    } else if(preloadedPriority == 'medium'){
+        changeChosenPriorityToMedium();
+    } else {
+        changeChosenPriorityToLow();
+    }
 }
+
+function changeChosenPriorityToUrgent(){
+ chosenPriority = 'urgent';
+ document.getElementById('prioritySubUrgent').classList.add('backgroundColorUrgent');
+ document.getElementById('editPriorityUrgentImg').classList.add('whiteningFilter');
+ document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
+ document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
+ document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
+ document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
+}
+
+function changeChosenPriorityToMedium(){
+    chosenPriority = 'medium';
+    document.getElementById('prioritySubMedium').classList.add('backgroundColorMedium');
+    document.getElementById('editPriorityMediumImg').classList.add('whiteningFilter');
+    document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
+    document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
+    document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
+    document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
+   }
+
+function changeChosenPriorityToLow(){
+    chosenPriority = 'low';
+    document.getElementById('prioritySubLow').classList.add('backgroundColorLow');
+    document.getElementById('editPriorityLowImg').classList.add('whiteningFilter');
+    document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
+    document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
+    document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
+    document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
+   }
+

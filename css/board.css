@@ -423,7 +423,7 @@ main {
     display: flex;
     flex-direction: column;
     min-width: 240px;
-    max-width: 525px;
+    max-width: 475px;
     border-radius: 30px;
     box-shadow: 0px 0px 4px 0px #00000029;
     gap: 16px;
@@ -436,6 +436,7 @@ main {
     position: relative;
     right: -100vw;
     transition: 0.3s ease;
+    width: 100%;
 }
 
 .singleTaskEndposition{
@@ -584,19 +585,24 @@ main {
 
 .editPriority{
     display: flex;
-    justify-content:center;
-    gap: 16px;
+    justify-content:space-between;
 }
 
 .prioritySub{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     box-shadow: 0px 0px 4px 0px #0000001A;
     border-radius: 10px;
     padding: 10px 10px;
+    width: 26%;
+    transition: 0.2s ease;
 
+}
+
+.prioritySub:hover{
+    transform: scale(1.04);
 }
 
 #editTitle{
@@ -669,14 +675,52 @@ main {
 
 
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 400px) {
     .editPriorityText{
         display: none;
     }
-    .editPriority{
-        justify-content: space-between;
-    }
     .prioritySub{
         padding: 10px 18px;
+        width: 40px;
     }
 } 
+
+.priorityUrgentImgNormal{
+    background-image: url(../assets/img/priorityUrgentBoard.svg);
+    width: 32px;
+    height: 32px;
+}
+
+.priorityMediumImgNormal{
+    background-image: url(../assets/img/priorityMediumBoard.svg);
+    width: 32px;
+    height: 32px;   
+}
+
+.priorityLowImgNormal{
+    background-image: url(../assets/img/priorityLowBoard.svg);
+    width: 32px;
+    height: 32px;   
+}
+
+.backgroundColorUrgent{
+    background-color: #FF3D00;
+    color: white;
+    font-weight: 700;
+}
+
+.backgroundColorMedium{
+    background-color: #FFA800;
+    color: white;
+    font-weight: 700;
+}
+
+.backgroundColorLow{
+    background-color: #7AE229;
+    color: white;
+    font-weight: 700;
+}
+
+.whiteningFilter{
+    filter: brightness(0) invert(1);
+}
