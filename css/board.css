@@ -577,3 +577,70 @@ main {
     background-image: url(../assets/img/checked.svg);
 }
 
+.editForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.editPriority{
+    display: flex;
+    justify-content:center;
+    gap: 16px;
+}
+
+.prioritySub{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    border-radius: 10px;
+    padding: 10px 10px;
+
+}
+
+#editTitle{
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    width: calc(100%-42px);
+}
+
+#editDescription{
+    border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    width: calc(100%-42px);
+    font-family: 'Inter';
+}
+
+#editDueDate{
+    border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    width: calc(100%-42px);
+    font-family: 'Inter';
+} 
+
+.editAssignedTo{
+    display: flex;
+    flex-direction: column;
+}
+
+#ContactsDropDown{
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    width: calc(100%-42px);
+}
+
+.editAssignedTosChosen{
+    display: flex;
+    gap: 6px;
+}

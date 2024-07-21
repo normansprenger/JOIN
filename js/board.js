@@ -296,13 +296,59 @@ function changeSubTaskCompletet(taskId, subTaskId) {
     }
 }
 
-function deleteTask(taskId){
+function deleteTask(taskId) {
     tasks = tasks.filter(task => task.id !== taskId);
     saveTasks();
     location.reload();
 }
 
-function editTask(taskId){
-    document.getElementById('singleTask').innerHTML= ``;
-    
+function editTask(task) {
+    document.getElementById('singleTask').innerHTML = /*html*/`
+    <form action="" class="editForm">
+        <label for="editTitle">Title</label>
+        <input name="editTitle" id="editTitle" placeholder="Enter a title">
+        <label for="editDescription">Description</label>
+        <textarea name="editDescription" id="editDescription" placeholder="Enter a description"></textarea>
+        <label for="editDueDate">Due date</label>
+        <input id="editDueDate"
+               name="editDueDate"
+               type="date"
+               min="2024-01-01"
+               step="1">
+        <label for="editPriority">Priority</label>
+        <div class="editPriority" name="editPriority">
+            <div class="prioritySub">
+                <div>Urgent</div>
+                <img src="../assets/img/priorityUrgentBoard.svg" alt="">
+            </div>
+            <div class="prioritySub">
+            <div>Medium</div>
+            <img src="../assets/img/priorityMediumBoard.svg" alt="">
+            </div>
+            <div class="prioritySub">
+            <div>Low</div>
+            <img src="../assets/img/priorityLowBoard.svg" alt="">
+            </div>
+        </div>
+        <div class="editAssignedTo">
+            <label for="Contacts">AssignedTo</label>
+            <select name="Contacts" id="ContactsDropDown" aria-placeholder="SelectContacts to assign">
+            <option value="" disabled selected>Select Contacts to assign</option>
+            </select>
+            <div class="editAssignedTosChosen">
+                <div class="userIcon">
+                    <div class="userInitials"></div>
+                </div>
+            </div>
+        </div>
+        <label for="editSubTasks">Subtasks</label>
+        <div class="editSubTasksInputContainer">
+            <input type="text" name="editSubTasks">
+            <img src="../assets/img/EditTaskAddSubtask.svg" alt="">
+        </div>
+        <div class="editSubtasksList">
+
+        </div>
+    </form>
+    `;
 }
