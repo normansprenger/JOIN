@@ -676,4 +676,7 @@ main {
     .editPriority{
         justify-content: space-between;
     }
+    .prioritySub{
+        padding: 10px 18px;
+    }
 } 

@@ -302,7 +302,7 @@ function deleteTask(taskId) {
     location.reload();
 }
 
-function editTask(task) {
+function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
     <form action="" class="editForm">
         <label for="editTitle">Title</label>
@@ -343,7 +343,7 @@ function editTask(task) {
         </div>
         <label for="editSubTasks">Subtasks</label>
         <div class="editSubTasksInputContainer">
-            <input type="text" name="editSubTasks" id="editSubTasks">
+            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask">
             <img src="../assets/img/EditTaskAddSubtask.svg" alt="">
         </div>
         <div class="editSubtasksList">
@@ -351,4 +351,13 @@ function editTask(task) {
         </div>
     </form>
     `;
+    getPreloadedInputValues(taskId);
+}
+
+function getPreloadedInputValues(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    let preloadedTitle = task['title'];
+    document.getElementById('editTitle').value = preloadedTitle;
+    let preloadedDescription = task['description'];
+    document.getElementById('editDescription').value = preloadedDescription;
 }
