@@ -644,3 +644,36 @@ main {
     display: flex;
     gap: 6px;
 }
+
+.editSubTasksInputContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    width: calc(100%-42px);
+}
+
+#editSubTasks{
+    border: unset;
+    font-size: 16px;
+    flex: 1;
+
+}
+
+#editSubTasks:focus{
+    outline: none;
+}
+
+
+
+@media screen and (max-width: 430px) {
+    .editPriorityText{
+        display: none;
+    }
+    .editPriority{
+        justify-content: space-between;
+    }
+} 

@@ -318,20 +318,20 @@ function editTask(task) {
         <label for="editPriority">Priority</label>
         <div class="editPriority" name="editPriority">
             <div class="prioritySub">
-                <div>Urgent</div>
+                <div class="editPriorityText">Urgent</div>
                 <img src="../assets/img/priorityUrgentBoard.svg" alt="">
             </div>
             <div class="prioritySub">
-            <div>Medium</div>
-            <img src="../assets/img/priorityMediumBoard.svg" alt="">
+                <div class="editPriorityText">Medium</div>
+                <img src="../assets/img/priorityMediumBoard.svg" alt="">
             </div>
             <div class="prioritySub">
-            <div>Low</div>
-            <img src="../assets/img/priorityLowBoard.svg" alt="">
+                <div class="editPriorityText">Low</div>
+                <img src="../assets/img/priorityLowBoard.svg" alt="">
             </div>
         </div>
         <div class="editAssignedTo">
-            <label for="Contacts">AssignedTo</label>
+            <label for="ContactsDropDown">AssignedTo</label>
             <select name="Contacts" id="ContactsDropDown" aria-placeholder="SelectContacts to assign">
             <option value="" disabled selected>Select Contacts to assign</option>
             </select>
@@ -343,7 +343,7 @@ function editTask(task) {
         </div>
         <label for="editSubTasks">Subtasks</label>
         <div class="editSubTasksInputContainer">
-            <input type="text" name="editSubTasks">
+            <input type="text" name="editSubTasks" id="editSubTasks">
             <img src="../assets/img/EditTaskAddSubtask.svg" alt="">
         </div>
         <div class="editSubtasksList">
