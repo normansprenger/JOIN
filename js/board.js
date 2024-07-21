@@ -359,7 +359,7 @@ function editTask(taskId) {
     `;
     getPreloadedInputValues(taskId);
     getPreloadedPriority(taskId);
-    renderChoosingList();
+    renderChoosingList(taskId);
 }
 
 function getPreloadedInputValues(taskId) {
@@ -415,32 +415,42 @@ function changeChosenPriorityToLow() {
     document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
 }
 
-function toggleShowChoosingList(){
+function toggleShowChoosingList() {
     let list = document.getElementById('choosingList');
-    if (list.classList.contains('dnone')){
+    if (list.classList.contains('dnone')) {
         list.classList.remove('dnone');
         document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
-    }else{
+    } else {
         list.classList.add('dnone');
         document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
-
     }
 }
 
-function renderChoosingList(){
+function renderChoosingList(taskId) {
     document.getElementById('choosingList').innerHTML = ``;
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
+        let color = contact['color'].replace("#", "C");
         document.getElementById('choosingList').innerHTML += /*html*/`
         <div class="choosingListRow">
             <div class="choosingListLeft">
-                <div class="choosingListUserIcon">
+                <div class="choosingListUserIcon ${color}">
                     <div class="choosingListUserInitials">${contact['initials']}</div>
                 </div>
+                <div>${contact['name']}</div>
             </div>
-            <div class="choosingListCheck"></div>
+            <div class="choosingListCheck completedFalse" id="choosingListCheckImg${contact['id']}"></div>
         </div>
         `;
-        
+        fillAssigned(contact, taskId);
+    }
+}
+
+function fillAssigned(contact, taskId){
+    let task = tasks.find(task => task.id === taskId);
+    let UserId = contact['id'];
+    if (task.assignedTo.includes(UserId)){
+        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
+        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
     }
 }

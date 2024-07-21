@@ -10,8 +10,8 @@ body {
     min-height: 100vh;
 }
 
-.overFlowAuto{
-    overflow: auto! important;
+.overFlowAuto {
+    overflow: auto ! important;
 }
 
 #asideMiddleLinkBoard {
@@ -336,6 +336,11 @@ main {
     margin-left: -5px;
 }
 
+.CFF70AA {
+    background-color: #CFF70A;
+    margin-left: -5px;
+}
+
 .noTaskContainer {
     width: 100%;
     display: flex;
@@ -432,14 +437,14 @@ main {
     margin-right: 10px;
     font-size: 16px;
     font-weight: 400;
-    cursor:auto;
+    cursor: auto;
     position: relative;
     right: -100vw;
     transition: 0.3s ease;
     width: 100%;
 }
 
-.singleTaskEndposition{
+.singleTaskEndposition {
     right: 0 !important;
 }
 
@@ -503,13 +508,13 @@ main {
     width: 32px;
 }
 
-.singleTaskAssignedTo{
+.singleTaskAssignedTo {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.singleTaskAssignedToSub{
+.singleTaskAssignedToSub {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -530,65 +535,67 @@ main {
     gap: 8px;
 }
 
-.singleTaskDelete, .singleTaskEdit {
+.singleTaskDelete,
+.singleTaskEdit {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.singleTaskDelete:hover, .singleTaskEdit:hover{
+.singleTaskDelete:hover,
+.singleTaskEdit:hover {
     transform: scale(1.02);
     cursor: pointer;
 }
 
-.singleTaskDeleteEditSeparator{
+.singleTaskDeleteEditSeparator {
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
 }
 
-.singleTaskSubTasks{
+.singleTaskSubTasks {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.subTask{
+.subTask {
     display: flex;
     gap: 16px;
     align-items: center;
     margin-left: 16px;
 }
 
-.subTaskCheckImg{
+.subTaskCheckImg {
     height: 24px;
     width: 24px;
 }
 
-.subTaskCheckImg:hover{
+.subTaskCheckImg:hover {
     transform: scale(1.03);
     cursor: pointer;
 }
 
-.subTaskCompletedfalse{
+.subTaskCompletedfalse {
     background-image: url(../assets/img/checkEmpty.svg);
 }
 
-.subTaskCompletedtrue{
+.subTaskCompletedtrue {
     background-image: url(../assets/img/checked.svg);
 }
 
-.editForm{
+.editForm {
     display: flex;
     flex-direction: column;
 }
 
-.editPriority{
+.editPriority {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
-.prioritySub{
+.prioritySub {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -601,11 +608,11 @@ main {
 
 }
 
-.prioritySub:hover{
+.prioritySub:hover {
     transform: scale(1.04);
 }
 
-#editTitle{
+#editTitle {
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     font-size: 16px;
@@ -613,7 +620,7 @@ main {
     width: calc(100%-42px);
 }
 
-#editDescription{
+#editDescription {
     border-radius: 10px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
@@ -623,7 +630,7 @@ main {
     font-family: 'Inter';
 }
 
-#editDueDate{
+#editDueDate {
     border-radius: 10px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
@@ -631,29 +638,29 @@ main {
     padding: 12px 21px;
     width: calc(100%-42px);
     font-family: 'Inter';
-} 
+}
 
-.editAssignedTo{
+.editAssignedTo {
     display: flex;
     flex-direction: column;
 }
 
-#contactsDropDown{
+#contactsDropDown {
     border: unset;
     font-size: 16px;
     width: 93%;
 }
 
-#contactsDropDown:focus{
+#contactsDropDown:focus {
     outline: none;
 }
 
-.editAssignedTosChosen{
+.editAssignedTosChosen {
     display: flex;
     gap: 6px;
 }
 
-.editSubTasksInputContainer{
+.editSubTasksInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -664,93 +671,108 @@ main {
     width: calc(100%-42px);
 }
 
-#editSubTasks{
+#editSubTasks {
     border: unset;
     font-size: 16px;
     flex: 1;
 
 }
 
-#editSubTasks:focus{
+#editSubTasks:focus {
     outline: none;
 }
 
 
 
 @media screen and (max-width: 400px) {
-    .editPriorityText{
+    .editPriorityText {
         display: none;
     }
-    .prioritySub{
+
+    .prioritySub {
         padding: 10px 18px;
         width: 40px;
     }
-} 
+}
 
-.priorityUrgentImgNormal{
+.priorityUrgentImgNormal {
     background-image: url(../assets/img/priorityUrgentBoard.svg);
     width: 32px;
     height: 32px;
 }
 
-.priorityMediumImgNormal{
+.priorityMediumImgNormal {
     background-image: url(../assets/img/priorityMediumBoard.svg);
     width: 32px;
-    height: 32px;   
+    height: 32px;
 }
 
-.priorityLowImgNormal{
+.priorityLowImgNormal {
     background-image: url(../assets/img/priorityLowBoard.svg);
     width: 32px;
-    height: 32px;   
+    height: 32px;
 }
 
-.backgroundColorUrgent{
+.backgroundColorUrgent {
     background-color: #FF3D00;
     color: white;
     font-weight: 700;
 }
 
-.backgroundColorMedium{
+.backgroundColorMedium {
     background-color: #FFA800;
     color: white;
     font-weight: 700;
 }
 
-.backgroundColorLow{
+.backgroundColorLow {
     background-color: #7AE229;
     color: white;
     font-weight: 700;
 }
 
-.whiteningFilter{
+.whiteningFilter {
     filter: brightness(0) invert(1);
 }
 
-.optionLeft{
-    color: black;
+.choosingListRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 10px;
+    align-items: center;
+}
+
+.choosingListRow:hover{
+    background-color: #A8A8A8;
+    border-radius: 10px;
+    border: unset;
+    cursor: pointer;
+}
+
+.choosingListLeft {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
 }
 
-.choosingListUserInitials{
+.choosingListUserInitials {
     color: white;
     font-size: 12px;
 }
 
-.choosingListUserIcon{
+.choosingListUserIcon {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 42px;
     width: 42px;
     border-radius: 50%;
+    margin: 0 !important;
 }
 
 
-.contactsDropDownInputContainer{
+.contactsDropDownInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -762,14 +784,17 @@ main {
     background-color: white;
 }
 
-.openCloseChoosingListImg{
+.openCloseChoosingListImg {
     background-image: url(../assets/img/arrowDropDown.svg);
     height: 24px;
     width: 24px;
-    transition: 0.2s ease;
 }
 
-#choosingList{
+#openCloseChoosingListImg:hover{
+    cursor: pointer;
+}
+
+#choosingList {
     width: calc(100%-2px);
     display: flex;
     flex-direction: column;
@@ -778,14 +803,28 @@ main {
     margin-top: -13px;
     border-radius: 10px;
     z-index: 1;
+    padding-top: 14px;
 }
 
-.rotate180{
+.rotate180 {
     transform: rotate(180deg);
 }
 
-.editHead{
+.editHead {
     width: 100%;
     display: flex;
     justify-content: end;
+}
+
+.choosingListCheck {
+    height: 24px;
+    width: 24px;
+}
+
+.completedFalse {
+    background-image: url(../assets/img/checkEmpty.svg);
+}
+
+.completedTrue {
+    background-image: url(../assets/img/checked.svg);
 }
