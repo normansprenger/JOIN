@@ -38,11 +38,15 @@
                                 <option disabled selected>Select contacts to assign</option>
                             </select>
                         </div>
+                        <div class="addTaskThisFieldIsRequiredLeft">
+                            <span style="color: red">*</span><span>This field is required</span>
+                        </div>
                     </form>
+                    <div class="spacerAddTasks"></div>
                     <form class="addTasksRight">
                         <div class="addTaskDueDateContainer">
                             <label for="date">Due date<span style="color: red">*</span></label>
-                            <input type="date" id="date" name="date" placeholder="yyyy/mm/dd" min="" required>
+                            <input type="date" id="dateInput" name="date" placeholder="yyyy/mm/dd" min={dateTimeLocal} required>
                             <!-- Der Placeholder funktioniert leider nicht und das Tagesdatum darf nicht nach hinten angewählt werden + Kalender Bild muss eingefügt sein -->
                         </div>
                         <div class="addTaskPrioContainer">
@@ -69,9 +73,10 @@
                             <!-- Bild + muss noch hinzugefügt werden -->
                         </div>
                         <div class="addTaskCreateTaskContainer">
-                                <div>
+                                <div class="addTaskThisFieldIsRequiredRight">
                                     <span style="color: red">*</span><span>This field is required</span>
                                 </div>
+                                <button class="addTaskClearTaskButton">Clear<img src="../assets/img/close_black.svg" alt="Clear"></button>
                                 <button class="addTaskCreateTaskButton">Create Task<img src="../assets/img/check.svg" alt="Check"></button>
                         </div>
                     </form>
