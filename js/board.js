@@ -306,6 +306,9 @@ function deleteTask(taskId) {
 function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
     <form action="" class="editForm">
+        <div class="editHead">
+            <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
+        </div>
         <label for="editTitle">Title</label>
         <input name="editTitle" id="editTitle" placeholder="Enter a title">
         <label for="editDescription">Description</label>
@@ -356,7 +359,7 @@ function editTask(taskId) {
     `;
     getPreloadedInputValues(taskId);
     getPreloadedPriority(taskId);
-    //getPreloadedAssignedTo(taskId);
+    renderChoosingList();
 }
 
 function getPreloadedInputValues(taskId) {
@@ -415,8 +418,29 @@ function changeChosenPriorityToLow() {
 function toggleShowChoosingList(){
     let list = document.getElementById('choosingList');
     if (list.classList.contains('dnone')){
-        list.classList.remove('dnone')
+        list.classList.remove('dnone');
+        document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
     }else{
-        list.classList.add('dnone')
+        list.classList.add('dnone');
+        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
+
+    }
+}
+
+function renderChoosingList(){
+    document.getElementById('choosingList').innerHTML = ``;
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        document.getElementById('choosingList').innerHTML += /*html*/`
+        <div class="choosingListRow">
+            <div class="choosingListLeft">
+                <div class="choosingListUserIcon">
+                    <div class="choosingListUserInitials">${contact['initials']}</div>
+                </div>
+            </div>
+            <div class="choosingListCheck"></div>
+        </div>
+        `;
+        
     }
 }

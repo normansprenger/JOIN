@@ -641,7 +641,7 @@ main {
 #contactsDropDown{
     border: unset;
     font-size: 16px;
-    flex: 1;
+    width: 93%;
 }
 
 #contactsDropDown:focus{
@@ -735,12 +735,12 @@ main {
     gap: 16px;
 }
 
-.editTaskAssignedUserInitials{
+.choosingListUserInitials{
     color: white;
     font-size: 12px;
 }
 
-.editTaskAssignedUserIcon{
+.choosingListUserIcon{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -758,12 +758,15 @@ main {
     border: 1px solid #D1D1D1;
     font-size: 16px;
     padding: 12px 21px;
+    z-index: 2;
+    background-color: white;
 }
 
 .openCloseChoosingListImg{
     background-image: url(../assets/img/arrowDropDown.svg);
     height: 24px;
     width: 24px;
+    transition: 0.2s ease;
 }
 
 #choosingList{
@@ -772,8 +775,17 @@ main {
     flex-direction: column;
     border: 1px solid #D1D1D1;
     min-height: 70px;
-    margin-top: -50px;
+    margin-top: -13px;
     border-radius: 10px;
+    z-index: 1;
 }
 
+.rotate180{
+    transform: rotate(180deg);
+}
 
+.editHead{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
