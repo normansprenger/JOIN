@@ -432,7 +432,7 @@ function renderChoosingList(taskId) {
         let contact = contacts[i];
         let color = contact['color'].replace("#", "C");
         document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow">
+        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId})">
             <div class="choosingListLeft">
                 <div class="choosingListUserIcon ${color}">
                     <div class="choosingListUserInitials">${contact['initials']}</div>
@@ -446,11 +446,27 @@ function renderChoosingList(taskId) {
     }
 }
 
-function fillAssigned(contact, taskId){
+function fillAssigned(contact, taskId) {
     let task = tasks.find(task => task.id === taskId);
     let UserId = contact['id'];
-    if (task.assignedTo.includes(UserId)){
+    if (task.assignedTo.includes(UserId)) {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
     }
+}
+
+function toggleAssigned(contactId, taskId) {
+    let task = tasks.find(task => task.id === taskId);
+    let contactIndex = task.assignedTo.indexOf(contactId);
+    if (!task.assignedTo.includes(contactId)) {
+        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
+        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
+        task.assignedTo.push(contactId);
+
+    } else {
+        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
+        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
+        task.assignedTo.splice(contactIndex, 1);
+    }
+    saveTasks();
 }
