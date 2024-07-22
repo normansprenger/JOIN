@@ -1,15 +1,3 @@
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    display: flex;
-    font-family: 'Inter';
-    background-color: #F6F7F8;
-    min-height: 100vh;
-}
-
 .overFlowAuto {
     overflow: auto ! important;
 }
@@ -21,18 +9,6 @@ body {
 
 #asideMiddleLinkBoard img {
     filter: brightness(2);
-}
-
-main {
-    margin-top: 100px;
-    margin-bottom: 110px;
-    margin-right: 16px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
-    overflow: hidden;
 }
 
 #desktopContainerLinkBoard {

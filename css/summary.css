@@ -1,22 +1,9 @@
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     margin: 0;
     display: flex;
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
-}
-
-#asideMiddleLinkSummary {
-    background-color: #091931;
-    color: white;
-}
-
-#asideMiddleLinkSummary img {
-    filter: brightness(2);
 }
 
 main {
@@ -30,6 +17,15 @@ main {
     opacity: 0;
     transition: 1000ms ease;
     max-width: 1800px;
+}
+
+#asideMiddleLinkSummary {
+    background-color: #091931;
+    color: white;
+}
+
+#asideMiddleLinkSummary img {
+    filter: brightness(2);
 }
 
 .mainContainer {

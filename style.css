@@ -1,35 +1,3 @@
-html {
-    scroll-behavior: smooth;
-    display: flex;
-    justify-content: center;
-}
-
-body {
-    margin: 0;
-    display: flex;
-    font-family: 'Inter';
-    background-color: #F6F7F8;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    max-width: 2000px;
-}
-
-main {
-    background-color: white;
-    width: calc(100vw - 32px);
-    border-radius: 30px;
-    height: 515px;
-    box-shadow: 0px 0px 14px 3px #0000000A;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 530px;
-}
-
 .logo {
     position: absolute;
     top: 60px;
@@ -53,7 +21,6 @@ main {
     height: 50px;
     border-radius: 10px;
     width: calc(100% - 32px);
-    cursor: pointer;
 }
 
 .signUpFormEmoticons {
@@ -112,6 +79,7 @@ a {
     font-weight: 700;
     background-color: #2A3647;
     border: none;
+    cursor: pointer;
 }
 
 #loginBtn:enabled:hover {
@@ -196,6 +164,7 @@ h1 {
     font-weight: 700;
     background-color: white;
     border: #2A3647 1px solid;
+    cursor: pointer;
 }
 
 #guestLoginBtn:hover {
