@@ -470,7 +470,7 @@ function renderChoosingList(taskId) {
         let contact = contacts[i];
         let color = contact['color'].replace("#", "C");
         document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId})" id="choosingListRow${contact['id']}">
+        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId}), event.stopPropagation()" id="choosingListRow${contact['id']}">
             <div class="choosingListLeft">
                 <div class="choosingListUserIcon ${color}">
                     <div class="choosingListUserInitials">${contact['initials']}</div>
@@ -497,21 +497,18 @@ function fillAssigned(contact, taskId) {
 }
 
 function toggleAssigned(contactId, taskId) {
-    let taskIndex = tasks.findIndex(task => task.id === taskId);
-    let contactIndex = tasks[taskIndex].assignedTo.indexOf(contactId);
-    if (!tasks[taskIndex].assignedTo.includes(contactId)) {
+    let taskIndex = Number(tasks.findIndex(task => task.id === taskId));
+    let contactIndex = Number(tasks[taskIndex].assignedTo.indexOf(contactId));
+    if (contactIndex === -1) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
         tasks[taskIndex].assignedTo.push(Number(contactId));
-        renderChoosingList(taskId);
-        renderAssignedTosEdit(taskId);
-        //assignedTo soll wieder in tasks zurückgeschrieben werden
     } else {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
-        tasks[taskIndex].assignedTo.splice(contactIndex, 1);
-        //assignedTo soll wieder in tasks zurückgeschrieben werden
+        tasks[taskIndex].assignedTo.splice(Number(contactIndex), 1);
     }
+    renderAssignedTosEdit(taskId);
 
 }
 
