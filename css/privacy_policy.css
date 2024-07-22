@@ -4,31 +4,34 @@ html {
 
 body {
     margin: 0;
-    display: flex;
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-main{
-    margin-top: 100px;
-    margin-bottom: 80px;
+main {
+    margin-top: 100px; 
+    margin-bottom: 80px; 
     padding-right: 10px;
+    overflow-y: auto; 
+    flex: 1; 
 }
 
-h1{
+h1 {
     font-size: 50px;
 }
 
-h2{
+h2 {
     font-size: 32px;
 }
 
-h3{
+h3 {
     font-size: 20px;
 }
 
-main a{
+main a {
     color: #29ABE2;
     text-decoration: none;
     cursor: pointer;
@@ -39,27 +42,22 @@ ol li::marker {
     font-weight: bold;
 }
 
-.mainSubContainer{
+.mainSubContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-#arrowLeft{
+#arrowLeft {
     width: 20px;
     height: 20px;
-    position: relative;
-    bottom: 10px;
 }
 
-#arrowLeft:hover{
+#arrowLeft:hover {
     cursor: pointer;
 }
 
-#asideBottomLinkPrivacy{
+#asideBottomLinkPrivacy {
     background-color: #091931;
     color: #CDCDCD;
 }
-
-

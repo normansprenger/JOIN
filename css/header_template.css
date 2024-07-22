@@ -1,5 +1,14 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    overflow: hidden;
+    margin: 0;
+    font-family: 'Inter';
+    background-color: #F6F7F8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
