@@ -152,12 +152,13 @@ function renderEmptyTask(taskStatus) {
 }
 
 
-function closeSingleView(event) {
+async function closeSingleView(event) {
     if (event.target === event.currentTarget) {
         document.getElementById('dialogBackground').classList.add('dnone');
         document.getElementById('singleTask').classList.remove('singleTaskEndposition');
         document.getElementById('body').classList.add('overFlowAuto');
     }
+    await loadTasks()
     renderTasksBoard();
 }
 
@@ -338,7 +339,7 @@ function editTask(taskId) {
         <div class="editAssignedTo">
             <label for="contactsDropDown">AssignedTo</label>
             <div class="contactsDropDownInputContainer">
-                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="showChoosingList()" onblur="closeChoosingList()">
+                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="showChoosingList()">
                 <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()" ></div>
             </div>
             <div id="choosingList" class="choosingList dnone" id></div>
@@ -379,10 +380,10 @@ function getPreloadedInputValues(taskId) {
     setEditDueDateMinDate();
 }
 
-function setEditDueDateMinDate(){
+function setEditDueDateMinDate() {
     // Get today's date
     let today = new Date();
-    
+
     // Format the date to YYYY-MM-DD
     let yyyy = today.getFullYear();
     let mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -453,12 +454,12 @@ function toggleShowChoosingList() {
     }
 }
 
-function showChoosingList(){
+function showChoosingList() {
     document.getElementById('choosingList').classList.remove('dnone');
     document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
 }
 
-function closeChoosingList(){
+function closeChoosingList() {
     document.getElementById('choosingList').classList.add('dnone');
     document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
 }
@@ -476,7 +477,7 @@ function renderChoosingList(taskId) {
                 </div>
                 <div>${contact['name']}</div>
             </div>
-            <div class="choosingListCheck completedFalse" id="choosingListCheckImg${contact['id']}"></div>
+            <div class="choosingListCheck" id="choosingListCheckImg${contact['id']}"></div>
         </div>
         `;
         fillAssigned(contact, taskId);
@@ -486,26 +487,32 @@ function renderChoosingList(taskId) {
 function fillAssigned(contact, taskId) {
     let task = tasks.find(task => task.id === taskId);
     let UserId = contact['id'];
-    if (task.assignedTo.includes(UserId)) {
+    if (task.assignedTo.includes(Number(UserId))) {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
+    } else if (!task.assignedTo.includes(Number(UserId))){
+        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedFalse');
+        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedTrue');
     }
 }
 
 function toggleAssigned(contactId, taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let contactIndex = task.assignedTo.indexOf(contactId);
-    if (!task.assignedTo.includes(contactId)) {
+    let taskIndex = tasks.findIndex(task => task.id === taskId);
+    let contactIndex = tasks[taskIndex].assignedTo.indexOf(contactId);
+    if (!tasks[taskIndex].assignedTo.includes(contactId)) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
-        task.assignedTo.push(contactId);
-
+        tasks[taskIndex].assignedTo.push(Number(contactId));
+        renderChoosingList(taskId);
+        renderAssignedTosEdit(taskId);
+        //assignedTo soll wieder in tasks zurückgeschrieben werden
     } else {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
-        task.assignedTo.splice(contactIndex, 1);
+        tasks[taskIndex].assignedTo.splice(contactIndex, 1);
+        //assignedTo soll wieder in tasks zurückgeschrieben werden
     }
-    renderAssignedTosEdit(taskId);
+
 }
 
 function editFilterNames() {
@@ -519,16 +526,16 @@ function editFilterNames() {
     }
 }
 
-async function finishEdit(taskId){
+async function finishEdit(taskId) {
     let task = tasks.find(task => task.id === taskId);
-    task['title']= document.getElementById('editTitle').value;
+    task['title'] = document.getElementById('editTitle').value;
     task['description'] = document.getElementById('editDescription').value;
     task['dueDate'] = document.getElementById('editDueDate').value;
     await saveTasks();
     renderSingleTask(taskId);
 }
 
-function renderAssignedTosEdit(taskId){
+function renderAssignedTosEdit(taskId) {
     let task = tasks.find(task => task.id === taskId);
     let assignedTos = task['assignedTo'];
     document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
@@ -546,7 +553,7 @@ function renderAssignedTosEdit(taskId){
     }
 }
 
-function addSubTask(taskId){
+function addSubTask(taskId) {
     let task = tasks.find(task => task.id === taskId);
     let subTaskTitle = document.getElementById('editSubTasks').value;
     let id = new Date().getTime();
@@ -554,7 +561,87 @@ function addSubTask(taskId){
         completet: false,
         content: `${subTaskTitle}`,
         id: Number(id),
-      };
+    };
     task.subTasks.push(newSubTask);
     document.getElementById('editSubTasks').value = ``;
+    renderSubtasksEdit(taskId);
+}
+
+function renderSubtasksEdit(taskId) {
+    let task = tasks.find(task => task.id === taskId);
+    document.getElementById('editSubtasksList').innerHTML = ``;
+    if (task['subTasks']) {
+        for (let i = 0; i < task['subTasks'].length; i++) {
+            let singleSubtask = task['subTasks'][i];
+            document.getElementById('editSubtasksList').innerHTML +=/*html*/`
+            <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
+                <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
+                <div class="subTaskEditRowRight">
+                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${task['id']},${singleSubtask['id']})">
+                    <div class="editSubTaskSeparator"></div>
+                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${task['id']},${singleSubtask['id']})">
+                </div>
+            </div>
+            `;
+
+        }
+    }
+}
+
+
+function deleteEditSubTask(taskId, subTaskId) {
+    // Find the task with the given taskId
+    let task = tasks.find(task => task.id === taskId);
+
+    if (task) {
+        // Find the index of the subtask with the given subTaskId
+        let subTaskIndex = task.subTasks.findIndex(subTask => subTask.id === subTaskId);
+
+        // If the subtask exists, remove it
+        if (subTaskIndex !== -1) {
+            task.subTasks.splice(subTaskIndex, 1);
+        } else {
+            console.log(`Subtask with id ${subTaskId} not found.`);
+        }
+    } else {
+        console.log(`Task with id ${taskId} not found.`);
+    };
+    renderSubtasksEdit(taskId);
+}
+
+function editEditSubTask(taskId, subTaskId){
+    let preloadedValue = document.getElementById(`subTaskName${subTaskId}`).innerHTML;
+    document.getElementById(`subTaskEditRow${subTaskId}`).innerHTML=/*html*/`
+        <div class="editSubTaskInputContainer">
+            <input class="editSubTaskEditInput" id="editSubTaskInput${subTaskId}" type="text" minlength="5" maxlength="25" placeholder="Rename subtask">
+            <div class="subTaskEditEditRowRight">
+                <img src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${taskId},${subTaskId})">
+                <div class="editSubTaskSeparator"></div>
+                <img src="../assets/img/checkEditTaskBright.svg" alt="" onclick="changeEditSubTaskContent(${taskId},${subTaskId})">
+            </div>
+        </div>
+    `;
+    document.getElementById(`editSubTaskInput${subTaskId}`).value=preloadedValue.substring(2);
+}
+
+function changeEditSubTaskContent(taskId, subTaskId){
+    // Find the task with the given taskId
+    let task = tasks.find(task => task.id === taskId);
+
+    if (task) {
+        // Find the subtask with the given subTaskId
+        let subTask = task.subTasks.find(subTask => subTask.id === subTaskId);
+
+        if (subTask) {
+            // Get the new content from the input field
+            let newContent = document.getElementById(`editSubTaskInput${subTaskId}`).value;
+
+            // Update the subtask content
+            subTask.content = newContent;
+        } else {
+            console.log(`Subtask with id ${subTaskId} not found.`);
+        }
+    } else {
+        console.log(`Task with id ${taskId} not found.`);
+    }
 }
