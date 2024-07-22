@@ -73,9 +73,10 @@ html {
     margin: 96px 16px 0 328px;
 }
 
-/* board.css */
+/* board & legal_notice CSS */
 
-.bodyBoardCSS {
+.bodyBoardCSS,
+.bodyLegalNoticeCSS {
     margin: 0;
     display: flex;
     font-family: 'Inter';
@@ -93,6 +94,12 @@ html {
     align-items: center;
     max-width: 100%;
     overflow: hidden;
+}
+
+.mainLegalNoticeCSS {
+    margin-top: 100px;
+    margin-bottom: 80px;
+    padding-right: 10px;
 }
 
 /* privacy_policy.css */
@@ -118,22 +125,6 @@ html {
     color: #29ABE2;
     text-decoration: none;
     cursor: pointer;
-}
-
-/* legal_notice.css */
-
-.LegalNoticeCSSBody {
-    margin: 0;
-    display: flex;
-    font-family: 'Inter';
-    background-color: #F6F7F8;
-    min-height: 100vh;
-}
-
-.LegalNoticeCSSMain {
-    margin-top: 100px;
-    margin-bottom: 80px;
-    padding-right: 10px;
 }
 
 @media (max-width: 1000px) {

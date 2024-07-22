@@ -73,16 +73,16 @@ function ButtonMediumInOrange() {
 
 // Kalender min = Tagesdatum //
 
-document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('dateInput');
-    if (dateInput) {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-        dateInput.setAttribute('min', formattedDate);
-    } else {
-        console.error('Date input element not found.');
-    }
-});
+function setEditDueDateMinDate(){
+    // Get today's date
+    let today = new Date();
+
+    // Format the date to YYYY-MM-DD
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    let dd = String(today.getDate()).padStart(2, '0');
+    let formattedDate = yyyy + '-' + mm + '-' + dd;
+
+    // Set the min attribute of the date input
+    document.getElementById('editDueDate').setAttribute('min', formattedDate);
+}

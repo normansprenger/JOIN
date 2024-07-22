@@ -117,6 +117,7 @@
     background-repeat: no-repeat;
     background-color: white;
     -webkit-appearance: none;
+    cursor: pointer;
 }
 
 .addTaskCategoryContainer select {
@@ -133,6 +134,7 @@
     background-repeat: no-repeat;
     background-color: white;
     -webkit-appearance: none;
+    cursor: pointer;
 }
 
 .addTaskAssignedToContainer select:focus {
@@ -148,13 +150,6 @@
     padding: 8px 21px 8px 21px;
     font-size: 16px;
     font-family: 'Inter';
-    background-image: url(../assets/img/calenderAddTask.svg);
-    -webkit-appearance: none;
-    background-size: 20px;
-    background-position: right 16px center;
-    background-repeat: no-repeat;
-    background-color: white;
-    border: 1px solid #ccc;
 }
 
 .addTaskDueDateContainer input:focus {
@@ -163,7 +158,17 @@
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;  /*  Kalender nun weg, jedoch auch die funktion um denn Kalender zu öffnen! */
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(../assets/img/CalenderEditBoard.svg) no-repeat; 
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover{
+    cursor: pointer;
 }
 
 .addTaskPrioButtonContainer {
