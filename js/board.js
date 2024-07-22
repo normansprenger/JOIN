@@ -306,14 +306,14 @@ function deleteTask(taskId) {
 
 function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
-    <form action="" class="editForm" name="editForm" id="editForm">
+    <div class="editForm" name="editForm" id="editForm">
         <div class="editHead">
             <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
         </div>
         <label for="editTitle">Title</label>
-        <input name="editTitle" id="editTitle" placeholder="Enter a title">
+        <input name="editTitle" id="editTitle" placeholder="Enter a title" maxlength="60">
         <label for="editDescription">Description</label>
-        <textarea name="editDescription" id="editDescription" placeholder="Enter a description"></textarea>
+        <textarea name="editDescription" id="editDescription" placeholder="Enter a description" maxlength="160"></textarea>
         <label for="editDueDate">Due date</label>
         <input id="editDueDate"
            name="editDueDate"
@@ -338,22 +338,19 @@ function editTask(taskId) {
         <div class="editAssignedTo">
             <label for="contactsDropDown">AssignedTo</label>
             <div class="contactsDropDownInputContainer">
-                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()">
-                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()"></div>
+                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="showChoosingList()" onblur="closeChoosingList()">
+                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()" ></div>
             </div>
             <div id="choosingList" class="choosingList dnone" id></div>
-            <div class="editAssignedTosChosen">
-                <div class="userIcon">
-                    <div class="userInitials"></div>
-                </div>
+            <div class="editAssignedTosChosen" id="editAssignedTosChosenEdit">
             </div>
         </div>
         <label for="editSubTasks">Subtasks</label>
         <div class="editSubTasksInputContainer">
-            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask">
-            <img src="../assets/img/EditTaskAddSubtask.svg" alt="">
+            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5" maxlength="20">
+            <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="addSubTask(${taskId})">
         </div>
-        <div class="editSubtasksList">
+        <div id ="editSubtasksList" class="editSubtasksList">
 
         </div>
         <div class="editBottom">
@@ -362,11 +359,13 @@ function editTask(taskId) {
                 <img src="../assets/img/checkEditTaskDark.svg" alt="">
             </div>
         </div>
-    </form>
+</div>
     `;
     getPreloadedInputValues(taskId);
     getPreloadedPriority(taskId);
     renderChoosingList(taskId);
+    renderAssignedTosEdit(taskId);
+    renderSubtasksEdit(taskId);
 }
 
 function getPreloadedInputValues(taskId) {
@@ -454,6 +453,16 @@ function toggleShowChoosingList() {
     }
 }
 
+function showChoosingList(){
+    document.getElementById('choosingList').classList.remove('dnone');
+    document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
+}
+
+function closeChoosingList(){
+    document.getElementById('choosingList').classList.add('dnone');
+    document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
+}
+
 function renderChoosingList(taskId) {
     document.getElementById('choosingList').innerHTML = ``;
     for (let i = 0; i < contacts.length; i++) {
@@ -496,6 +505,7 @@ function toggleAssigned(contactId, taskId) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
         task.assignedTo.splice(contactIndex, 1);
     }
+    renderAssignedTosEdit(taskId);
 }
 
 function editFilterNames() {
@@ -510,6 +520,41 @@ function editFilterNames() {
 }
 
 async function finishEdit(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    task['title']= document.getElementById('editTitle').value;
+    task['description'] = document.getElementById('editDescription').value;
+    task['dueDate'] = document.getElementById('editDueDate').value;
     await saveTasks();
     renderSingleTask(taskId);
+}
+
+function renderAssignedTosEdit(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    let assignedTos = task['assignedTo'];
+    document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
+    for (let i = 0; i < assignedTos.length; i++) {
+        let userId = assignedTos[i];
+        let contact = findContactById(contacts, userId);
+        document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
+            <div class="choosingListUserIcon " id="userIconEdit${i}">
+                <div class="choosingListUserInitials" id="userInitialsEdit${i}"></div>
+            </div>
+        `;
+        let color = contact['color'];
+        document.getElementById(`userIconEdit${i}`).classList.add(`${color}`.replace("#", 'C'));
+        document.getElementById(`userInitialsEdit${i}`).innerHTML = `${contact['initials']}`;
+    }
+}
+
+function addSubTask(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    let subTaskTitle = document.getElementById('editSubTasks').value;
+    let id = new Date().getTime();
+    let newSubTask = {
+        completet: false,
+        content: `${subTaskTitle}`,
+        id: Number(id),
+      };
+    task.subTasks.push(newSubTask);
+    document.getElementById('editSubTasks').value = ``;
 }
