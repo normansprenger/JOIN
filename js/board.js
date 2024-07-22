@@ -158,6 +158,7 @@ function closeSingleView(event) {
         document.getElementById('singleTask').classList.remove('singleTaskEndposition');
         document.getElementById('body').classList.add('overFlowAuto');
     }
+    renderTasksBoard();
 }
 
 
@@ -305,7 +306,7 @@ function deleteTask(taskId) {
 
 function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
-    <form action="" class="editForm">
+    <form action="" class="editForm" name="editForm" id="editForm">
         <div class="editHead">
             <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
         </div>
@@ -315,21 +316,21 @@ function editTask(taskId) {
         <textarea name="editDescription" id="editDescription" placeholder="Enter a description"></textarea>
         <label for="editDueDate">Due date</label>
         <input id="editDueDate"
-               name="editDueDate"
-               type="date"
-               min="2022-01-01"
-               step="1">
+           name="editDueDate"
+           type="date"
+           min="2022-01-01"
+           step="1">
         <label for="editPriority">Priority</label>
         <div class="editPriority" name="editPriority">
-            <div class="prioritySub" id="prioritySubUrgent" onclick="changeChosenPriorityToUrgent()">
+            <div class="prioritySub" id="prioritySubUrgent" onclick="changeChosenPriorityToUrgent(${taskId})">
                 <div class="editPriorityText" id="editPriorityUrgentText">Urgent</div>
                 <div class="priorityUrgentImgNormal" id="editPriorityUrgentImg"></div>
             </div>
-            <div class="prioritySub" id="prioritySubMedium" onclick="changeChosenPriorityToMedium()">
+            <div class="prioritySub" id="prioritySubMedium" onclick="changeChosenPriorityToMedium(${taskId})">
                 <div class="editPriorityText" id="editPriorityMediumText">Medium</div>
                 <div class="priorityMediumImgNormal" id="editPriorityMediumImg"></div>
             </div>
-            <div class="prioritySub" id="prioritySubLow" onclick="changeChosenPriorityToLow()">
+            <div class="prioritySub" id="prioritySubLow" onclick="changeChosenPriorityToLow(${taskId})">
                 <div class="editPriorityText"id="editPriorityUrgentText">Low</div>
                 <div class="priorityLowImgNormal" id="editPriorityLowImg"></div>
             </div>
@@ -337,7 +338,7 @@ function editTask(taskId) {
         <div class="editAssignedTo">
             <label for="contactsDropDown">AssignedTo</label>
             <div class="contactsDropDownInputContainer">
-                <input placeholder="Select contacts to assign" type="text" id="contactsDropDown">
+                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()">
                 <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()"></div>
             </div>
             <div id="choosingList" class="choosingList dnone" id></div>
@@ -355,6 +356,12 @@ function editTask(taskId) {
         <div class="editSubtasksList">
 
         </div>
+        <div class="editBottom">
+            <div class="editBottomSave" onclick="finishEdit(${taskId})">
+                <div>Ok</div>
+                <img src="../assets/img/checkEditTaskDark.svg" alt="">
+            </div>
+        </div>
     </form>
     `;
     getPreloadedInputValues(taskId);
@@ -370,23 +377,40 @@ function getPreloadedInputValues(taskId) {
     document.getElementById('editDescription').value = preloadedDescription;
     let preloadedDueDate = task['dueDate'];
     document.getElementById('editDueDate').value = preloadedDueDate;
+    setEditDueDateMinDate();
+}
+
+function setEditDueDateMinDate(){
+    // Get today's date
+    let today = new Date();
+    
+    // Format the date to YYYY-MM-DD
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    let dd = String(today.getDate()).padStart(2, '0');
+    let formattedDate = yyyy + '-' + mm + '-' + dd;
+
+    // Set the min attribute of the date input
+    document.getElementById('editDueDate').setAttribute('min', formattedDate);
 }
 
 function getPreloadedPriority(taskId) {
     let task = tasks.find(task => task.id === taskId);
     let preloadedPriority = task['priority'];
     if (preloadedPriority == 'urgent') {
-        changeChosenPriorityToUrgent();
+        changeChosenPriorityToUrgent(taskId);
     } else if (preloadedPriority == 'medium') {
-        changeChosenPriorityToMedium();
+        changeChosenPriorityToMedium(taskId);
     } else {
-        changeChosenPriorityToLow();
+        changeChosenPriorityToLow(taskId);
     }
 }
 
 
-function changeChosenPriorityToUrgent() {
+function changeChosenPriorityToUrgent(taskId) {
     chosenPriority = 'urgent';
+    let task = tasks.find(task => task.id === taskId);
+    task['priority'] = 'urgent';
     document.getElementById('prioritySubUrgent').classList.add('backgroundColorUrgent');
     document.getElementById('editPriorityUrgentImg').classList.add('whiteningFilter');
     document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
@@ -395,8 +419,10 @@ function changeChosenPriorityToUrgent() {
     document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
 }
 
-function changeChosenPriorityToMedium() {
+function changeChosenPriorityToMedium(taskId) {
     chosenPriority = 'medium';
+    let task = tasks.find(task => task.id === taskId);
+    task['priority'] = 'medium';
     document.getElementById('prioritySubMedium').classList.add('backgroundColorMedium');
     document.getElementById('editPriorityMediumImg').classList.add('whiteningFilter');
     document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
@@ -405,8 +431,10 @@ function changeChosenPriorityToMedium() {
     document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
 }
 
-function changeChosenPriorityToLow() {
+function changeChosenPriorityToLow(taskId) {
     chosenPriority = 'low';
+    let task = tasks.find(task => task.id === taskId);
+    task['priority'] = 'low';
     document.getElementById('prioritySubLow').classList.add('backgroundColorLow');
     document.getElementById('editPriorityLowImg').classList.add('whiteningFilter');
     document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
@@ -432,7 +460,7 @@ function renderChoosingList(taskId) {
         let contact = contacts[i];
         let color = contact['color'].replace("#", "C");
         document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId})">
+        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId})" id="choosingListRow${contact['id']}">
             <div class="choosingListLeft">
                 <div class="choosingListUserIcon ${color}">
                     <div class="choosingListUserInitials">${contact['initials']}</div>
@@ -468,5 +496,20 @@ function toggleAssigned(contactId, taskId) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
         task.assignedTo.splice(contactIndex, 1);
     }
-    saveTasks();
+}
+
+function editFilterNames() {
+    let search = document.getElementById('contactsDropDown').value.toLowerCase();
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i]['name'].toLowerCase().includes(search)) {
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: flex"
+        } else {
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: none"
+        }
+    }
+}
+
+async function finishEdit(taskId){
+    await saveTasks();
+    renderSingleTask(taskId);
 }

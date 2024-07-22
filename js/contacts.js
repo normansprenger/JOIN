@@ -531,7 +531,7 @@ async function pushContacts() {
   let contact = {
     color: `${color}`,
     email: `${email}`,
-    id: `${id}`,
+    id: Number(id),
     initials: `${initials}`,
     name: `${name}`,
     phone: `${phone}`,
