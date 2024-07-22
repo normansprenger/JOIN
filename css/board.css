@@ -231,6 +231,11 @@ main {
 .assignedTo {
     display: flex;
     align-items: center;
+    max-width: 160px;
+    flex-wrap: wrap;
+    max-height: 35px;
+    overflow: hidden;
+    padding-left: 6px;
 }
 
 .userIcon {
@@ -419,7 +424,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 .singleTask {
@@ -614,6 +618,7 @@ main {
 
 .prioritySub:hover {
     transform: scale(1.04);
+    cursor: pointer;
 }
 
 #editTitle {

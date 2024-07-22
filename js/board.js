@@ -239,8 +239,8 @@ function renderSingleTaskAssignedTo(task) {
     <div>Assigned to:</div>
     `;
     for (let i = 0; i < assignedTos.length; i++) {
-        let userId = assignedTos[i];
-        let contact = findContactById(contacts, userId);
+        let assignedToIndex = assignedTos[i];
+        let contact = findContactById(contacts, assignedToIndex);
         document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
         <div class="singleTaskAssignedToSub">
             <div class="userIcon" id="userIcon${i}">
@@ -349,7 +349,7 @@ function editTask(taskId) {
         <label for="editSubTasks">Subtasks</label>
         <div class="editSubTasksInputContainer">
             <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5" maxlength="20">
-            <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="addSubTask(${taskId})">
+            <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="event.stopPropagation(), addSubTask(${taskId})">
         </div>
         <div id ="editSubtasksList" class="editSubtasksList">
 
@@ -490,7 +490,7 @@ function fillAssigned(contact, taskId) {
     if (task.assignedTo.includes(Number(UserId))) {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
-    } else if (!task.assignedTo.includes(Number(UserId))){
+    } else if (!task.assignedTo.includes(Number(UserId))) {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedTrue');
     }
@@ -556,13 +556,21 @@ function addSubTask(taskId) {
     let id = new Date().getTime();
     let newSubTask = {
         completet: false,
-        content: `${subTaskTitle}`,
+        content: subTaskTitle,
         id: Number(id),
     };
+    if (!task.subTasks) {
+        task.subTasks = [];
+    }
     task.subTasks.push(newSubTask);
-    document.getElementById('editSubTasks').value = ``;
+    document.getElementById('editSubTasks').value = '';
+    let taskIndex = tasks.findIndex(t => t.id === taskId);
+    if (taskIndex !== -1) {
+        tasks[taskIndex] = task;
+    }
     renderSubtasksEdit(taskId);
 }
+
 
 function renderSubtasksEdit(taskId) {
     let task = tasks.find(task => task.id === taskId);
@@ -574,9 +582,9 @@ function renderSubtasksEdit(taskId) {
             <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
                 <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
                 <div class="subTaskEditRowRight">
-                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${task['id']},${singleSubtask['id']})">
+                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="event.stopPropagation(), editEditSubTask(${task['id']},${singleSubtask['id']})">
                     <div class="editSubTaskSeparator"></div>
-                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${task['id']},${singleSubtask['id']})">
+                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${task['id']},${singleSubtask['id']})">
                 </div>
             </div>
             `;
@@ -606,22 +614,22 @@ function deleteEditSubTask(taskId, subTaskId) {
     renderSubtasksEdit(taskId);
 }
 
-function editEditSubTask(taskId, subTaskId){
+function editEditSubTask(taskId, subTaskId) {
     let preloadedValue = document.getElementById(`subTaskName${subTaskId}`).innerHTML;
-    document.getElementById(`subTaskEditRow${subTaskId}`).innerHTML=/*html*/`
+    document.getElementById(`subTaskEditRow${subTaskId}`).innerHTML =/*html*/`
         <div class="editSubTaskInputContainer">
             <input class="editSubTaskEditInput" id="editSubTaskInput${subTaskId}" type="text" minlength="5" maxlength="25" placeholder="Rename subtask">
             <div class="subTaskEditEditRowRight">
-                <img src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${taskId},${subTaskId})">
+                <img class="editSubTaskEditImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${taskId},${subTaskId})">
                 <div class="editSubTaskSeparator"></div>
-                <img src="../assets/img/checkEditTaskBright.svg" alt="" onclick="changeEditSubTaskContent(${taskId},${subTaskId})">
+                <img class="editSubTaskEditImg" src="../assets/img/checkEditTaskBright.svg" alt="" onclick="event.stopPropagation(), changeEditSubTaskContent(${taskId},${subTaskId})">
             </div>
         </div>
     `;
-    document.getElementById(`editSubTaskInput${subTaskId}`).value=preloadedValue.substring(2);
+    document.getElementById(`editSubTaskInput${subTaskId}`).value = preloadedValue.substring(2);
 }
 
-function changeEditSubTaskContent(taskId, subTaskId){
+function changeEditSubTaskContent(taskId, subTaskId) {
     // Find the task with the given taskId
     let task = tasks.find(task => task.id === taskId);
 
@@ -641,4 +649,5 @@ function changeEditSubTaskContent(taskId, subTaskId){
     } else {
         console.log(`Task with id ${taskId} not found.`);
     }
+    renderSubtasksEdit(taskId);
 }
