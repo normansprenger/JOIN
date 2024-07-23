@@ -302,7 +302,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     filter: brightness(0) invert(1); /* Bilder weiß machen */
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
     .mainAddTask {
         margin: 0;
         display: flex;
