@@ -295,11 +295,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 }
 
 .buttonPrio img {
-    filter: none; /* Bilder nicht invertieren */
+    filter: none; 
 }
 
 .buttonPrioWhite img {
-    filter: brightness(0) invert(1); /* Bilder weiß machen */
+    filter: brightness(0) invert(1); 
 }
 
 @media (max-width: 1300px) {
