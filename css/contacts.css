@@ -470,3 +470,48 @@ h1 {
     }
 }
 
+.choosingListRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 10px;
+    align-items: center;
+}
+
+.choosingListRow:hover{
+    background-color: #A8A8A8;
+    border-radius: 10px;
+    border: unset;
+    cursor: pointer;
+}
+
+.choosingListLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.choosingListUserInitials {
+    color: white;
+    font-size: 14px;
+}
+
+.choosingListUserIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    margin: 0 !important;
+}
+
+#contactsDropDown {
+    border: unset;
+    font-size: 16px;
+    width: 93%;
+}
+
+#contactsDropDown:focus {
+    outline: none;
+}

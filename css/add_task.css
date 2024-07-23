@@ -50,7 +50,6 @@
 .addTasksLeft {
     display: flex;
     flex-direction: column;
-    height: 376px;
     width: 440px;
 }
 
@@ -116,8 +115,13 @@
     background-position: right 16px center;
     background-repeat: no-repeat;
     background-color: white;
-    -webkit-appearance: none;
     cursor: pointer;
+}
+
+#assignedTo {
+    -webkit-appearance: none;  /* Entfernt das native Pfeilsymbol in Safari und Chrome */
+    -moz-appearance: none;     /* Entfernt das native Pfeilsymbol in Firefox */
+    appearance: none;          /* Entfernt das native Pfeilsymbol in anderen Browsern */
 }
 
 .addTaskCategoryContainer select {
@@ -133,8 +137,13 @@
     background-position: right 16px center;
     background-repeat: no-repeat;
     background-color: white;
-    -webkit-appearance: none;
     cursor: pointer;
+}
+
+#category {
+    -webkit-appearance: none;  /* Entfernt das native Pfeilsymbol in Safari und Chrome */
+    -moz-appearance: none;     /* Entfernt das native Pfeilsymbol in Firefox */
+    appearance: none;          /* Entfernt das native Pfeilsymbol in anderen Browsern */
 }
 
 .addTaskAssignedToContainer select:focus {
@@ -366,4 +375,177 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
         gap: 8px;
         flex-direction: column;
     }
+}
+.editAssignedTo {
+    display: flex;
+    flex-direction: column;
+}
+
+.choosingListRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 10px;
+    align-items: center;
+}
+
+.choosingListRow:hover{
+    background-color: #A8A8A8;
+    border-radius: 10px;
+    border: unset;
+    cursor: pointer;
+}
+
+.choosingListLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.choosingListUserInitials {
+    color: white;
+    font-size: 14px;
+}
+
+.choosingListUserIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    margin: 0 !important;
+}
+
+#contactsDropDown {
+    border: unset;
+    font-size: 16px;
+    width: 93%;
+}
+
+#contactsDropDown:focus {
+    outline: none;
+}
+
+.contactsDropDownInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 16px;
+    padding: 12px 21px;
+    z-index: 2;
+    background-color: white;
+}
+
+.openCloseChoosingListImg {
+    background-image: url(../assets/img/arrowDropDown.svg);
+    height: 24px;
+    width: 24px;
+}
+
+#openCloseChoosingListImg:hover{
+    cursor: pointer;
+}
+
+.dnone {
+    display: none !important;
+}
+
+.CFF7A00 {
+    background-color: #FF7A00;
+    margin-left: -5px;
+}
+
+.CFF5EB3 {
+    background-color: #FF5EB3;
+    margin-left: -5px;
+}
+
+.C6E52FF {
+    background-color: #6E52FF;
+    margin-left: -5px;
+}
+
+.C9327FF {
+    background-color: #9327FF;
+    margin-left: -5px;
+}
+
+.C00BEE8 {
+    background-color: #00BEE8;
+    margin-left: -5px;
+}
+
+.C1FD7C1 {
+    background-color: #1FD7C1;
+    margin-left: -5px;
+}
+
+.CFF745E {
+    background-color: #FF745E;
+    margin-left: -5px;
+}
+
+.CFFA35E {
+    background-color: #FFA35E;
+    margin-left: -5px;
+}
+
+.CFC71FF {
+    background-color: #FC71FF;
+    margin-left: -5px;
+}
+
+.CFFC701 {
+    background-color: #FFC701;
+    margin-left: -5px;
+}
+
+.C0038FF {
+    background-color: #0038FF;
+    margin-left: -5px;
+}
+
+.CC3FF2B {
+    background-color: #C3FF2B;
+    margin-left: -5px;
+}
+
+.CFFE62B {
+    background-color: #FFE62B;
+    margin-left: -5px;
+}
+
+.CFF4646 {
+    background-color: #FF4646;
+    margin-left: -5px;
+}
+
+.CSFFBB2B {
+    background-color: #FFBB2B;
+    margin-left: -5px;
+}
+
+.CFF70AA {
+    background-color: #CFF70A;
+    margin-left: -5px;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+.choosingListCheck {
+    height: 24px;
+    width: 24px;
+}
+
+.completedFalse {
+    background-image: url(../assets/img/checkEmpty.svg);
+}
+
+.completedTrue {
+    background-image: url(../assets/img/checked.svg);
 }
