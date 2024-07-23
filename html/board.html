@@ -28,8 +28,8 @@
             <span class="boardHeadline">Board</span>
             <div id="boardHeadImg" onclick="addTask()"></div>
         </div>
-        <div class="searchMobile">
-            <input class="searchMobileInput" type="text" placeholder="Find task">
+        <div class="searchMobile" id="searchMobile">
+            <input id="searchMobileInput" class="searchMobileInput" type="text" placeholder="Find task" onkeyup="filterTasks()" onfocus="setInputContainerBorderColor('searchMobile')" onblur="resetInputContainerBorderColor('searchMobile')">
             <div class="searchMobileSeparator"></div>
             <img class="searchIconMobile" src="../assets/img/searchIcon.svg" alt="">
         </div>

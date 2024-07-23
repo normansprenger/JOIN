@@ -13,6 +13,9 @@ async function init() {
     renderTasksBoard();
 }
 
+function addTask(){
+    window.location.href = '/html/add_task.html';
+}
 
 function changeCategoryColor(taskId, category) {
     let color = '';
@@ -153,6 +156,23 @@ function renderEmptyTask(taskStatus) {
     }
 }
 
+function filterTasks() {
+    let search = document.getElementById('searchMobileInput').value.toLowerCase();
+    for (let i = 0; i < tasks.length; i++) {
+        // Get the title and description, and convert them to lowercase for case-insensitive comparison
+        let title = tasks[i]['title'].toLowerCase();
+        let description = tasks[i]['description'].toLowerCase();
+        
+        // Check if the search term is present in either the title or description
+        if (title.includes(search) || description.includes(search)) {
+            // If present, remove the 'dnone' class to make the div visible
+            document.getElementById(`${tasks[i]['id']}`).classList.remove('dnone');
+        } else {
+            // If not present, add the 'dnone' class to hide the div
+            document.getElementById(`${tasks[i]['id']}`).classList.add('dnone');
+        }
+    }
+}
 
 async function closeSingleView(event) {
     if (event.target === event.currentTarget) {
