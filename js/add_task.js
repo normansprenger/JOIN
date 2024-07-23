@@ -86,3 +86,6 @@ function setEditDueDateMinDate(){
     // Set the min attribute of the date input
     document.getElementById('editDueDate').setAttribute('min', formattedDate);
 }
+
+// Call the function to set the min date when the page loads
+window.onload = setEditDueDateMinDate;
