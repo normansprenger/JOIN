@@ -1,3 +1,28 @@
+.body {
+    margin: 0;
+    font-family: 'Inter';
+    background-color: #F6F7F8;
+    min-height: 100vh;
+    overflow: hidden;
+    max-width: 2000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    background-color: white;
+    width: calc(100vw - 32px);
+    border-radius: 30px;
+    height: 515px;
+    box-shadow: 0px 0px 14px 3px #0000000A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 530px;
+}
+
 .logo {
     position: absolute;
     top: 60px;
@@ -45,7 +70,11 @@ input {
 
 }
 
-#rememberImg{
+#rememberImg {
+    padding-left: 16px;
+}
+
+#rememberCheckedImg {
     padding-left: 16px;
 }
 
@@ -155,7 +184,7 @@ h1 {
     bottom: 0px !important;
 }
 
-#guestLoginBtn{
+#guestLoginBtn {
     width: 180px;
     height: 51px;
     border-radius: 8px;
@@ -191,13 +220,14 @@ h1 {
     .inputContainer {
         width: calc(100% - 160px);
     }
-    .checkbox{
+
+    .checkbox {
         width: calc(100% - 160px)
     }
 
 }
 
-.bottom{
+.bottom {
     width: calc(100vw - 32px);
     display: flex;
     flex-direction: column;
@@ -205,7 +235,7 @@ h1 {
     max-width: 530px;
 }
 
-.signUpContainer{
+.signUpContainer {
     margin-top: 40px;
     display: flex;
     justify-content: center;
@@ -213,13 +243,13 @@ h1 {
     gap: 5px;
 }
 
-.signUpContainer span{
+.signUpContainer span {
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
 }
 
-#signUpLink{
+#signUpLink {
     padding: 15px 16px 15px 16px;
     text-decoration: none;
     border-radius: 8px;
@@ -230,7 +260,7 @@ h1 {
     border: none;
 }
 
-.warningMsg{
+.warningMsg {
     font-size: 12px;
     font-weight: 400;
     color: #FF8190;
@@ -240,19 +270,19 @@ h1 {
     text-align: start;
 }
 
-.dnone{
+.dnone {
     display: none;
 }
 
-.btnContainer{
+.btnContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:21px;
+    gap: 21px;
 }
 
-.background{
-    background-color:rgb(246, 247, 248);
+.background {
+    background-color: rgb(246, 247, 248);
     position: fixed;
     bottom: 0;
     top: 0;
@@ -260,7 +290,7 @@ h1 {
     right: 0;
 }
 
-.startingImg{
+.startingImg {
     width: 274px;
     height: 334px;
     position: absolute;
@@ -268,7 +298,7 @@ h1 {
     top: calc(50% - 167px);
 }
 
-.startingImgEndPos{
+.startingImgEndPos {
     position: absolute;
     top: 60px;
     left: 50px;
@@ -276,6 +306,6 @@ h1 {
     width: 64px !important;
 }
 
-#startingImg{
+#startingImg {
     transition: 1.5s ease;
 }
