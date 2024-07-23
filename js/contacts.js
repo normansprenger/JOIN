@@ -18,6 +18,7 @@ async function initContacts() {
   checkUser();
   fillUserInitials();
   loadContacts();
+  loadTasks();
   await fetchContacts();
   chooseAddedUser();
 }
@@ -74,10 +75,11 @@ async function updateContact(event, id) {
  */
 async function deleteContact(id) {
   if (contactsData[id]) {
+    removeIdFromAssignedTo(id);
     delete contactsData[id];
 
     contacts = Object.values(contactsData);
-
+    await saveTasks();
     await saveContacts();
     fetchContacts();
     location.reload();
@@ -787,4 +789,10 @@ function showAddedMessage() {
       desktopElement.classList.remove('userAddedTextAfterDesktop');
     }, 2100);
   }
+}
+
+function removeIdFromAssignedTo(idToRemove) {
+  tasks.forEach(task => {
+      task.assignedTo = task.assignedTo.filter(id => id !== idToRemove);
+  });
 }
