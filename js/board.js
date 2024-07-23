@@ -42,17 +42,19 @@ function changeProgressInfos(taskId, subTasks) {
 
 function changeAssignedTos(taskId, assignedTos) {
     document.getElementById(`assignedTo${taskId}`).innerHTML = ``;
-    for (let i = 0; i < assignedTos.length; i++) {
-        let userId = assignedTos[i];
-        let contact = findContactById(contacts, userId);
-        document.getElementById(`assignedTo${taskId}`).innerHTML += /*html*/ `
+    if (assignedTos) {
+        for (let i = 0; i < assignedTos.length; i++) {
+            let userId = assignedTos[i];
+            let contact = findContactById(contacts, userId);
+            document.getElementById(`assignedTo${taskId}`).innerHTML += /*html*/ `
         <div class="userIcon" id="userIcon${taskId}${i}">
         <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
         <div>
         `;
-        let color = contact['color'];
-        document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
-        document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
+            let color = contact['color'];
+            document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
+            document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
+        }
     }
 }
 
@@ -186,7 +188,7 @@ function renderSingleTask(taskId) {
                 <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
             </div>
             <div class="singleTaskTitle">${task['title']}</div>
-            <div>${task['description']}</div>
+            <div class="singleTaskDescription">${task['description']}</div>
             <div class="singleTaskDueDate">
                 <div>Due Date:</div>
                 <div>${task['dueDate']}</div>
@@ -201,14 +203,14 @@ function renderSingleTask(taskId) {
             <div id="singleTaskAssignedTo" class="singleTaskAssignedTo">AssignedTo</div>
             <div id="singleTaskSubTasks" class="singleTaskSubTasks">Subtasks</div>
             <div class="singleTaskDeleteEdit">
-                <div class="singleTaskDelete" onclick="deleteTask(${taskId})">
+                <div class="singleTaskDelete" onclick="event.stopPropagation(), deleteTask(${taskId})">
                     <img src="../assets/img/delete.svg" alt="">
                     <div>Delete</div>
                 </div>
                 <div class="singleTaskDeleteEditSeparator">
 
                 </div>
-                <div class="singleTaskDelete" onclick="editTask(${taskId})">
+                <div class="singleTaskDelete" onclick="event.stopPropagation(), editTask(${taskId})">
                     <img src="../assets/img/edit.svg" alt="">
                     <div>Edit</div>
                 </div>
@@ -234,14 +236,15 @@ function changeSingleTaskCategoryColor(task) {
 
 
 function renderSingleTaskAssignedTo(task) {
-    let assignedTos = task['assignedTo']
+    let assignedTos = task['assignedTo'];
     document.getElementById(`singleTaskAssignedTo`).innerHTML = `
     <div>Assigned to:</div>
     `;
-    for (let i = 0; i < assignedTos.length; i++) {
-        let assignedToIndex = assignedTos[i];
-        let contact = findContactById(contacts, assignedToIndex);
-        document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
+    if (assignedTos) {
+        for (let i = 0; i < assignedTos.length; i++) {
+            let assignedToIndex = assignedTos[i];
+            let contact = findContactById(contacts, assignedToIndex);
+            document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
         <div class="singleTaskAssignedToSub">
             <div class="userIcon" id="userIcon${i}">
                 <div class="userInitials" id="userInitials${i}"></div>
@@ -249,10 +252,11 @@ function renderSingleTaskAssignedTo(task) {
             <div class="singleTaskUserName" id="userName${i}"></div>
         </div>
         `;
-        let color = contact['color'];
-        document.getElementById(`userIcon${i}`).classList.add(`${color}`.replace("#", 'C'));
-        document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
-        document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
+            let color = contact['color'];
+            document.getElementById(`userIcon${i}`).classList.add(`${color}`.replace("#", 'C'));
+            document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
+            document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
+        }
     }
 }
 
@@ -270,7 +274,7 @@ function renderSingleTaskSubtasks(task) {
             let subTask = subTasks[i];
             document.getElementById('singleTaskSubTasks').innerHTML += /*html*/`
             <div class="subTask">
-                <div class="subTaskCheckImg subTaskCompleted${subTask['completet']}" id="checkImg${subTask['id']}" onclick="changeSubTaskCompletet(${task['id']}, ${subTask['id']})"></div>
+                <div class="subTaskCheckImg subTaskCompleted${subTask['completet']}" id="checkImg${subTask['id']}" onclick="event.stopPropagation(), changeSubTaskCompletet(${task['id']}, ${subTask['id']})"></div>
                 <div>${subTask['content']}</div>
             </div>    
             `;
@@ -309,7 +313,7 @@ function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
     <div class="editForm" name="editForm" id="editForm">
         <div class="editHead">
-            <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
+            <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="event.stopPropagation(), closeSingleView(event)">
         </div>
         <label for="editTitle">Title</label>
         <input name="editTitle" id="editTitle" placeholder="Enter a title" maxlength="60">
@@ -323,39 +327,39 @@ function editTask(taskId) {
            step="1">
         <label for="editPriority">Priority</label>
         <div class="editPriority" name="editPriority">
-            <div class="prioritySub" id="prioritySubUrgent" onclick="changeChosenPriorityToUrgent(${taskId})">
+            <div class="prioritySub" id="prioritySubUrgent" onclick="event.stopPropagation(), changeChosenPriorityToUrgent(${taskId})">
                 <div class="editPriorityText" id="editPriorityUrgentText">Urgent</div>
                 <div class="priorityUrgentImgNormal" id="editPriorityUrgentImg"></div>
             </div>
-            <div class="prioritySub" id="prioritySubMedium" onclick="changeChosenPriorityToMedium(${taskId})">
+            <div class="prioritySub" id="prioritySubMedium" onclick="event.stopPropagation(), changeChosenPriorityToMedium(${taskId})">
                 <div class="editPriorityText" id="editPriorityMediumText">Medium</div>
                 <div class="priorityMediumImgNormal" id="editPriorityMediumImg"></div>
             </div>
-            <div class="prioritySub" id="prioritySubLow" onclick="changeChosenPriorityToLow(${taskId})">
+            <div class="prioritySub" id="prioritySubLow" onclick="event.stopPropagation(), changeChosenPriorityToLow(${taskId})">
                 <div class="editPriorityText"id="editPriorityUrgentText">Low</div>
                 <div class="priorityLowImgNormal" id="editPriorityLowImg"></div>
             </div>
         </div>
         <div class="editAssignedTo">
-            <label for="contactsDropDown">AssignedTo</label>
-            <div class="contactsDropDownInputContainer">
-                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="showChoosingList()">
-                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()" ></div>
+            <label for="contactsDropDown">AssignedTo</label onclick="event.stopPropagation()">
+            <div id="contactsDropDownInputContainer" onclick="event.stopPropagation()">
+                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="event.stopPropagation(), setInputContainerBorderColor('contactsDropDownInputContainer')" onblur="resetInputContainerBorderColor('contactsDropDownInputContainer')" onclick="event.stopPropagation()">
+                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="event.stopPropagation(), toggleShowChoosingList()" ></div>
             </div>
-            <div id="choosingList" class="choosingList dnone" id></div>
+            <div id="choosingList" class="choosingList dnone" onclick="event.stopPropagation()"></div>
             <div class="editAssignedTosChosen" id="editAssignedTosChosenEdit">
             </div>
         </div>
         <label for="editSubTasks">Subtasks</label>
-        <div class="editSubTasksInputContainer">
-            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5" maxlength="20">
+        <div id="editSubTasksInputContainer">
+            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5" maxlength="20" onfocus="setInputContainerBorderColor('editSubTasksInputContainer')" onblur="resetInputContainerBorderColor('editSubTasksInputContainer')">
             <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="event.stopPropagation(), addSubTask(${taskId})">
         </div>
         <div id ="editSubtasksList" class="editSubtasksList">
 
         </div>
         <div class="editBottom">
-            <div class="editBottomSave" onclick="finishEdit(${taskId})">
+            <div class="editBottomSave" onclick="event.stopPropagation(), finishEdit(${taskId})">
                 <div>Ok</div>
                 <img src="../assets/img/checkEditTaskDark.svg" alt="">
             </div>
@@ -460,8 +464,10 @@ function showChoosingList() {
 }
 
 function closeChoosingList() {
-    document.getElementById('choosingList').classList.add('dnone');
-    document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
+    if (document.getElementById('choosingList')) {
+        document.getElementById('choosingList').classList.add('dnone');
+        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
+    }
 }
 
 function renderChoosingList(taskId) {
@@ -487,10 +493,10 @@ function renderChoosingList(taskId) {
 function fillAssigned(contact, taskId) {
     let task = tasks.find(task => task.id === taskId);
     let UserId = contact['id'];
-    if (task.assignedTo.includes(Number(UserId))) {
+    if (task.assignedTo && task.assignedTo.includes(Number(UserId))) {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
-    } else if (!task.assignedTo.includes(Number(UserId))) {
+    } else {
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedFalse');
         document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedTrue');
     }
@@ -498,6 +504,9 @@ function fillAssigned(contact, taskId) {
 
 function toggleAssigned(contactId, taskId) {
     let taskIndex = Number(tasks.findIndex(task => task.id === taskId));
+    if (!tasks[taskIndex].assignedTo) {
+        tasks[taskIndex].assignedTo = [];
+    };
     let contactIndex = Number(tasks[taskIndex].assignedTo.indexOf(contactId));
     if (contactIndex === -1) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
@@ -516,9 +525,9 @@ function editFilterNames() {
     let search = document.getElementById('contactsDropDown').value.toLowerCase();
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i]['name'].toLowerCase().includes(search)) {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: flex"
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).classList.remove('dnone');
         } else {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: none"
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).classList.add('dnone');
         }
     }
 }
@@ -536,17 +545,19 @@ function renderAssignedTosEdit(taskId) {
     let task = tasks.find(task => task.id === taskId);
     let assignedTos = task['assignedTo'];
     document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
-    for (let i = 0; i < assignedTos.length; i++) {
-        let userId = assignedTos[i];
-        let contact = findContactById(contacts, userId);
-        document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
+    if (assignedTos) {
+        for (let i = 0; i < assignedTos.length; i++) {
+            let userId = assignedTos[i];
+            let contact = findContactById(contacts, userId);
+            document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
             <div class="choosingListUserIcon " id="userIconEdit${i}">
                 <div class="choosingListUserInitials" id="userInitialsEdit${i}"></div>
             </div>
         `;
-        let color = contact['color'];
-        document.getElementById(`userIconEdit${i}`).classList.add(`${color}`.replace("#", 'C'));
-        document.getElementById(`userInitialsEdit${i}`).innerHTML = `${contact['initials']}`;
+            let color = contact['color'];
+            document.getElementById(`userIconEdit${i}`).classList.add(`${color}`.replace("#", 'C'));
+            document.getElementById(`userInitialsEdit${i}`).innerHTML = `${contact['initials']}`;
+        }
     }
 }
 
@@ -650,4 +661,12 @@ function changeEditSubTaskContent(taskId, subTaskId) {
         console.log(`Task with id ${taskId} not found.`);
     }
     renderSubtasksEdit(taskId);
+}
+
+function setInputContainerBorderColor(inputContainerId) {
+    document.getElementById(`${inputContainerId}`).classList.add('inputContainerFocus');
+}
+
+function resetInputContainerBorderColor(inputContainerId) {
+    document.getElementById(`${inputContainerId}`).classList.remove('inputContainerFocus');
 }

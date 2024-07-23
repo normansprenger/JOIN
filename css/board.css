@@ -460,13 +460,18 @@
     font-size: 32px;
     color: black;
     font-weight: 700;
-    word-break: keep-all;
+    width: 100%;
+    display: flex;
+    word-break: break-all;
 }
 
 .singleTaskDescription {
     font-size: 16px;
     font-weight: 400px;
     color: black;
+    width: 100%;
+    display: flex;
+    word-break: break-all;
 }
 
 .singleTaskDueDate {
@@ -608,6 +613,11 @@
     width: calc(100%-42px);
 }
 
+#editTitle:focus{
+    border: 1px solid #29ABE2;
+    outline: unset;
+}
+
 #editDescription {
     border-radius: 10px;
     border-radius: 10px;
@@ -618,6 +628,11 @@
     font-family: 'Inter';
 }
 
+#editDescription:focus{
+    border: 1px solid #29ABE2;
+    outline: unset;
+}
+
 #editDueDate {
     border-radius: 10px;
     border-radius: 10px;
@@ -626,6 +641,11 @@
     padding: 12px 21px;
     width: calc(100%-42px);
     font-family: 'Inter';
+}
+
+#editDueDate:focus{
+    border: 1px solid #29ABE2;
+    outline: unset;
 }
 
 .editAssignedTo {
@@ -640,7 +660,7 @@
 }
 
 #contactsDropDown:focus {
-    outline: none;
+        outline: unset;
 }
 
 .editAssignedTosChosen {
@@ -650,7 +670,7 @@
     margin-bottom: 8px;
 }
 
-.editSubTasksInputContainer {
+#editSubTasksInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -762,7 +782,7 @@
 }
 
 
-.contactsDropDownInputContainer {
+#contactsDropDownInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -772,6 +792,10 @@
     padding: 12px 21px;
     z-index: 2;
     background-color: white;
+}
+
+.inputContainerFocus{
+    border: 1px solid #29ABE2 !important;
 }
 
 .openCloseChoosingListImg {
