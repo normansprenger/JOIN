@@ -79,6 +79,11 @@
     margin-bottom: 16px;
 }
 
+.assignedContactsContainer {
+    display: flex;
+    padding-top: 16px;
+}
+
 .addTaskTitleContainer input {
     margin-bottom: 10px;
     border-radius: 10px;
@@ -222,6 +227,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 16px;
 }
 
 .addTaskCreateTaskButton:hover {
@@ -305,101 +311,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     filter: brightness(0) invert(1); 
 }
 
-@media (max-width: 1300px) {
-    .mainAddTask {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .formAddTask {
-        flex-direction: column;
-    }
-
-    .addTasksLeft {
-        width: 100%;
-    }
-
-    .spacerAddTasks {
-        display: none;
-    }
-
-    .addTasksRight {
-        width: 100%;
-        margin-bottom: 44px;
-        margin-top: 16px;
-    }
-
-    .addTaskMainContainer {
-        margin-right: 16px;
-        margin-bottom: 16px;
-    }
-
-    .addTaskCreateTaskContainer {
-        justify-content: space-between;
-    }
-
-    .addTaskCreateTaskContainer span {
-        display: flex;
-    }
-
-    .addTaskThisFieldIsRequiredLeft {
-        display: none;
-    }
-
-    .addTaskThisFieldIsRequiredRight {
-        display: flex;
-    }
-
-    .addTaskDescriptionContainer textarea {
-        resize: none;
-        max-width: 100%;
-    }
-
-    .addTaskClearTaskButton {
-        display: none;
-    }
-
-    .addTaskAssignedToContainer select {
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 400px) {
-    .addTaskPrioButtonContainer {
-        gap: 8px;
-        flex-direction: column;
-    }
-}
-
-.editSubTasksInputContainer:focus {
-    border-color: #29ABE2; 
-    outline: none; 
-}
-
-.editSubTasksInputContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
-    border: 1px solid #D1D1D1;
-    transition: border-color 0.3s;
-    padding: 10px 21px 10px 21px;
-    font-size: 16px;
-    background-color: white;
-}
-
-#editSubTasks {
-    border: unset;
-    font-size: 16px;
-    flex: 1;
-    outline: none;
-}
-
-.addSubTaskImg:hover{
-    cursor: pointer;
-    transform: scale(1.03);
-}
 
 .editAssignedTo {
     display: flex;
@@ -573,4 +484,163 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 
 .completedTrue {
     background-image: url(../assets/img/checked.svg);
+}
+
+@media (max-width: 1300px) {
+    .mainAddTask {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .formAddTask {
+        flex-direction: column;
+    }
+
+    .addTasksLeft {
+        width: 100%;
+    }
+
+    .spacerAddTasks {
+        display: none;
+    }
+
+    .addTasksRight {
+        width: 100%;
+        margin-bottom: 44px;
+        margin-top: 16px;
+    }
+
+    .addTaskMainContainer {
+        margin-right: 16px;
+        margin-bottom: 16px;
+    }
+
+    .addTaskCreateTaskContainer {
+        justify-content: space-between;
+    }
+
+    .addTaskCreateTaskContainer span {
+        display: flex;
+    }
+
+    .addTaskThisFieldIsRequiredLeft {
+        display: none;
+    }
+
+    .addTaskThisFieldIsRequiredRight {
+        display: flex;
+    }
+
+    .addTaskDescriptionContainer textarea {
+        resize: none;
+        max-width: 100%;
+    }
+
+    .addTaskClearTaskButton {
+        display: none;
+    }
+
+    .addTaskAssignedToContainer select {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .addTaskPrioButtonContainer {
+        gap: 8px;
+        flex-direction: column;
+    }
+}
+
+/* Subtask */
+
+input:-internal-autofill-selected {
+ background-color: white;
+}
+
+.editSubTasksInputContainer:focus {
+    border-color: #29ABE2; 
+    outline: none; 
+}
+
+.editSubTasksInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    transition: border-color 0.3s;
+    padding: 10px 21px 10px 21px;
+    font-size: 16px;
+    background-color: white;
+}
+
+#editSubTasks {
+    border: unset;
+    font-size: 16px;
+    flex: 1;
+    outline: none;
+}
+
+.addSubTaskImg:hover{
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.subTaskEditRow{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.subTaskEditRowRight{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-right: 16px;
+}
+
+.editSubTaskDeleteImg:hover{
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.editSubTaskEditImg:hover{
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.editSubTaskInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    padding-left: 16px;
+    border-radius: 10px;
+}
+
+.editSubTaskEditInput{
+    border: unset;
+    font-size: 16px;
+    flex: 1;
+    height: 32px;
+}
+
+.editSubTaskEditInput:focus{
+    outline: none;
+    border-bottom: 1px solid #29ABE2
+}
+
+.subTaskEditEditRowRight{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-right: 8px;
 }

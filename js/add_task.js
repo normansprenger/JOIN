@@ -14,8 +14,7 @@ let newTask = {
     "status": "",
     "subTasks": [],
     "title": ""
-  };
-
+};
 
 async function initAddTask() {
     includeHTML();
@@ -25,7 +24,10 @@ async function initAddTask() {
     newTaskId = new Date().getTime();
     newTask['id'] = Number(newTaskId);
     renderChoosingList(newTaskId);
+    renderAssignedTosEdit(newTaskId);
     setEditDueDateMinDate();
+    checkUser();
+    fillUserInitials();
 }
 
 // Prio Button Color function //
@@ -90,8 +92,10 @@ function setEditDueDateMinDate() {
     document.getElementById('editDueDate').setAttribute('min', formattedDate);
 }
 
+// Assigned To Section //
+
 function renderChoosingList(taskId) {
-    document.getElementById('choosingList').innerHTML = ``;
+    document.getElementById('choosingList').innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
         let color = contact['color'].replace("#", "C");
@@ -132,23 +136,50 @@ function toggleAssigned(contactId) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
         newTask['assignedTo'].splice(contactIndex, 1);
     }
+
+    renderAssignedTosEdit(newTask.id);
 }
 
 function editFilterNames() {
     let search = document.getElementById('contactsDropDown').value.toLowerCase();
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i]['name'].toLowerCase().includes(search)) {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: flex"
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: flex";
         } else {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: none"
+            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: none";
         }
     }
 }
 
-// Subtasks //
+function renderAssignedTosEdit(taskId) {
+    let assignedTos = newTask['assignedTo'];
+    document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
 
-function addSubTask(taskId) {
-    let task = tasks.find(task => task.id === taskId);
+    if (assignedTos) {
+        for (let i = 0; i < assignedTos.length; i++) {
+            let userId = assignedTos[i];
+            let contact = contacts.find(contact => contact.id === userId);
+            if (contact) {
+                let color = contact['color'].replace("#", 'C');
+                document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
+                <div class="choosingListUserIcon ${color}" id="userIconEdit${i}">
+                    <div class="choosingListUserInitials">${contact['initials']}</div>
+                </div>
+                `;
+            }
+        }
+    }
+}
+
+function showChoosingList() {
+    let list = document.getElementById('choosingList');
+    list.classList.remove('dnone');
+    document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
+}
+
+// Subtask Functions //
+
+function addSubTask() {	
     let subTaskTitle = document.getElementById('editSubTasks').value;
     let id = new Date().getTime();
     let newSubTask = {
@@ -156,31 +187,26 @@ function addSubTask(taskId) {
         content: subTaskTitle,
         id: Number(id),
     };
-    if (!task.subTasks) {
-        task.subTasks = [];
-    }
-    task.subTasks.push(newSubTask);
+
+    newTask.subTasks.push(newSubTask);
+
     document.getElementById('editSubTasks').value = '';
-    let taskIndex = tasks.findIndex(t => t.id === taskId);
-    if (taskIndex !== -1) {
-        tasks[taskIndex] = task;
-    }
-    renderSubtasksEdit(taskId);
+
+    renderSubtasksEdit(newTask.id);
 }
 
-function renderSubtasksEdit(taskId) {
-    let task = tasks.find(task => task.id === taskId);
+function renderSubtasksEdit() {
     document.getElementById('editSubtasksList').innerHTML = ``;
-    if (task['subTasks']) {
-        for (let i = 0; i < task['subTasks'].length; i++) {
-            let singleSubtask = task['subTasks'][i];
-            document.getElementById('editSubtasksList').innerHTML +=/*html*/`
+    if (newTask['subTasks']) {
+        for (let i = 0; i < newTask['subTasks'].length; i++) {
+            let singleSubtask = newTask['subTasks'][i];
+            document.getElementById('editSubtasksList').innerHTML += /*html*/ `
             <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
                 <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
                 <div class="subTaskEditRowRight">
-                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${task['id']},${singleSubtask['id']})">
+                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${newTask['id']},${singleSubtask['id']})">
                     <div class="editSubTaskSeparator"></div>
-                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${task['id']},${singleSubtask['id']})">
+                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${newTask['id']},${singleSubtask['id']})">
                 </div>
             </div>
             `;
@@ -188,70 +214,84 @@ function renderSubtasksEdit(taskId) {
     }
 }
 
-function deleteEditSubTask(taskId, subTaskId) {
-    // Find the task with the given taskId
-    let task = tasks.find(task => task.id === taskId);
+function renderSubtasksEdit() {
+    document.getElementById('editSubtasksList').innerHTML = ``;
 
-    if (task) {
-        // Find the index of the subtask with the given subTaskId
-        let subTaskIndex = task.subTasks.findIndex(subTask => subTask.id === subTaskId);
-
-        // If the subtask exists, remove it
-        if (subTaskIndex !== -1) {
-            task.subTasks.splice(subTaskIndex, 1);
-        } else {
-            console.log(`Subtask with id ${subTaskId} not found.`);
+    if (newTask['subTasks']) {
+        for (let i = 0; i < newTask['subTasks'].length; i++) {
+            let singleSubtask = newTask['subTasks'][i];
+            document.getElementById('editSubtasksList').innerHTML += /*html*/ `
+            <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
+                <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
+                <div class="subTaskEditRowRight">
+                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="event.stopPropagation(), editEditSubTask(${singleSubtask['id']})">
+                    <div class="editSubTaskSeparator"></div>
+                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${singleSubtask['id']})">
+                </div>
+            </div>
+            `;
         }
-    } else {
-        console.log(`Task with id ${taskId} not found.`);
-    };
-    renderSubtasksEdit(taskId);
+    }
 }
 
-function editEditSubTask(taskId, subTaskId) {
-    let preloadedValue = document.getElementById(`subTaskName${subTaskId}`).innerHTML;
-    document.getElementById(`subTaskEditRow${subTaskId}`).innerHTML =/*html*/`
+function deleteEditSubTask(subTaskId) {
+    let subTaskIndex = newTask.subTasks.findIndex(subTask => subTask.id === subTaskId);
+
+    if (subTaskIndex !== -1) {
+        newTask.subTasks.splice(subTaskIndex, 1);
+    } else {
+        console.log(`Subtask with id ${subTaskId} not found.`);
+    }
+
+    renderSubtasksEdit();
+}
+
+function editEditSubTask(subTaskId) {
+    let subTaskNameElement = document.getElementById(`subTaskName${subTaskId}`);
+    if (!subTaskNameElement) {
+        console.error(`Element mit ID subTaskName${subTaskId} nicht gefunden.`);
+        return;
+    }
+
+    let preloadedValue = subTaskNameElement.innerHTML;
+    
+    let subTaskEditRowElement = document.getElementById(`subTaskEditRow${subTaskId}`);
+    if (!subTaskEditRowElement) {
+        console.error(`Element mit ID subTaskEditRow${subTaskId} nicht gefunden.`);
+        return;
+    }
+
+    subTaskEditRowElement.innerHTML = /*html*/ `
         <div class="editSubTaskInputContainer">
             <input class="editSubTaskEditInput" id="editSubTaskInput${subTaskId}" type="text" minlength="5" maxlength="25" placeholder="Rename subtask">
             <div class="subTaskEditEditRowRight">
-                <img class="editSubTaskEditImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${taskId},${subTaskId})">
+                <img class="editSubTaskEditImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${subTaskId})">
                 <div class="editSubTaskSeparator"></div>
-                <img class="editSubTaskEditImg" src="../assets/img/checkEditTaskBright.svg" alt="" onclick="changeEditSubTaskContent(${taskId},${subTaskId})">
+                <img class="editSubTaskEditImg" src="../assets/img/checkEditTaskBright.svg" alt="" onclick="changeEditSubTaskContent(${subTaskId})">
             </div>
         </div>
     `;
+
     document.getElementById(`editSubTaskInput${subTaskId}`).value = preloadedValue.substring(2);
 }
 
-function changeEditSubTaskContent(taskId, subTaskId) {
-    // Find the task with the given taskId
-    let task = tasks.find(task => task.id === taskId);
 
-    if (task) {
-        // Find the subtask with the given subTaskId
-        let subTask = task.subTasks.find(subTask => subTask.id === subTaskId);
+function changeEditSubTaskContent(subTaskId) {
+    let subTask = newTask.subTasks.find(subTask => subTask.id === subTaskId);
 
-        if (subTask) {
-            // Get the new content from the input field
-            let newContent = document.getElementById(`editSubTaskInput${subTaskId}`).value;
+    if (subTask) {
+        let newContent = document.getElementById(`editSubTaskInput${subTaskId}`).value;
 
-            // Update the subtask content
-            subTask.content = newContent;
-        } else {
-            console.log(`Subtask with id ${subTaskId} not found.`);
-        }
+        subTask.content = newContent;
+
+        renderSubtasksEdit();
     } else {
-        console.log(`Task with id ${taskId} not found.`);
+        console.log(`Subtask with id ${subTaskId} not found.`);
     }
-    renderSubtasksEdit(taskId);
 }
 
 
-
-
-
-
-
+// Create Task Function //
 
 
 //form onsubmit="createTask()"
