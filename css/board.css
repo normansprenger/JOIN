@@ -668,6 +668,9 @@
     gap: 8px;
     margin-top: 8px;
     margin-bottom: 8px;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: 44px;
 }
 
 #editSubTasksInputContainer {
