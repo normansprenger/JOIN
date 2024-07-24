@@ -1,5 +1,3 @@
-
-
 /**
  * Stops the propagation of the event to parent elements.
  *

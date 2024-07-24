@@ -1,6 +1,3 @@
-
-
-
 /**
  * Sets the priority of a task to 'low' and updates the UI accordingly.
  *
@@ -296,7 +293,7 @@ function createSubTask(title) {
     return {
         completet: false,
         content: title,
-        id: Date.now() 
+        id: Date.now()
     };
 }
 

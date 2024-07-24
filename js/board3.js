@@ -1,5 +1,3 @@
-
-
 /**
  * Renders an edit input for a sub-task, allowing the user to modify its content.
  *

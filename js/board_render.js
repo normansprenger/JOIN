@@ -1,3 +1,21 @@
+/**
+ * Renders the entire tasks board by updating the display of tasks across different status categories.
+ *
+ * This function calls individual rendering functions for different sections of the tasks board:
+ * - To-Do
+ * - In Progress
+ * - Awaiting Feedback
+ * - Done
+ * 
+ * Each section will be populated with the appropriate tasks according to their status.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Example usage:
+ * // Calls this function to refresh the entire tasks board.
+ * renderTasksBoard();
+ */
 function renderTasksBoard() {
     renderTodosBoard();
     renderInProgressBoard();
@@ -5,6 +23,24 @@ function renderTasksBoard() {
     renderDoneBoard();
 }
 
+
+/**
+ * Renders the "To-Do" tasks section of the tasks board.
+ *
+ * This function updates the HTML content of the "To-Do" task container. It first clears any existing content and then populates it with tasks that have a status of "toDo". If there are no tasks, a message is displayed indicating that no tasks are in progress. For each task, the function creates HTML elements and sets up event handlers for interactions such as showing details, dragging, and dropping.
+ *
+ * - Updates the inner HTML of the container with the ID `taskContainerContentToDo`.
+ * - Displays a message if no tasks are available.
+ * - Renders each task with its details, including category, title, description, progress, assigned users, and priority.
+ * - Applies additional visual changes and functionalities such as category color, progress info, assigned users, and priority images.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Example usage:
+ * // Calls this function to render the "To-Do" tasks section on the board.
+ * renderTodosBoard();
+ */
 function renderTodosBoard() {
     document.getElementById('taskContainerContentToDo').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "toDo");
@@ -47,9 +83,26 @@ function renderTodosBoard() {
 }
 
 
+/**
+ * Renders the "In Progress" tasks section of the tasks board.
+ *
+ * This function updates the HTML content of the "In Progress" task container. It first clears any existing content and then populates it with tasks that have a status of "inProgress". If there are no tasks, a message is displayed indicating that no tasks are in progress. For each task, the function creates HTML elements and sets up event handlers for interactions such as showing details, dragging, and dropping.
+ *
+ * - Updates the inner HTML of the container with the ID `taskContainerContentInProgress`.
+ * - Displays a message if no tasks are available.
+ * - Renders each task with its details, including category, title, description, progress, assigned users, and priority.
+ * - Applies additional visual changes and functionalities such as category color, progress info, assigned users, and priority images.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Example usage:
+ * // Calls this function to render the "In Progress" tasks section on the board.
+ * renderInProgressBoard();
+ */
 function renderInProgressBoard() {
     document.getElementById('taskContainerContentInProgress').innerHTML = ``;
-    filteredTasks = tasks.filter(task => task.status === "inProgress"); 
+    filteredTasks = tasks.filter(task => task.status === "inProgress");
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentInProgress').innerHTML =/*html*/ `
         <div class="noTaskContainer">
@@ -89,6 +142,23 @@ function renderInProgressBoard() {
 }
 
 
+/**
+ * Renders the "Awaiting Feedback" tasks section of the tasks board.
+ *
+ * This function updates the HTML content of the "Awaiting Feedback" task container. It first clears any existing content and then populates it with tasks that have a status of "awaitingFeedback". If there are no tasks, a message is displayed indicating that no tasks are awaiting feedback. For each task, the function creates HTML elements and sets up event handlers for interactions such as showing details, dragging, and dropping.
+ *
+ * - Updates the inner HTML of the container with the ID `taskContainerContentAwaitFeedback`.
+ * - Displays a message if no tasks are available.
+ * - Renders each task with its details, including category, title, description, progress, assigned users, and priority.
+ * - Applies additional visual changes and functionalities such as category color, progress info, assigned users, and priority images.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Example usage:
+ * // Calls this function to render the "Awaiting Feedback" tasks section on the board.
+ * renderAwaitFeedbackBoard();
+ */
 function renderAwaitFeedbackBoard() {
     document.getElementById('taskContainerContentAwaitFeedback').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "awaitingFeedback");
@@ -131,6 +201,23 @@ function renderAwaitFeedbackBoard() {
 }
 
 
+/**
+ * Renders the "Done" tasks section of the tasks board.
+ *
+ * This function updates the HTML content of the "Done" task container. It first clears any existing content and then populates it with tasks that have a status of "done". If there are no tasks, a message is displayed indicating that no tasks are done. For each task, the function creates HTML elements and sets up event handlers for interactions such as showing details, dragging, and dropping.
+ *
+ * - Updates the inner HTML of the container with the ID `taskContainerContentDone`.
+ * - Displays a message if no tasks are available.
+ * - Renders each task with its details, including category, title, description, progress, assigned users, and priority.
+ * - Applies additional visual changes and functionalities such as category color, progress info, assigned users, and priority images.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Example usage:
+ * // Calls this function to render the "Done" tasks section on the board.
+ * renderDoneBoard();
+ */
 function renderDoneBoard() {
     document.getElementById('taskContainerContentDone').innerHTML = ``;
     filteredTasks = tasks.filter(task => task.status === "done");
