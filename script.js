@@ -4,13 +4,28 @@ let confirmPasswordFilled = false;
 let privacyPolicyAccepted = false;
 let users = [];
 let contacts = [];
+let currentUser = [];
 const BASE_URL = "https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app"
 const userColors = [
     '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF',
     '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B',
 ];
-let currentUser = [];
 
+
+/**
+ * Initializes the application by performing a series of setup tasks.
+ *
+ * This function is called to perform the following actions in sequence:
+ * 1. Executes the `startingAnimation()` function to initiate the starting animation for the page.
+ * 2. Loads user data by calling `loadUsers()`.
+ * 3. Checks for any existing current user data with `checkCurrentUser()`.
+ * 4. Enables or disables the login button based on input field values using `enableDisableButton()`.
+ * 5. Updates the password icon based on current state with `changePasswordIcon()`.
+ * 6. Clears any existing data in `sessionStorage` to ensure a fresh state.
+ * 7. Saves the current page information to `sessionStorage` using `saveCurrentPage()`.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function init() {
     startingAnimation();
     loadUsers();
@@ -20,6 +35,7 @@ function init() {
     sessionStorage.clear();
     saveCurrentPage();
 }
+
 
 /**
  * Loads the list of users from the database.
@@ -54,6 +70,7 @@ function checkCurrentUser() {
     }
 }
 
+
 /**
  * Saves the current list of users to the database.
  *
@@ -74,6 +91,7 @@ async function saveUsers(path = "/users") {
         body: JSON.stringify(users)
     });
 }
+
 
 /**
  * Saves the current list of contacts to the database.
@@ -96,6 +114,7 @@ async function saveContacts(path = "/contacts") {
     });
 }
 
+
 /**
  * Fills the login form with the stored user information.
  *
@@ -110,6 +129,7 @@ function fillStoredUserInfos() {
     document.getElementById('rememberImg').style.display = 'none';
     rememberMe = true;
 }
+
 
 /**
  * Toggles the display of the "Remember Me" images and updates the corresponding state.
@@ -131,79 +151,162 @@ function changeRememberImg() {
     }
 }
 
-// changes the passwordiconimg and tells when password is filled
+/**
+ * Updates the password icon and input type based on the content of the password field.
+ *
+ * This function checks the content of the password input field and updates the icon displayed next to it accordingly:
+ * - If the password field is not empty and `passwordFilled` is `false`, it sets the icon to indicate visibility (e.g., an eye with a line through it) and updates `passwordFilled` to `true`.
+ * - If the password field is empty, it changes the icon to indicate a locked state (e.g., a lock icon), sets the input type back to "password", and updates `passwordFilled` to `false`.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function changePasswordIcon() {
     if (!document.getElementById('loginPassword').value == '' && passwordFilled == false) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
         passwordFilled = true;
-    }
-    else if (document.getElementById('loginPassword').value == '') {
+    } else if (document.getElementById('loginPassword').value == '') {
         document.getElementById('passwordIcon').src = '../assets/img/lock.svg';
         document.getElementById("loginPassword").type = "password";
         passwordFilled = false;
     }
 }
 
-//toggles the visibility of the passwordtext and fitting img
+
+/**
+ * Toggles the visibility of the password and updates the associated icon.
+ *
+ * This function switches the password input field between "password" and "text" types, allowing the user to show or hide their password. It also updates the icon next to the password field to reflect the current visibility state:
+ * - If the input type is "password" and `passwordFilled` is `true`, it sets the icon to indicate visibility (e.g., an eye icon) and changes the input type to "text" to show the password.
+ * - If the input type is "text" and `passwordFilled` is `true`, it sets the icon to indicate hidden (e.g., an eye with a line through it) and changes the input type to "password" to hide the password.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("loginPassword").type === "password" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';
         document.getElementById("loginPassword").type = "text";
-    }
-    else if (document.getElementById("loginPassword").type === "text" && passwordFilled == true) {
+    } else if (document.getElementById("loginPassword").type === "text" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
         document.getElementById("loginPassword").type = "password";
     }
 }
 
-//enable or disables the loginButton
+
+/**
+ * Enables or disables the login button based on the presence of input in the email and password fields.
+ *
+ * This function checks if both the email and password input fields are non-empty:
+ * - If both fields contain values, it enables the login button by setting its `disabled` property to `false`.
+ * - If either of the fields is empty, it disables the login button by setting its `disabled` property to `true`.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function enableDisableButton() {
     if ((!document.getElementById('loginEmail').value == '') &&
         (!document.getElementById('loginPassword').value == '')) {
         document.getElementById('loginBtn').disabled = false;
+    } else {
+        document.getElementById('loginBtn').disabled = true;
     }
-    else { document.getElementById('loginBtn').disabled = true; }
 }
 
 
+/**
+ * Changes the border color of the email input container.
+ *
+ * This function sets the border of the email input container element to a solid color with a specific width. 
+ * It updates the border style to "1px solid #29ABE2", which is a shade of blue.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function changeBordorColorEmail() {
     document.getElementById('inputContainerEmail').style.border = "1px solid #29ABE2";
 }
 
 
+/**
+ * Resets the border color of the email input container to its original state.
+ *
+ * This function sets the border of the email input container element to a default color with a specific width. 
+ * It updates the border style to "1px solid #D1D1D1", which is a light gray color.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function originalBorderColorEmail() {
     document.getElementById('inputContainerEmail').style.border = "1px solid #D1D1D1";
 }
 
 
+/**
+ * Changes the border color of the password input container.
+ *
+ * This function updates the border of the password input container element to a solid color with a specific width. 
+ * It sets the border style to "1px solid #29ABE2", which is a shade of blue.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function changeBordorColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #29ABE2";
 }
 
 
+/**
+ * Resets the border color of the password input container to its original state.
+ *
+ * This function sets the border of the password input container element to a default color with a specific width. 
+ * It updates the border style to "1px solid #D1D1D1", which is a light gray color.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function originalBorderColorPassword() {
     document.getElementById('inputContainerPassword').style.border = "1px solid #D1D1D1";
 }
 
-//login function
-function Login(event) {
+
+/**
+ * Handles the login form submission.
+ *
+ * This function is called when the login form is submitted. It prevents the default form submission behavior
+ * using `event.preventDefault()`, and then calls the `checkEmail()` function to perform email validation or processing.
+ *
+ * @param {Event} event - The event object associated with the form submission.
+ * @returns {void} This function does not return a value.
+ */
+function login(event) {
     event.preventDefault();
     checkEmail();
 }
 
-// checks if the email is there in users if yes next function, if not then errormessage
+
+/**
+ * Validates the email address entered in the login form.
+ *
+ * This function retrieves the email value from the email input field and searches for a matching email in the `users` array.
+ * - If no user with the specified email is found, it displays a "wrong email" message by removing the 'dnone' class from the message element.
+ * - If a user with the specified email is found, it proceeds to check the email and password combination by calling the `checkCombination()` function.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function checkEmail() {
     let email = document.getElementById('loginEmail').value;
     let emailsearch = users.find(user => user.email === email);
     if (!emailsearch) {
         document.getElementById('wrongEmailMsg').classList.remove('dnone');
-    }
-    else if (emailsearch) {
+    } else if (emailsearch) {
         checkCombination();
     }
 }
 
-//checks if Email and Passwort are there and matching, if not wrong password
+
+/**
+ * Validates the email and password combination entered in the login form.
+ *
+ * This function retrieves the email and password values from the login form and searches for a matching user in the `users` array.
+ * - If no user with the specified email and password combination is found, it displays a "wrong password" message by removing the 'dnone' class from the message element and hides any existing "wrong email" message.
+ * - If a user with the matching email and password is found, it sets the `currentUser` variable to the matched user and then calls the `checkRememberMe()` function to handle "Remember Me" functionality.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function checkCombination() {
     let email = document.getElementById('loginEmail').value;
     let password = document.getElementById('loginPassword').value;
@@ -211,22 +314,29 @@ function checkCombination() {
     if (!combinationSearch) {
         document.getElementById('wrongPasswordMsg').classList.remove('dnone');
         document.getElementById('wrongEmailMsg').classList.add('dnone');
-    }
-    else {
+    } else {
         currentUser = combinationSearch;
         checkRememberMe();
     }
 }
 
-// wenn remember me gewählt wurde wird der user im Local Storage und im Session Storage gespeichert, solange bis er sich ausloggt
-// wenn remember me nicht ausgewählt wurde wird der user im session storage, gespeichert
+
+/**
+ * Handles user data storage based on the "Remember Me" option.
+ *
+ * This function checks the state of the `rememberMe` flag and stores the current user's data accordingly:
+ * - If `rememberMe` is `true`, the user's data is saved in both `localStorage` and `sessionStorage`.
+ * - If `rememberMe` is `false`, the user's data is saved only in `sessionStorage`, and `localStorage` is cleared.
+ * After updating the storage, the function redirects the user to a summary page by calling `directToSummary()`.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function checkRememberMe() {
     if (rememberMe == true) {
         let currentUserAsString = JSON.stringify(currentUser);
         localStorage.setItem('currentUser', currentUserAsString);
         sessionStorage.setItem('currentUser', currentUserAsString);
-    }
-    else if (rememberMe == false) {
+    } else if (rememberMe == false) {
         let currentUserAsString = JSON.stringify(currentUser);
         sessionStorage.setItem('currentUser', currentUserAsString);
         localStorage.clear();
@@ -234,12 +344,19 @@ function checkRememberMe() {
     directToSummary();
 }
 
-//validates email 
+/**
+ * Validates the email address entered in the login form.
+ *
+ * This function retrieves the email input value from the `loginEmail` field, trims any leading or trailing whitespace, and checks if it matches the standard email format using a regular expression pattern.
+ * - If the email address matches the pattern, it clears any custom validation messages by setting the validity to an empty string.
+ * - If the email address does not match the pattern, it sets a custom validation message indicating that the email address is invalid.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function validateEmail() {
     var input = document.getElementById('loginEmail');
     var email = input.value.trim();
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (emailPattern.test(email)) {
         input.setCustomValidity('');
     } else {
@@ -247,19 +364,20 @@ function validateEmail() {
     }
 }
 
-//validates password 
+/**
+ * Validates the password entered in the login form.
+ *
+ * This function retrieves the password input value from the `loginPassword` field, trims any leading or trailing whitespace, and checks if it meets the required criteria using a regular expression pattern.
+ * - The password must be at least 4 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.
+ * - If the password matches the pattern, it clears any custom validation messages by setting the validity to an empty string.
+ * - If the password does not match the pattern, it sets a custom validation message indicating the requirements for a valid password.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function validatePassword() {
     var input = document.getElementById('loginPassword');
     var password = input.value.trim();
-
-    // Example password validation criteria:
-    // - At least 4 characters long
-    // - Contains at least one uppercase letter
-    // - Contains at least one lowercase letter
-    // - Contains at least one digit
-    // - Contains at least one special character
     var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
-
     if (passwordPattern.test(password)) {
         input.setCustomValidity('');
     } else {
@@ -267,18 +385,34 @@ function validatePassword() {
     }
 }
 
-//leert die Eingabefelder
+/**
+ * Clears the values of the specified input fields.
+ *
+ * This function sets the value of the input fields with IDs `loginName` and `loginUpEmail` to empty strings, effectively clearing any text entered by the user.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function clearInputs() {
     document.getElementById('loginName').value = '';
     document.getElementById('loginUpEmail').value = '';
 }
 
-//Weiterleitung zu Summary
+/**
+ * Directs to summary page
+ * 
+ */
 function directToSummary() {
     window.location.href = '../html/summary.html';
 }
 
-
+/**
+ * Simulates a guest login by setting default user data and redirecting to a summary page.
+ *
+ * This function creates a guest user object with default values for initials and name. It then serializes this object to a JSON string and stores it in `sessionStorage`. 
+ * The function also clears any existing data in `localStorage` and redirects the user to a summary page by calling `directToSummary()`.
+ *
+ * @returns {void} This function does not return a value.
+ */
 function guestLogin() {
     let currentUser = {
         "initials": "G",
@@ -290,14 +424,29 @@ function guestLogin() {
     directToSummary();
 }
 
+/**
+ * Saves the name of the current page to sessionStorage.
+ *
+ * This function extracts the name of the current page from the URL path by splitting the `window.location.pathname` and taking the last segment of the path. 
+ * It then stores this page name in `sessionStorage` under the key "currentPage".
+ *
+ * @returns {void} This function does not return a value.
+ */
 function saveCurrentPage() {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // Speichern des Seitennamens in sessionStorage
+    let currentPage = window.location.pathname.split("/").pop();
     sessionStorage.setItem("currentPage", currentPage);
 }
 
-function startingAnimation(){
-    setTimeout(()=>{document.getElementById('startingImg').classList.add('startingImgEndPos')},500);
-    setTimeout(()=>{document.getElementById('startingBackground').classList.add('dnone')},2100);
+/**
+ * Executes a starting animation by applying CSS class changes after specified delays.
+ *
+ * This function performs two actions with timing:
+ * 1. After a 500-millisecond delay, it adds the CSS class `startingImgEndPos` to the element with the ID `startingImg`, initiating the end position of the starting image animation.
+ * 2. After a 2100-millisecond delay, it adds the CSS class `dnone` to the element with the ID `startingBackground`, effectively hiding the background element.
+ *
+ * @returns {void} This function does not return a value.
+ */
+function startingAnimation() {
+    setTimeout(() => { document.getElementById('startingImg').classList.add('startingImgEndPos') }, 500);
+    setTimeout(() => { document.getElementById('startingBackground').classList.add('dnone') }, 2100);
 }
