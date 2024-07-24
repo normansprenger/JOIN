@@ -145,8 +145,8 @@ h1 {
     text-decoration: none;
     display: flex;
     gap: 32px;
-    position: fixed;
-    bottom: 35px;
+    position: relative;
+    top: 60px;
 }
 
 .links a {
