@@ -1,5 +1,3 @@
-
-
 /**
  * Initializes the privacy policy section.
  *
@@ -22,31 +20,41 @@ async function initPrivacyPolicy() {
     };
 }
 
+
+/**
+ * Hides the right section of the header container by setting the display style of its elements to `none`.
+ *
+ * This function sets the `display` style property to `none` for the elements with IDs `headerContainerRightUserIcon` and `headerContainerRightHelp`.
+ * This effectively hides these elements from view.
+ */
 function hideHeaderContainerRight() {
     document.getElementById('headerContainerRightUserIcon').style = 'display:none;';
     document.getElementById('headerContainerRightHelp').style = 'display:none;';
-    
 }
 
+
+/**
+ * Hides the desktop container and the aside middle section by setting their display style to `none`.
+ *
+ * This function sets the `display` style property to `none` for the elements with IDs `desktopContainer` and `asideMiddle`, 
+ * effectively making these elements invisible on the page.
+ */
 function hideDesktopContainer() {
     document.getElementById('desktopContainer').style = "display: none;";
     document.getElementById('asideMiddle').style = 'display:none;';
 }
 
 
-
 /**
- * Navigates back to the last page.
+ * Navigates the user back to the previous page in the browser's history.
  *
- * This function logs a message to the console and opens the 'index.html' page in the current window.
- * Note: Functionality for tracking the last page is not implemented.
- *
- * @function backToLastPage
+ * This function uses `window.history.go(-1)` to move one step backward in the browser's history stack,
+ * effectively taking the user to the last page they visited.
  */
 function backToLastPage() {
-    console.log('Function to be completed. Implement last page marker.');
-    open("../index.html", "_self");
+    window.history.go(-1);
 }
+
 
 /**
  * Loads data from the Firebase Realtime Database.

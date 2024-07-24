@@ -20,6 +20,7 @@ async function initLegalNotice() {
     };
 }
 
+
 /**
  * Hides the right-side header container elements.
  *
@@ -34,6 +35,7 @@ function hideHeaderContainerRight() {
     document.getElementById('asideMiddle').style = 'display:none;';
 }
 
+
 /**
  * Hides the desktop container.
  *
@@ -45,15 +47,13 @@ function hideDesktopContainer() {
     document.getElementById('desktopContainer').style = "display: none;";
 }
 
+
 /**
- * Navigates back to the last page.
+ * Navigates the user back to the previous page in the browser's history.
  *
- * This function logs a message to the console and opens the 'index.html' page in the current window.
- * Note: Functionality for tracking the last page is not implemented.
- *
- * @function backToLastPage
+ * This function uses `window.history.go(-1)` to move one step backward in the browser's history stack,
+ * effectively taking the user to the last page they visited.
  */
 function backToLastPage() {
-    console.log('Function to be completed. Implement last page marker.');
-    open("../index.html", "_self");
+    window.history.go(-1);
 }
