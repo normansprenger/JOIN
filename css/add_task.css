@@ -1,3 +1,21 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.bodyContainer {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter';
+    background-color: #F6F7F8;
+    height: 100vh;
+}
+
+.mainContainer {
+    flex: 1;
+    margin-top: 96px;
+}
+
 #asideMiddleLinkAddTask{
     background-color: #091931;
     color: white;
@@ -619,6 +637,23 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     }
 }
 
+@media (max-width: 1000px) {
+    .mainContainer {
+        padding-bottom: 128px;
+    }
+
+    .addTaskTitle {
+        margin-top: 16px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .mainAddTask {
+        padding-left: 0;
+        margin-right: 0;
+    }
+}
+
 @media (max-width: 400px) {
     .addTaskPrioButtonContainer {
         gap: 8px;
@@ -660,5 +695,5 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 }
