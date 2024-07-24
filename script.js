@@ -19,6 +19,7 @@ function init() {
     enableDisableButton();
     changePasswordIcon();
     sessionStorage.clear();
+    saveCurrentPage();
 }
 
 // lädt User aus der Datenbank
@@ -181,7 +182,6 @@ function checkRememberMe() {
         sessionStorage.setItem('currentUser', currentUserAsString);
         localStorage.clear();
     }
-    saveCurrentPage();
     directToSummary();
 }
 
@@ -238,7 +238,6 @@ function guestLogin() {
     let currentUserAsString = JSON.stringify(currentUser);
     sessionStorage.setItem('currentUser', currentUserAsString);
     localStorage.clear();
-    saveCurrentPage();
     directToSummary();
 }
 

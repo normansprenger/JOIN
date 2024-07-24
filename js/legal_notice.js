@@ -8,15 +8,12 @@
  * @function initLegalPolicy
  * @returns {Promise<void>} A promise that resolves when the initialization is complete.
  */
-async function initLegalPolicy() {
+async function initLegalNotice() {
     await includeHTML(); // Ensure includeHTML() has completed
-    if (currentUser == null) {
-        setTimeout(() => {
-            hideHeaderContainerRight(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
-        setTimeout(() => {
+    currentUser = sessionStorage.getItem('currentUser');
+    if (!currentUser) {
+            hideHeaderContainerRight();
             hideDesktopContainer(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
     }
 }
 
@@ -31,6 +28,7 @@ async function initLegalPolicy() {
 function hideHeaderContainerRight() {
     document.getElementById('headerContainerRightUserIcon').style = 'display:none;';
     document.getElementById('headerContainerRightHelp').style = 'display:none;';
+    document.getElementById('asideMiddle').style = 'display:none;';
 }
 
 /**

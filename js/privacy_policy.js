@@ -1,8 +1,4 @@
-/**
- * Base URL for the Firebase Realtime Database.
- * @constant {string}
- */
-const BASE_URL = 'https://remotestoragejoin-d0140-default-rtdb.europe-west1.firebasedatabase.app/';
+
 
 /**
  * Initializes the privacy policy section.
@@ -16,39 +12,25 @@ const BASE_URL = 'https://remotestoragejoin-d0140-default-rtdb.europe-west1.fire
  */
 async function initPrivacyPolicy() {
     await includeHTML(); // Ensure includeHTML() has completed
-    if (currentUser == null) {
-        setTimeout(() => {
-            hideHeaderContainerRight(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
-        setTimeout(() => {
-            hideDesktopContainer(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
-    }
+    currentUser = sessionStorage.getItem('currentUser');
+    if (!currentUser) {
+        hideHeaderContainerRight();
+        hideDesktopContainer(); 
+    };
 }
 
-/**
- * Hides the right-side header container elements.
- *
- * This function sets the display style to 'none' for the user icon and help elements
- * in the right-side header container.
- *
- * @function hideHeaderContainerRight
- */
 function hideHeaderContainerRight() {
     document.getElementById('headerContainerRightUserIcon').style = 'display:none;';
     document.getElementById('headerContainerRightHelp').style = 'display:none;';
+    
 }
 
-/**
- * Hides the desktop container.
- *
- * This function sets the display style to 'none' for the desktop container element.
- *
- * @function hideDesktopContainer
- */
 function hideDesktopContainer() {
     document.getElementById('desktopContainer').style = "display: none;";
+    document.getElementById('asideMiddle').style = 'display:none;';
 }
+
+
 
 /**
  * Navigates back to the last page.
