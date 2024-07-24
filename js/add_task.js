@@ -30,6 +30,21 @@ async function initAddTask() {
     fillUserInitials();
 }
 
+// disabled to enabled //
+
+function enableCreateTaskButton() {
+    const titleFilled = document.getElementById('title').value.trim() !== '';
+    const dueDateFilled = document.getElementById('editDueDate').value.trim() !== '';
+    const categoryFilled = document.getElementById('category').value !== '' && document.getElementById('category').value !== 'Select task category';
+
+    if (titleFilled && dueDateFilled && categoryFilled) {
+        document.getElementById('createTask').disabled = false;
+    } else {
+        document.getElementById('createTask').disabled = true;
+    }
+}
+
+
 // Prio Button Color function //
 
 function addPrioButtonColor(prio, event) {
@@ -197,25 +212,6 @@ function addSubTask() {
 
 function renderSubtasksEdit() {
     document.getElementById('editSubtasksList').innerHTML = ``;
-    if (newTask['subTasks']) {
-        for (let i = 0; i < newTask['subTasks'].length; i++) {
-            let singleSubtask = newTask['subTasks'][i];
-            document.getElementById('editSubtasksList').innerHTML += /*html*/ `
-            <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
-                <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
-                <div class="subTaskEditRowRight">
-                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${newTask['id']},${singleSubtask['id']})">
-                    <div class="editSubTaskSeparator"></div>
-                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${newTask['id']},${singleSubtask['id']})">
-                </div>
-            </div>
-            `;
-        }
-    }
-}
-
-function renderSubtasksEdit() {
-    document.getElementById('editSubtasksList').innerHTML = ``;
 
     if (newTask['subTasks']) {
         for (let i = 0; i < newTask['subTasks'].length; i++) {
@@ -275,7 +271,6 @@ function editEditSubTask(subTaskId) {
     document.getElementById(`editSubTaskInput${subTaskId}`).value = preloadedValue.substring(2);
 }
 
-
 function changeEditSubTaskContent(subTaskId) {
     let subTask = newTask.subTasks.find(subTask => subTask.id === subTaskId);
 
@@ -291,7 +286,39 @@ function changeEditSubTaskContent(subTaskId) {
 }
 
 
-// Create Task Function //
+// Clear Task Function //
+    
+function clearTask() {
+    let inputTitle = document.getElementById("title");
+    let inputDescription = document.getElementById("description");
+    let date = document.getElementById("editDueDate");
+    inputTitle.value = "";
+    inputDescription.value = "";
+    clearAssignedTo();
+    date.value = "";
+    clearSubtask();
+  }
+
+  function clearAssignedTo() {
+    let div = document.getElementById("contactsDropDown");
+    assignedContacts = [];
+    div.innerHTML = "";
+  }
+
+  function clearSubtask() {
+    let subtask = document.getElementById("editSubtasksList");
+    subArray = [];
+    subtask.innerHTML = "";
+    i = 0;
+    subtask.classList.add("d-none");
+  }
+  
+  function clearSubtaskInput() {
+    document.getElementById("editSubTasks").value = "";
+  }
+
+
+// Create Task //
 
 
 //form onsubmit="createTask()"

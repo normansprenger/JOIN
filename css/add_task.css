@@ -214,26 +214,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     display: none;
 }
 
-.addTaskCreateTaskButton {
-    background-color: #2A3647;
-    color: white;
-    border-radius: 10px;
-    padding: 16px;
-    font-size: 21px;
-    font-weight: 700;
-    cursor: pointer;
-    gap: 4px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.addTaskCreateTaskButton:hover {
-    background-color: #29ABE2;
-}
-
 .addTaskClearTaskButton {
     border: solid 1px #2A3647;
     color: #2A3647;
@@ -486,78 +466,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     background-image: url(../assets/img/checked.svg);
 }
 
-@media (max-width: 1300px) {
-    .mainAddTask {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .formAddTask {
-        flex-direction: column;
-    }
-
-    .addTasksLeft {
-        width: 100%;
-    }
-
-    .spacerAddTasks {
-        display: none;
-    }
-
-    .addTasksRight {
-        width: 100%;
-        margin-bottom: 44px;
-        margin-top: 16px;
-    }
-
-    .addTaskMainContainer {
-        margin-right: 16px;
-        margin-bottom: 16px;
-    }
-
-    .addTaskCreateTaskContainer {
-        justify-content: space-between;
-    }
-
-    .addTaskCreateTaskContainer span {
-        display: flex;
-    }
-
-    .addTaskThisFieldIsRequiredLeft {
-        display: none;
-    }
-
-    .addTaskThisFieldIsRequiredRight {
-        display: flex;
-    }
-
-    .addTaskDescriptionContainer textarea {
-        resize: none;
-        max-width: 100%;
-    }
-
-    .addTaskClearTaskButton {
-        display: none;
-    }
-
-    .addTaskAssignedToContainer select {
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 400px) {
-    .addTaskPrioButtonContainer {
-        gap: 8px;
-        flex-direction: column;
-    }
-}
 
 /* Subtask */
-
-input:-internal-autofill-selected {
- background-color: white;
-}
 
 .editSubTasksInputContainer:focus {
     border-color: #29ABE2; 
@@ -643,4 +553,112 @@ input:-internal-autofill-selected {
     align-items: center;
     gap: 4px;
     margin-right: 8px;
+}
+
+.input:-internal-autofill-selected {
+    background-color: white;
+}
+
+@media (max-width: 1300px) {
+    .mainAddTask {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .formAddTask {
+        flex-direction: column;
+    }
+
+    .addTasksLeft {
+        width: 100%;
+    }
+
+    .spacerAddTasks {
+        display: none;
+    }
+
+    .addTasksRight {
+        width: 100%;
+        margin-bottom: 44px;
+        margin-top: 16px;
+    }
+
+    .addTaskMainContainer {
+        margin-right: 16px;
+        margin-bottom: 16px;
+    }
+
+    .addTaskCreateTaskContainer {
+        justify-content: space-between;
+    }
+
+    .addTaskCreateTaskContainer span {
+        display: flex;
+    }
+
+    .addTaskThisFieldIsRequiredLeft {
+        display: none;
+    }
+
+    .addTaskThisFieldIsRequiredRight {
+        display: flex;
+    }
+
+    .addTaskDescriptionContainer textarea {
+        resize: none;
+        max-width: 100%;
+    }
+
+    .addTaskClearTaskButton {
+        display: none;
+    }
+
+    .addTaskAssignedToContainer select {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .addTaskPrioButtonContainer {
+        gap: 8px;
+        flex-direction: column;
+    }
+}
+
+/* disabled to enabled */
+
+.addTaskCreateTaskButton:enabled {
+    background-color: #2A3647;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    gap: 4px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.addTaskCreateTaskButton:enabled:hover {
+    background-color: #29ABE2;
+}
+
+.addTaskCreateTaskButton:disabled {
+    background-color: #A8A8A8;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 21px;
+    font-weight: 700;
+    gap: 4px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
 }
