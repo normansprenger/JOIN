@@ -10,11 +10,14 @@
  */
 async function initLegalNotice() {
     await includeHTML(); // Ensure includeHTML() has completed
-    currentUser = sessionStorage.getItem('currentUser');
-    if (!currentUser) {
-            hideHeaderContainerRight();
-            hideDesktopContainer(); // Delayed execution
-    }
+    storedUserString = sessionStorage.getItem('currentUser');
+    if (!storedUserString) {
+        hideHeaderContainerRight();
+        hideDesktopContainer(); 
+    } else{
+        currentUser = JSON.parse(storedUserString);
+        fillUserInitials();
+    };
 }
 
 /**

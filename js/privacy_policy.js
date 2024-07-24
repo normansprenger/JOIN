@@ -12,10 +12,13 @@
  */
 async function initPrivacyPolicy() {
     await includeHTML(); // Ensure includeHTML() has completed
-    currentUser = sessionStorage.getItem('currentUser');
-    if (!currentUser) {
+    storedUserString = sessionStorage.getItem('currentUser');
+    if (!storedUserString) {
         hideHeaderContainerRight();
         hideDesktopContainer(); 
+    } else{
+        currentUser = JSON.parse(storedUserString);
+        fillUserInitials();
     };
 }
 

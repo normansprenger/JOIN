@@ -1,3 +1,35 @@
+html{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.body {
+    margin: 0;
+    display: flex;
+    font-family: 'Inter';
+    background-color: #F6F7F8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    max-width: 2000px;
+}
+
+.main {
+    background-color: white;
+    width: calc(100vw - 32px);
+    border-radius: 30px;
+    height: 595px;
+    box-shadow: 0px 0px 14px 3px #0000000A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 530px;
+}
+
 .logo {
     position: absolute;
     top: 60px;
@@ -127,6 +159,8 @@ h1 {
     color: #FF8190;
     margin-top: -20px;
     margin-bottom: -20px;
+    width: calc(100% - 32px);
+    text-align: left;
 }
 
 .blackBackground {
@@ -176,6 +210,8 @@ h1 {
     .inputContainer {
         width: calc(100% - 160px);
     }
-
+    #errorMessage{
+        width: calc(100% - 160px);
+    }
 
 }

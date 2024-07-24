@@ -171,6 +171,18 @@ function changePasswordIcon() {
     }
 }
 
+function changeConfirmPasswordIcon() {
+    if (!document.getElementById('signUpConfirmPassword').value == '' && confirmPasswordFilled == false) {
+        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
+        passwordFilled = true;
+    }
+    else if (document.getElementById('signUpConfirmPassword').value == '') {
+        document.getElementById('confirmPasswordIcon').src = '../assets/img/lock.svg';
+        document.getElementById("signUpConfirmPassword").type = "password";
+        passwordFilled = false;
+    }
+}
+
 /**
  * Toggles the visibility of the password input field.
  *
@@ -180,6 +192,17 @@ function changePasswordIcon() {
  * @function toggleVisibilityPasswordIcon
  * @returns {void}
  */
+function toggleVisibilityConfirmPasswordIcon() {
+    if (document.getElementById("signUpConfirmPassword").type === "password" && passwordFilled == true) {
+        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility.svg';
+        document.getElementById("signUpConfirmPassword").type = "text";
+    }
+    else if (document.getElementById("signUpConfirmPassword").type === "text" && passwordFilled == true) {
+        document.getElementById('confirmPasswordIcon').src = '../assets/img/visibility_off.svg';
+        document.getElementById("signUpConfirmPassword").type = "password";
+    }
+}
+
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("signUpPassword").type === "password" && passwordFilled == true) {
         document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';

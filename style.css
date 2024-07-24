@@ -267,6 +267,10 @@ h1 {
     border: none;
 }
 
+#signUpLink:hover{
+    background-color:  #29ABE2;
+}
+
 .warningMsg {
     font-size: 12px;
     font-weight: 400;
@@ -326,5 +330,8 @@ h1 {
     .startingImgEndPos {
         height: 120px !important;
         width: 100px !important;
+    }
+    .warningMsg{
+        width: calc(100% - 160px);
     }
 }

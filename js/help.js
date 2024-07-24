@@ -5,15 +5,9 @@
  * If the currentUser is null, it hides certain UI elements with a slight delay to ensure they are fully loaded.
  */
 async function initHelp() {
-    await includeHTML(); // Ensure includeHTML() has completed
-    if (currentUser == null) {
-        setTimeout(() => {
-            hideHeaderContainerRightUserIcon(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
-        setTimeout(() => {
-            hideDesktopContainer(); // Delayed execution
-        }, 100); // Example delay, adjust based on load time
-    }
+    await includeHTML();
+    checkUser();
+    fillUserInitials();
 }
 
 /**
