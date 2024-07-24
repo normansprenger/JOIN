@@ -153,6 +153,10 @@ h1 {
     color: #A8A8A8;
 }
 
+.links a:hover{
+    color: #29ABE2
+}
+
 #errorMessage {
     font-size: 12px;
     font-weight: 400;

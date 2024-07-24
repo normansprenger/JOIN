@@ -1,6 +1,26 @@
-.overFlowAuto {
-    overflow: auto ! important;
+
+.body{
+    margin: 0;
+    display: flex;
+    font-family: 'Inter';
+    background-color: #F6F7F8;
+    min-height: 100vh;
 }
+
+.overflowHidden{
+    overflow: hidden;
+}
+.main{
+    margin-top: 128px;
+    margin-bottom: 80px;
+    padding-right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 1000ms ease;
+    max-width: 1800px;
+}
+
 
 #asideMiddleLinkBoard {
     background-color: #091931;
@@ -974,4 +994,10 @@ label{
     align-items: center;
     gap: 4px;
     margin-right: 8px;
+}
+
+@media screen and (min-width: 1000px){
+    main{
+        margin-right: 96px ;
+    }
 }

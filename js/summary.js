@@ -78,8 +78,8 @@ function updateGreetingUser() {
 function showGreetingMobile() {
     let lastPage = sessionStorage.getItem('currentPage');
     if (window.innerWidth < 1000 && lastPage === 'index.html') {
-        var startAnimationMobile = document.getElementById('startAnimationMobile');
-        var mainElement = document.getElementById('main');
+        let startAnimationMobile = document.getElementById('startAnimationMobile');
+        let mainElement = document.getElementById('main');
         startAnimationMobile.classList.add('opacityZero');
         setTimeout(() => {
             startAnimationMobile.classList.add('dnone');

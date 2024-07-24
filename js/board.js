@@ -175,6 +175,7 @@ function filterTasks() {
 }
 
 async function closeSingleView(event) {
+    document.getElementById('body').classList.remove('overflowHidden');
     if (event.target === event.currentTarget) {
         document.getElementById('dialogBackground').classList.add('dnone');
         document.getElementById('singleTask').classList.remove('singleTaskEndposition');
@@ -191,6 +192,7 @@ function stopPropagation(event) {
 
 
 function showTask(taskId) {
+    document.getElementById('body').classList.add('overflowHidden');
     renderSingleTask(taskId);
     document.getElementById('dialogBackground').classList.remove('dnone');
     setTimeout(() => { document.getElementById('singleTask').classList.add('singleTaskEndposition') }, 0);
