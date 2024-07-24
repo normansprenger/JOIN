@@ -4,6 +4,24 @@ let currentDragElement = [];
 let chosenPriority;
 
 
+/**
+ * Initializes the application by performing a series of asynchronous and synchronous operations.
+ * 
+ * The function performs the following steps in order:
+ * 1. Includes HTML content (using `includeHTML`).
+ * 2. Loads tasks from a data source (using `loadTasks`).
+ * 3. Loads contacts from a data source (using `loadContacts`).
+ * 4. Checks the user session or status (using `checkUser`).
+ * 5. Fills user initials based on the user data (using `fillUserInitials`).
+ * 6. Renders the tasks board (using `renderTasksBoard`).
+ * 
+ * This function ensures that all necessary components and data are prepared before the application
+ * becomes fully interactive and functional.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when all asynchronous operations are complete.
+ */
 async function init() {
     await includeHTML();
     await loadTasks();
@@ -13,22 +31,72 @@ async function init() {
     renderTasksBoard();
 }
 
+
+/**
+ * Navigates the user to the "Add Task" page.
+ * 
+ * This function updates the current URL to redirect the browser to the `/html/add_task.html` page,
+ * where users can add a new task.
+ * 
+ * @function
+ * @returns {void}
+ */
 function addTask() {
     window.location.href = '/html/add_task.html';
 }
 
+
+/**
+ * Changes the color of a task element based on its category.
+ *
+ * This function modifies the class of an HTML element to apply a specific color
+ * depending on the task's category. It assumes that the task element's ID is in the
+ * format of "{category}{taskId}", where {category} is the category of the task and
+ * {taskId} is the unique identifier for the task.
+ *
+ * @param {string} taskId - The unique identifier for the task. This is used to construct
+ *   the ID of the HTML element that represents the task.
+ * @param {string} category - The category of the task. Valid values are:
+ *   - "User Story": Applies the 'userStoryColor' class.
+ *   - "Technical Tasks": Applies the 'technicalTaskColor' class.
+ * @throws {Error} Throws an error if the category is not recognized.
+ */
 function changeCategoryColor(taskId, category) {
     let color = '';
     if (category === "User Story") {
         color = 'userStoryColor'
-    }
-    else if (category === 'Technical Tasks') {
+    } else if (category === 'Technical Tasks') {
         color = 'technicalTaskColor';
     }
     document.getElementById(`category${taskId}`).classList.add(`${color}`);
 }
 
-
+/**
+ * Updates the progress information of a task based on its subtasks.
+ *
+ * This function updates the progress container of a task by showing or hiding it,
+ * and updating the progress counter and progress bar according to the completion
+ * status of its subtasks.
+ *
+ * @param {string} taskId - The unique identifier for the task. This is used to construct
+ *   the IDs of the HTML elements that represent the progress container, progress counter,
+ *   progress max, and progress bar.
+ * @param {Array<{ completet: boolean }>|undefined} [subTasks] - An optional array of subtask objects.
+ *   Each subtask object should have a `completet` property indicating whether the subtask is completed (`true`) or not (`false`).
+ *   If `subTasks` is `undefined`, the progress container will be hidden.
+ *
+ * @example
+ * // Show the progress container and update progress for a task with ID 'task1'
+ * changeProgressInfos('task1', [
+ *   { completet: true },
+ *   { completet: false },
+ *   { completet: true }
+ * ]);
+ *
+ * @example
+ * // Hide the progress container for a task with ID 'task2' when no subtasks are provided
+ * changeProgressInfos('task2');
+ */
 function changeProgressInfos(taskId, subTasks) {
     if (subTasks == undefined) {
         document.getElementById(`progressContainer${taskId}`).classList.add('dnone')
@@ -43,17 +111,35 @@ function changeProgressInfos(taskId, subTasks) {
 }
 
 
+/**
+ * Updates the display of assigned users for a specific task.
+ *
+ * This function clears the current display of assigned users for a task and populates it
+ * with new user information based on the provided list of user IDs. Each assigned user is 
+ * displayed with a color-coded icon and their initials.
+ *
+ * @param {string} taskId - The unique identifier for the task. This is used to construct
+ *   the IDs of the HTML elements that represent the assigned users' icons and initials.
+ * @param {Array<string>|undefined} [assignedTos] - An optional array of user IDs representing
+ *   the users assigned to the task. If provided, each user is displayed with their initials
+ *   and a color-coded icon. If `assignedTos` is `undefined` or an empty array, no users will 
+ *   be displayed.
+ *
+ * @example
+ * // Update assigned users for a task with ID 'task1'
+ * changeAssignedTos('task1', ['user1', 'user2']);
+ *
+ * @example
+ * // Clear assigned users display for a task with ID 'task2'
+ * changeAssignedTos('task2');
+ */
 function changeAssignedTos(taskId, assignedTos) {
     document.getElementById(`assignedTo${taskId}`).innerHTML = ``;
     if (assignedTos) {
         for (let i = 0; i < assignedTos.length; i++) {
             let userId = assignedTos[i];
             let contact = findContactById(contacts, userId);
-            document.getElementById(`assignedTo${taskId}`).innerHTML += /*html*/ `
-        <div class="userIcon" id="userIcon${taskId}${i}">
-        <div class="userInitials" id="userInitials${taskId}${i}">NS</div>
-        <div>
-        `;
+            document.getElementById(`assignedTo${taskId}`).innerHTML += changeAssignedTosHTML(taskId, i);
             let color = contact['color'];
             document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
             document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
@@ -62,16 +148,80 @@ function changeAssignedTos(taskId, assignedTos) {
 }
 
 
+/**
+ * Updates the priority image for a specific task.
+ *
+ * This function adds a CSS class to an HTML element representing the priority of a task.
+ * The CSS class is based on the provided priority string, which determines the visual
+ * representation of the task's priority.
+ *
+ * @param {string} taskId - The unique identifier for the task. This is used to construct
+ *   the ID of the HTML element representing the task's priority.
+ * @param {string} priorityString - A string representing the priority level. This string
+ *   is used to create the CSS class name to be added to the priority element.
+ *   For example, if `priorityString` is 'High', the class `classHigh` will be added.
+ *
+ * @example
+ * // Set the priority image to 'High' for a task with ID 'task1'
+ * changePriorityImg('task1', 'High');
+ *
+ * @example
+ * // Set the priority image to 'Low' for a task with ID 'task2'
+ * changePriorityImg('task2', 'Low');
+ */
 function changePriorityImg(taskId, priorityString) {
     document.getElementById(`priority${taskId}`).classList.add(`class${priorityString}`);
 }
 
 
+/**
+ * Finds a contact by its unique identifier.
+ *
+ * This function searches through an array of contact objects and returns the contact object
+ * that matches the specified ID. If no matching contact is found, it returns `undefined`.
+ *
+ * @param {Array<Object>} contacts - An array of contact objects. Each contact object should
+ *   have an `id` property representing the unique identifier of the contact.
+ * @param {string} id - The unique identifier of the contact to find. This ID is compared
+ *   against the `id` properties of the contact objects in the `contacts` array.
+ * @returns {Object|undefined} The contact object with the matching ID, or `undefined` if
+ *   no contact with the specified ID is found.
+ *
+ * @example
+ * const contacts = [
+ *   { id: '1', name: 'Alice' },
+ *   { id: '2', name: 'Bob' },
+ *   { id: '3', name: 'Charlie' }
+ * ];
+ * 
+ * // Find contact with ID '2'
+ * const contact = findContactById(contacts, '2');
+ * console.log(contact); // { id: '2', name: 'Bob' }
+ *
+ * // Attempt to find a contact with an ID that does not exist
+ * const missingContact = findContactById(contacts, '999');
+ * console.log(missingContact); // undefined
+ */
 function findContactById(contacts, id) {
     return contacts.find(contact => contact.id === id);
 }
 
 
+/**
+ * Handles the start of a drag operation for a task.
+ *
+ * This function initiates the drag action by updating the visual representation of the task
+ * being dragged, clearing any empty task containers, and rendering a new empty task
+ * container based on the current task's status.
+ *
+ * @param {string} id - The unique identifier of the task being dragged. This ID is used to
+ *   update the visual state of the task and to determine its status for rendering an empty
+ *   task container.
+ *
+ * @example
+ * // Start dragging the task with ID 'task1'
+ * draggingStart('task1');
+ */
 function draggingStart(id) {
     clearNoTaskContainers();
     currentDragElement = id;
@@ -81,12 +231,38 @@ function draggingStart(id) {
 }
 
 
+/**
+ * Handles the end of a drag operation for a task.
+ *
+ * This function finalizes the drag action by resetting the visual state of the task
+ * and then re-rendering the task board to reflect any changes that might have occurred
+ * during the drag operation.
+ *
+ * @param {string} id - The unique identifier of the task being dragged. This ID is used to
+ *   reset the visual state of the task (by removing the 'rotate-5deg' class) and to
+ *   update the task board.
+ *
+ * @example
+ * // End dragging the task with ID 'task1'
+ * draggingEnd('task1');
+ */
 function draggingEnd(id) {
     document.getElementById(`${id}`).classList.remove('rotate-5deg');
     renderTasksBoard();
 }
 
 
+/**
+ * Hides all HTML elements with the class 'noTaskContainer'.
+ *
+ * This function selects all `div` elements with the class `noTaskContainer` and
+ * adds the `dnone` class to each of them. This effectively hides these elements
+ * from view.
+ *
+ * @example
+ * // Hide all elements with the class 'noTaskContainer'
+ * clearNoTaskContainers();
+ */
 function clearNoTaskContainers() {
     // Alle div-Elemente mit der Klasse noTaskContainer auswählen
     var elements = document.querySelectorAll('div.noTaskContainer');
@@ -99,11 +275,40 @@ function clearNoTaskContainers() {
 }
 
 
+/**
+ * Prevents the default behavior of the drag-and-drop operation.
+ *
+ * This function is intended to be used as an event handler for the `dragover` event.
+ * It prevents the browser's default handling of the event, which is necessary to allow
+ * the drop operation to occur.
+ *
+ * @param {DragEvent} ev - The drag event object. This object represents the event
+ *   that is fired when an element is being dragged over a valid drop target.
+ *
+ * @example
+ * // Attach the allowDrop function to the dragover event of an element with ID 'dropZone'
+ * document.getElementById('dropZone').addEventListener('dragover', allowDrop);
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
 
+/**
+ * Moves the currently dragged task to a new category.
+ *
+ * This function updates the status of the currently dragged task to the specified
+ * category. After updating the task's status, it saves the updated task list and
+ * re-renders the task board to reflect the changes.
+ *
+ * @param {string} category - The new category to which the task should be moved. 
+ *   This represents the new status or category of the task, which will be assigned
+ *   to the `status` property of the task.
+ *
+ * @example
+ * // Move the currently dragged task to the 'Completed' category
+ * moveTo('Completed');
+ */
 function moveTo(category) {
     let task = tasks.find(task => task.id === currentDragElement);
     task['status'] = category;
@@ -112,68 +317,77 @@ function moveTo(category) {
 }
 
 
+/**
+ * Renders empty task placeholders in the task containers based on the provided status.
+ *
+ * This function adds empty task placeholders to all task containers except the one
+ * that matches the provided status. This creates a visual cue indicating that tasks
+ * can be added to these containers.
+ *
+ * @param {string} taskStatus - The status of the task. Determines which task containers
+ *   will receive the empty task placeholders. Possible values are 'toDo', 'inProgress',
+ *   'awaitingFeedback', and 'done'.
+ */
 function renderEmptyTask(taskStatus) {
-    if (taskStatus == 'toDo') {
-        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
-          <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-    } else if (taskStatus == 'inProgress') {
-        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
-          <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-    } else if (taskStatus == 'awaitingFeedback') {
-        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
-          <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentDone').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-    } else if (taskStatus == 'done') {
-        document.getElementById('taskContainerContentToDo').innerHTML += /*html*/`
-          <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-        document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/`
-        <div class="emptyTask"></div>  
-        `;
-    }
+    const containers = {
+        toDo: 'taskContainerContentToDo',
+        inProgress: 'taskContainerContentInProgress',
+        awaitingFeedback: 'taskContainerContentAwaitFeedback',
+        done: 'taskContainerContentDone'
+    };
+    Object.entries(containers).forEach(([status, containerId]) => {
+        if (status !== taskStatus) {
+            document.getElementById(containerId).innerHTML += /*html*/`
+              <div class="emptyTask"></div>  
+            `;
+        }
+    });
 }
 
+
+/**
+ * Filters tasks based on the search input and toggles their visibility.
+ *
+ * This function retrieves the search query from an input field, converts it to lowercase,
+ * and then iterates through the list of tasks. It shows or hides tasks based on whether
+ * their title or description includes the search query. Tasks that match the search query
+ * are displayed, while those that do not are hidden.
+ *
+ * @example
+ * // Filter tasks based on the input in the 'searchMobileInput' field
+ * filterTasks();
+ */
 function filterTasks() {
     let search = document.getElementById('searchMobileInput').value.toLowerCase();
     for (let i = 0; i < tasks.length; i++) {
-        // Get the title and description, and convert them to lowercase for case-insensitive comparison
         let title = tasks[i]['title'].toLowerCase();
         let description = tasks[i]['description'].toLowerCase();
-
-        // Check if the search term is present in either the title or description
         if (title.includes(search) || description.includes(search)) {
-            // If present, remove the 'dnone' class to make the div visible
             document.getElementById(`${tasks[i]['id']}`).classList.remove('dnone');
         } else {
-            // If not present, add the 'dnone' class to hide the div
             document.getElementById(`${tasks[i]['id']}`).classList.add('dnone');
         }
     }
 }
 
+
+/**
+ * Closes the single task view and resets the page state.
+ *
+ * This function handles the closing of a single task view dialog. It removes the `overflowHidden`
+ * class from the body, hides the dialog background, and adjusts the visibility of the single task
+ * view. It then reloads the tasks and re-renders the task board to reflect any updates.
+ *
+ * @param {MouseEvent} event - The event object associated with the closing action. Used to
+ *   determine if the click event occurred on the dialog background (to close the view) or elsewhere.
+ *
+ * @returns {Promise<void>} A promise that resolves when the tasks have been reloaded and the task board
+ *   has been re-rendered. This is because the function uses `await` to handle asynchronous operations.
+ *
+ * @example
+ * // Close the single task view when the background is clicked
+ * document.getElementById('dialogBackground').addEventListener('click', closeSingleView);
+ */
 async function closeSingleView(event) {
     document.getElementById('body').classList.remove('overflowHidden');
     if (event.target === event.currentTarget) {
@@ -183,551 +397,4 @@ async function closeSingleView(event) {
     }
     await loadTasks()
     renderTasksBoard();
-}
-
-
-function stopPropagation(event) {
-    event.stopPropagation;
-}
-
-
-function showTask(taskId) {
-    document.getElementById('body').classList.add('overflowHidden');
-    renderSingleTask(taskId);
-    document.getElementById('dialogBackground').classList.remove('dnone');
-    setTimeout(() => { document.getElementById('singleTask').classList.add('singleTaskEndposition') }, 0);
-    document.getElementById('body').classList.remove('overFlowAuto');
-
-}
-
-
-function renderSingleTask(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let taskpriority = task['priority'].charAt(0).toUpperCase() + task['priority'].slice(1);;
-    document.getElementById('singleTask').innerHTML = /*html*/`
-            <div class="singleTaskHead">
-                <div id="singleTaskCategory" class="singleTaskCategory">${task['category']}</div>
-                <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="closeSingleView(event)">
-            </div>
-            <div class="singleTaskTitle">${task['title']}</div>
-            <div class="singleTaskDescription">${task['description']}</div>
-            <div class="singleTaskDueDate">
-                <div>Due Date:</div>
-                <div>${task['dueDate']}</div>
-            </div>
-            <div class="singleTaskPriority">
-                <div>Priority:</div>
-                <div class="singleTaskPrioritySub">
-                    <div>${taskpriority}</div>
-                    <div class="singleTaskPriorityImg class${task['priority']}"></div>
-                </div>
-            </div>
-            <div id="singleTaskAssignedTo" class="singleTaskAssignedTo">AssignedTo</div>
-            <div id="singleTaskSubTasks" class="singleTaskSubTasks">Subtasks</div>
-            <div class="singleTaskDeleteEdit">
-                <div class="singleTaskDelete" onclick="event.stopPropagation(), deleteTask(${taskId})">
-                    <img src="../assets/img/delete.svg" alt="">
-                    <div>Delete</div>
-                </div>
-                <div class="singleTaskDeleteEditSeparator">
-
-                </div>
-                <div class="singleTaskDelete" onclick="event.stopPropagation(), editTask(${taskId})">
-                    <img src="../assets/img/edit.svg" alt="">
-                    <div>Edit</div>
-                </div>
-            </div>
-    `;
-    changeSingleTaskCategoryColor(task);
-    renderSingleTaskAssignedTo(task);
-    renderSingleTaskSubtasks(task);
-}
-
-
-function changeSingleTaskCategoryColor(task) {
-    category = task['category'];
-    let color = '';
-    if (category === "User Story") {
-        color = 'userStoryColor'
-    }
-    else if (category === 'Technical Tasks') {
-        color = 'technicalTaskColor';
-    }
-    document.getElementById(`singleTaskCategory`).classList.add(`${color}`);
-}
-
-
-function renderSingleTaskAssignedTo(task) {
-    let assignedTos = task['assignedTo'];
-    document.getElementById(`singleTaskAssignedTo`).innerHTML = `
-    <div>Assigned to:</div>
-    `;
-    if (assignedTos) {
-        for (let i = 0; i < assignedTos.length; i++) {
-            let assignedToIndex = assignedTos[i];
-            let contact = findContactById(contacts, assignedToIndex);
-            document.getElementById(`singleTaskAssignedTo`).innerHTML += /*html*/ `
-        <div class="singleTaskAssignedToSub">
-            <div class="userIcon" id="userIcon${i}">
-                <div class="userInitials" id="userInitials${i}"></div>
-            </div>
-            <div class="singleTaskUserName" id="userName${i}"></div>
-        </div>
-        `;
-            let color = contact['color'];
-            document.getElementById(`userIcon${i}`).classList.add(`${color}`.replace("#", 'C'));
-            document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
-            document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
-        }
-    }
-}
-
-
-function renderSingleTaskSubtasks(task) {
-    document.getElementById('singleTaskSubTasks').innerHTML = `
-    <div>Subtasks:</div>
-    `
-    let subTasks = task['subTasks'];
-    if (!subTasks) {
-        document.getElementById('singleTaskSubTasks').innerHTML = ``;
-    }
-    else if (subTasks.length > 0) {
-        for (let i = 0; i < subTasks.length; i++) {
-            let subTask = subTasks[i];
-            document.getElementById('singleTaskSubTasks').innerHTML += /*html*/`
-            <div class="subTask">
-                <div class="subTaskCheckImg subTaskCompleted${subTask['completet']}" id="checkImg${subTask['id']}" onclick="event.stopPropagation(), changeSubTaskCompletet(${task['id']}, ${subTask['id']})"></div>
-                <div>${subTask['content']}</div>
-            </div>    
-            `;
-        }
-    }
-
-}
-
-
-function changeSubTaskCompletet(taskId, subTaskId) {
-    let task = tasks.find(task => task.id === taskId);
-    if (task) {
-        let subTask = task.subTasks.find(subTask => subTask.id === subTaskId);
-        if (subTask) {
-            if (!subTask.completet) {
-                subTask.completet = true;
-                document.getElementById(`checkImg${subTaskId}`).classList.remove('subTaskCompletedfalse');
-                document.getElementById(`checkImg${subTaskId}`).classList.add('subTaskCompletedtrue');
-            } else {
-                subTask.completet = false;
-                document.getElementById(`checkImg${subTaskId}`).classList.remove('subTaskCompletedtrue');
-                document.getElementById(`checkImg${subTaskId}`).classList.add('subTaskCompletedfalse');
-            }
-        }
-        saveTasks();
-    }
-}
-
-function deleteTask(taskId) {
-    tasks = tasks.filter(task => task.id !== taskId);
-    saveTasks();
-    location.reload();
-}
-
-function editTask(taskId) {
-    document.getElementById('singleTask').innerHTML = /*html*/`
-    <form class="editForm" name="editForm" id="editForm" onsubmit="event.stopPropagation(), finishEdit(event, ${taskId})">
-        <div class="editHead">
-            <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="event.stopPropagation(), closeSingleView(event)">
-        </div>
-        <label for="editTitle">Title</label>
-        <input name="editTitle" id="editTitle" placeholder="Enter a title" oninput="validateTitle()">
-        <label for="editDescription">Description</label>
-        <textarea name="editDescription" id="editDescription" placeholder="Enter a description" maxlength="160"oninput="validateDescription()"></textarea>
-        <label for="editDueDate">Due date</label>
-        <input id="editDueDate"
-           name="editDueDate"
-           type="date"
-           min="2022-01-01"
-           step="1">
-        <label for="editPriority">Priority</label>
-        <div class="editPriority" name="editPriority">
-            <div class="prioritySub" id="prioritySubUrgent" onclick="event.stopPropagation(), changeChosenPriorityToUrgent(${taskId})">
-                <div class="editPriorityText" id="editPriorityUrgentText">Urgent</div>
-                <div class="priorityUrgentImgNormal" id="editPriorityUrgentImg"></div>
-            </div>
-            <div class="prioritySub" id="prioritySubMedium" onclick="event.stopPropagation(), changeChosenPriorityToMedium(${taskId})">
-                <div class="editPriorityText" id="editPriorityMediumText">Medium</div>
-                <div class="priorityMediumImgNormal" id="editPriorityMediumImg"></div>
-            </div>
-            <div class="prioritySub" id="prioritySubLow" onclick="event.stopPropagation(), changeChosenPriorityToLow(${taskId})">
-                <div class="editPriorityText"id="editPriorityUrgentText">Low</div>
-                <div class="priorityLowImgNormal" id="editPriorityLowImg"></div>
-            </div>
-        </div>
-        <div class="editAssignedTo">
-            <label for="contactsDropDown">AssignedTo</label onclick="event.stopPropagation()">
-            <div id="contactsDropDownInputContainer" onclick="event.stopPropagation()">
-                <input placeholder="Select contacts to assign" type="search" id="contactsDropDown" onkeyup="editFilterNames()" onfocus="event.stopPropagation(), setInputContainerBorderColor('contactsDropDownInputContainer')" onblur="resetInputContainerBorderColor('contactsDropDownInputContainer')" onclick="event.stopPropagation()">
-                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="event.stopPropagation(), toggleShowChoosingList()" ></div>
-            </div>
-            <div id="choosingList" class="choosingList dnone" onclick="event.stopPropagation()"></div>
-            <div class="editAssignedTosChosen" id="editAssignedTosChosenEdit">
-            </div>
-        </div>
-        <label for="editSubTasks">Subtasks</label>
-        <div id="editSubTasksInputContainer">
-            <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5" maxlength="20" onfocus="setInputContainerBorderColor('editSubTasksInputContainer')" onblur="resetInputContainerBorderColor('editSubTasksInputContainer')">
-            <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="event.stopPropagation(), addSubTask(${taskId})">
-        </div>
-        <div id ="editSubtasksList" class="editSubtasksList">
-
-        </div>
-        <div class="editBottom">
-            <button class="editBottomSave"  type="submit">
-                <div>Ok</div>
-                <img src="../assets/img/checkEditTaskDark.svg" alt="">
-            </button>
-        </div>
-    </form>
-    `;
-    getPreloadedInputValues(taskId);
-    getPreloadedPriority(taskId);
-    renderChoosingList(taskId);
-    renderAssignedTosEdit(taskId);
-    renderSubtasksEdit(taskId);
-}
-
-function getPreloadedInputValues(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let preloadedTitle = task['title'];
-    document.getElementById('editTitle').value = preloadedTitle;
-    let preloadedDescription = task['description'];
-    document.getElementById('editDescription').value = preloadedDescription;
-    let preloadedDueDate = task['dueDate'];
-    document.getElementById('editDueDate').value = preloadedDueDate;
-    setEditDueDateMinDate();
-}
-
-function setEditDueDateMinDate() {
-    // Get today's date
-    let today = new Date();
-
-    // Format the date to YYYY-MM-DD
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    let dd = String(today.getDate()).padStart(2, '0');
-    let formattedDate = yyyy + '-' + mm + '-' + dd;
-
-    // Set the min attribute of the date input
-    document.getElementById('editDueDate').setAttribute('min', formattedDate);
-}
-
-function getPreloadedPriority(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let preloadedPriority = task['priority'];
-    if (preloadedPriority == 'urgent') {
-        changeChosenPriorityToUrgent(taskId);
-    } else if (preloadedPriority == 'medium') {
-        changeChosenPriorityToMedium(taskId);
-    } else {
-        changeChosenPriorityToLow(taskId);
-    }
-}
-
-
-function changeChosenPriorityToUrgent(taskId) {
-    chosenPriority = 'urgent';
-    let task = tasks.find(task => task.id === taskId);
-    task['priority'] = 'urgent';
-    document.getElementById('prioritySubUrgent').classList.add('backgroundColorUrgent');
-    document.getElementById('editPriorityUrgentImg').classList.add('whiteningFilter');
-    document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
-    document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
-    document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
-    document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
-}
-
-function changeChosenPriorityToMedium(taskId) {
-    chosenPriority = 'medium';
-    let task = tasks.find(task => task.id === taskId);
-    task['priority'] = 'medium';
-    document.getElementById('prioritySubMedium').classList.add('backgroundColorMedium');
-    document.getElementById('editPriorityMediumImg').classList.add('whiteningFilter');
-    document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
-    document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
-    document.getElementById('prioritySubLow').classList.remove('backgroundColorLow');
-    document.getElementById('editPriorityLowImg').classList.remove('whiteningFilter');
-}
-
-function changeChosenPriorityToLow(taskId) {
-    chosenPriority = 'low';
-    let task = tasks.find(task => task.id === taskId);
-    task['priority'] = 'low';
-    document.getElementById('prioritySubLow').classList.add('backgroundColorLow');
-    document.getElementById('editPriorityLowImg').classList.add('whiteningFilter');
-    document.getElementById('prioritySubMedium').classList.remove('backgroundColorMedium');
-    document.getElementById('editPriorityMediumImg').classList.remove('whiteningFilter');
-    document.getElementById('prioritySubUrgent').classList.remove('backgroundColorUrgent');
-    document.getElementById('editPriorityUrgentImg').classList.remove('whiteningFilter');
-}
-
-function toggleShowChoosingList() {
-    let list = document.getElementById('choosingList');
-    if (list.classList.contains('dnone')) {
-        list.classList.remove('dnone');
-        document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
-    } else {
-        list.classList.add('dnone');
-        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
-    }
-}
-
-function showChoosingList() {
-    document.getElementById('choosingList').classList.remove('dnone');
-    document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
-}
-
-function closeChoosingList() {
-    if (document.getElementById('choosingList')) {
-        document.getElementById('choosingList').classList.add('dnone');
-        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
-    }
-}
-
-function renderChoosingList(taskId) {
-    document.getElementById('choosingList').innerHTML = ``;
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        let color = contact['color'].replace("#", "C");
-        document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']}, ${taskId}), event.stopPropagation()" id="choosingListRow${contact['id']}">
-            <div class="choosingListLeft">
-                <div class="choosingListUserIcon ${color}">
-                    <div class="choosingListUserInitials">${contact['initials']}</div>
-                </div>
-                <div>${contact['name']}</div>
-            </div>
-            <div class="choosingListCheck" id="choosingListCheckImg${contact['id']}"></div>
-        </div>
-        `;
-        fillAssigned(contact, taskId);
-    }
-}
-
-function fillAssigned(contact, taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let UserId = contact['id'];
-    if (task.assignedTo && task.assignedTo.includes(Number(UserId))) {
-        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedFalse');
-        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedTrue');
-    } else {
-        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.add('completedFalse');
-        document.getElementById(`choosingListCheckImg${contact['id']}`).classList.remove('completedTrue');
-    }
-}
-
-function toggleAssigned(contactId, taskId) {
-    let taskIndex = Number(tasks.findIndex(task => task.id === taskId));
-    if (!tasks[taskIndex].assignedTo) {
-        tasks[taskIndex].assignedTo = [];
-    };
-    let contactIndex = Number(tasks[taskIndex].assignedTo.indexOf(contactId));
-    if (contactIndex === -1) {
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
-        tasks[taskIndex].assignedTo.push(Number(contactId));
-    } else {
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
-        tasks[taskIndex].assignedTo.splice(Number(contactIndex), 1);
-    }
-    renderAssignedTosEdit(taskId);
-
-}
-
-function editFilterNames() {
-    let search = document.getElementById('contactsDropDown').value.toLowerCase();
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i]['name'].toLowerCase().includes(search)) {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).classList.remove('dnone');
-        } else {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).classList.add('dnone');
-        }
-    }
-}
-
-async function finishEdit(event, taskId) {
-    event.preventDefault();
-    let task = tasks.find(task => task.id === taskId);
-    task['title'] = document.getElementById('editTitle').value;
-    task['description'] = document.getElementById('editDescription').value;
-    task['dueDate'] = document.getElementById('editDueDate').value;
-    await saveTasks();
-    renderSingleTask(taskId);
-}
-
-function renderAssignedTosEdit(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let assignedTos = task['assignedTo'];
-    document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
-    if (assignedTos) {
-        for (let i = 0; i < assignedTos.length; i++) {
-            let userId = assignedTos[i];
-            let contact = findContactById(contacts, userId);
-            document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
-            <div class="choosingListUserIcon " id="userIconEdit${i}">
-                <div class="choosingListUserInitials" id="userInitialsEdit${i}"></div>
-            </div>
-        `;
-            let color = contact['color'];
-            document.getElementById(`userIconEdit${i}`).classList.add(`${color}`.replace("#", 'C'));
-            document.getElementById(`userInitialsEdit${i}`).innerHTML = `${contact['initials']}`;
-        }
-    }
-}
-
-function addSubTask(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    let subTaskTitle = document.getElementById('editSubTasks').value;
-    let id = new Date().getTime();
-    let newSubTask = {
-        completet: false,
-        content: subTaskTitle,
-        id: Number(id),
-    };
-    if (!task.subTasks) {
-        task.subTasks = [];
-    }
-    task.subTasks.push(newSubTask);
-    document.getElementById('editSubTasks').value = '';
-    let taskIndex = tasks.findIndex(t => t.id === taskId);
-    if (taskIndex !== -1) {
-        tasks[taskIndex] = task;
-    }
-    renderSubtasksEdit(taskId);
-}
-
-
-function renderSubtasksEdit(taskId) {
-    let task = tasks.find(task => task.id === taskId);
-    document.getElementById('editSubtasksList').innerHTML = ``;
-    if (task['subTasks']) {
-        for (let i = 0; i < task['subTasks'].length; i++) {
-            let singleSubtask = task['subTasks'][i];
-            document.getElementById('editSubtasksList').innerHTML +=/*html*/`
-            <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
-                <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
-                <div class="subTaskEditRowRight">
-                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="event.stopPropagation(), editEditSubTask(${task['id']},${singleSubtask['id']})">
-                    <div class="editSubTaskSeparator"></div>
-                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${task['id']},${singleSubtask['id']})">
-                </div>
-            </div>
-            `;
-
-        }
-    }
-}
-
-
-function deleteEditSubTask(taskId, subTaskId) {
-    // Find the task with the given taskId
-    let task = tasks.find(task => task.id === taskId);
-
-    if (task) {
-        // Find the index of the subtask with the given subTaskId
-        let subTaskIndex = task.subTasks.findIndex(subTask => subTask.id === subTaskId);
-
-        // If the subtask exists, remove it
-        if (subTaskIndex !== -1) {
-            task.subTasks.splice(subTaskIndex, 1);
-        } else {
-            console.log(`Subtask with id ${subTaskId} not found.`);
-        }
-    } else {
-        console.log(`Task with id ${taskId} not found.`);
-    };
-    renderSubtasksEdit(taskId);
-}
-
-function editEditSubTask(taskId, subTaskId) {
-    let preloadedValue = document.getElementById(`subTaskName${subTaskId}`).innerHTML;
-    document.getElementById(`subTaskEditRow${subTaskId}`).innerHTML =/*html*/`
-        <div class="editSubTaskInputContainer">
-            <input class="editSubTaskEditInput" id="editSubTaskInput${subTaskId}" type="text" minlength="5" maxlength="25" placeholder="Rename subtask">
-            <div class="subTaskEditEditRowRight">
-                <img class="editSubTaskEditImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${taskId},${subTaskId})">
-                <div class="editSubTaskSeparator"></div>
-                <img class="editSubTaskEditImg" src="../assets/img/checkEditTaskBright.svg" alt="" onclick="event.stopPropagation(), changeEditSubTaskContent(${taskId},${subTaskId})">
-            </div>
-        </div>
-    `;
-    document.getElementById(`editSubTaskInput${subTaskId}`).value = preloadedValue.substring(2);
-}
-
-function changeEditSubTaskContent(taskId, subTaskId) {
-    // Find the task with the given taskId
-    let task = tasks.find(task => task.id === taskId);
-
-    if (task) {
-        // Find the subtask with the given subTaskId
-        let subTask = task.subTasks.find(subTask => subTask.id === subTaskId);
-
-        if (subTask) {
-            // Get the new content from the input field
-            let newContent = document.getElementById(`editSubTaskInput${subTaskId}`).value;
-
-            // Update the subtask content
-            subTask.content = newContent;
-        } else {
-            console.log(`Subtask with id ${subTaskId} not found.`);
-        }
-    } else {
-        console.log(`Task with id ${taskId} not found.`);
-    }
-    renderSubtasksEdit(taskId);
-}
-
-function setInputContainerBorderColor(inputContainerId) {
-    document.getElementById(`${inputContainerId}`).classList.add('inputContainerFocus');
-}
-
-function resetInputContainerBorderColor(inputContainerId) {
-    document.getElementById(`${inputContainerId}`).classList.remove('inputContainerFocus');
-}
-
-function validateTitle() {
-    let input = document.getElementById('editTitle');
-    let title = input.value.trim();
-
-    // Example password validation criteria:
-    // - At least 4 characters long
-    // - Contains at least one uppercase letter
-    // - Contains at least one lowercase letter
-    // - Contains at least one digit
-    // - Contains at least one special character
-    let titlePattern = /^.{3,40}$/;
-
-    if (titlePattern.test(title)) {
-        input.setCustomValidity(''); // Gültiger Titel, keine Fehlermeldung
-    } else {
-        input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
-    }
-}
-
-function validateDescription() {
-    let input = document.getElementById('editDescription');
-    let description = input.value.trim();
-
-    // Example password validation criteria:
-    // - At least 4 characters long
-    // - Contains at least one uppercase letter
-    // - Contains at least one lowercase letter
-    // - Contains at least one digit
-    // - Contains at least one special character
-    let descriptionPattern = /^.{3,200}$/;
-
-    if (descriptionPattern.test(description)) {
-        input.setCustomValidity(''); // Gültiger Titel, keine Fehlermeldung
-    } else {
-        input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
-    }
 }
