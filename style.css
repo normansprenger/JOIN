@@ -1,4 +1,4 @@
-html{
+html {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,7 +155,7 @@ h1 {
     color: #A8A8A8;
 }
 
-.bottomLinks a:hover{
+.bottomLinks a:hover {
     color: #29ABE2;
 }
 
@@ -213,30 +213,7 @@ h1 {
     border: #29ABE2 1px solid;
 }
 
-@media screen and (min-width: 1000px) {
-    .logo {
-        height: 120px;
-        width: 100px;
 
-    }
-
-    main {
-        max-width: 600px;
-    }
-
-    h1 {
-        font-size: 60px;
-    }
-
-    .inputContainer {
-        width: calc(100% - 160px);
-    }
-
-    .checkbox {
-        width: calc(100% - 160px)
-    }
-
-}
 
 .bottom {
     width: calc(100vw - 32px);
@@ -271,8 +248,8 @@ h1 {
     border: none;
 }
 
-#signUpLink:hover{
-    background-color:  #29ABE2;
+#signUpLink:hover {
+    background-color: #29ABE2;
 }
 
 .warningMsg {
@@ -326,16 +303,40 @@ h1 {
 }
 
 @media screen and (min-width: 1000px) {
-    .signUpContainer{
+    .signUpContainer {
         position: fixed;
         top: 60px;
         right: 100px;
     }
+
     .startingImgEndPos {
         height: 120px !important;
         width: 100px !important;
     }
-    .warningMsg{
+
+    .warningMsg {
         width: calc(100% - 160px);
+    }
+
+    .logo {
+        height: 120px;
+        width: 100px;
+
+    }
+
+    main {
+        max-width: 600px;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    .inputContainer {
+        width: calc(100% - 160px);
+    }
+
+    .checkbox {
+        width: calc(100% - 160px)
     }
 }
