@@ -13,7 +13,7 @@ async function init() {
     renderTasksBoard();
 }
 
-function addTask(){
+function addTask() {
     window.location.href = '/html/add_task.html';
 }
 
@@ -162,7 +162,7 @@ function filterTasks() {
         // Get the title and description, and convert them to lowercase for case-insensitive comparison
         let title = tasks[i]['title'].toLowerCase();
         let description = tasks[i]['description'].toLowerCase();
-        
+
         // Check if the search term is present in either the title or description
         if (title.includes(search) || description.includes(search)) {
             // If present, remove the 'dnone' class to make the div visible
@@ -333,14 +333,14 @@ function deleteTask(taskId) {
 
 function editTask(taskId) {
     document.getElementById('singleTask').innerHTML = /*html*/`
-    <div class="editForm" name="editForm" id="editForm">
+    <form class="editForm" name="editForm" id="editForm" onsubmit="event.stopPropagation(), finishEdit(event, ${taskId})">
         <div class="editHead">
             <img src="../assets/img/closingCrossBoard.svg" alt="" class="closeSingleTaskImg" onclick="event.stopPropagation(), closeSingleView(event)">
         </div>
         <label for="editTitle">Title</label>
-        <input name="editTitle" id="editTitle" placeholder="Enter a title" maxlength="60">
+        <input name="editTitle" id="editTitle" placeholder="Enter a title" oninput="validateTitle()">
         <label for="editDescription">Description</label>
-        <textarea name="editDescription" id="editDescription" placeholder="Enter a description" maxlength="160"></textarea>
+        <textarea name="editDescription" id="editDescription" placeholder="Enter a description" maxlength="160"oninput="validateDescription()"></textarea>
         <label for="editDueDate">Due date</label>
         <input id="editDueDate"
            name="editDueDate"
@@ -381,12 +381,12 @@ function editTask(taskId) {
 
         </div>
         <div class="editBottom">
-            <div class="editBottomSave" onclick="event.stopPropagation(), finishEdit(${taskId})">
+            <button class="editBottomSave"  type="submit">
                 <div>Ok</div>
                 <img src="../assets/img/checkEditTaskDark.svg" alt="">
-            </div>
+            </button>
         </div>
-</div>
+    </form>
     `;
     getPreloadedInputValues(taskId);
     getPreloadedPriority(taskId);
@@ -554,7 +554,8 @@ function editFilterNames() {
     }
 }
 
-async function finishEdit(taskId) {
+async function finishEdit(event, taskId) {
+    event.preventDefault();
     let task = tasks.find(task => task.id === taskId);
     task['title'] = document.getElementById('editTitle').value;
     task['description'] = document.getElementById('editDescription').value;
@@ -691,4 +692,42 @@ function setInputContainerBorderColor(inputContainerId) {
 
 function resetInputContainerBorderColor(inputContainerId) {
     document.getElementById(`${inputContainerId}`).classList.remove('inputContainerFocus');
+}
+
+function validateTitle() {
+    let input = document.getElementById('editTitle');
+    let title = input.value.trim();
+
+    // Example password validation criteria:
+    // - At least 4 characters long
+    // - Contains at least one uppercase letter
+    // - Contains at least one lowercase letter
+    // - Contains at least one digit
+    // - Contains at least one special character
+    let titlePattern = /^.{3,40}$/;
+
+    if (titlePattern.test(title)) {
+        input.setCustomValidity(''); // Gültiger Titel, keine Fehlermeldung
+    } else {
+        input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
+    }
+}
+
+function validateDescription() {
+    let input = document.getElementById('editDescription');
+    let description = input.value.trim();
+
+    // Example password validation criteria:
+    // - At least 4 characters long
+    // - Contains at least one uppercase letter
+    // - Contains at least one lowercase letter
+    // - Contains at least one digit
+    // - Contains at least one special character
+    let descriptionPattern = /^.{3,200}$/;
+
+    if (descriptionPattern.test(description)) {
+        input.setCustomValidity(''); // Gültiger Titel, keine Fehlermeldung
+    } else {
+        input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
+    }
 }

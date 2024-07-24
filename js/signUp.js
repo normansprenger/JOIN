@@ -449,9 +449,9 @@ function randomColor(colors) {
  * @returns {void}
  */
 function validateName() {
-    var input = document.getElementById('signUpName');
-    var name = input.value.trim();
-    var nameParts = name.split(' ');
+    let input = document.getElementById('signUpName');
+    let name = input.value.trim();
+    let nameParts = name.split(' ');
 
     if (nameParts.length >= 2 && nameParts[0].length > 0 && nameParts[1].length > 0) {
         input.setCustomValidity('');
@@ -470,9 +470,9 @@ function validateName() {
  * @returns {void}
  */
 function validateEmail() {
-    var input = document.getElementById('signUpEmail');
-    var email = input.value.trim();
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let input = document.getElementById('signUpEmail');
+    let email = input.value.trim();
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailPattern.test(email)) {
         input.setCustomValidity('');
@@ -492,8 +492,8 @@ function validateEmail() {
  * @returns {void}
  */
 function validatePassword() {
-    var input = document.getElementById('signUpPassword');
-    var password = input.value.trim();
+    let input = document.getElementById('signUpPassword');
+    let password = input.value.trim();
 
     // Example password validation criteria:
     // - At least 4 characters long
@@ -501,7 +501,7 @@ function validatePassword() {
     // - Contains at least one lowercase letter
     // - Contains at least one digit
     // - Contains at least one special character
-    var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
+    let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
 
     if (passwordPattern.test(password)) {
         input.setCustomValidity('');

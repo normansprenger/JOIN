@@ -11,7 +11,6 @@ const userColors = [
 ];
 let currentUser = [];
 
-// lädt User und schaut ob user noch gespeichert ist
 function init() {
     startingAnimation();
     loadUsers();
@@ -22,14 +21,31 @@ function init() {
     saveCurrentPage();
 }
 
-// lädt User aus der Datenbank
+/**
+ * Loads the list of users from the database.
+ *
+ * This function sends an HTTP GET request to the server to retrieve a list of users in JSON format.
+ * The URL is constructed by concatenating BASE_URL and the specified path.
+ * The fetched data is then stored in the `users` variable.
+ *
+ * @param {string} [path="/users"] - The path to the user list, defaulting to "/users".
+ * @returns {Promise<void>} A promise that resolves when the data is loaded.
+ * @throws {Error} If the request fails or the response is not valid JSON.
+ */
 async function loadUsers(path = "/users") {
     let response = await fetch(BASE_URL + path + ".json");
     let reponseToJSON = await response.json();
     users = reponseToJSON;
 };
 
-// schaut im LocalStorage ob User vorhanden(RememberMe) und wenn da dann zur fillStoredUserInfos 
+
+/**
+ * Checks for a currently stored user in the local storage.
+ *
+ * This function retrieves the string representation of the currently stored user from localStorage under the key 'currentUser'.
+ * If a user is found, it parses the string into an object and assigns it to the `currentUser` variable.
+ * It then calls the `fillStoredUserInfos` function to populate user-specific information.
+ */
 function checkCurrentUser() {
     let storedUserString = localStorage.getItem('currentUser');
     if (storedUserString) {
@@ -38,7 +54,17 @@ function checkCurrentUser() {
     }
 }
 
-
+/**
+ * Saves the current list of users to the database.
+ *
+ * This function sends an HTTP PUT request to the server to update the list of users.
+ * The URL is constructed by concatenating BASE_URL and the specified path.
+ * The users data is converted to a JSON string and sent as the request body.
+ *
+ * @param {string} [path="/users"] - The path where the users data should be saved, defaulting to "/users".
+ * @returns {Promise<Response>} A promise that resolves with the server's response to the request.
+ * @throws {Error} If the request fails or the server responds with an error status.
+ */
 async function saveUsers(path = "/users") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
@@ -49,7 +75,17 @@ async function saveUsers(path = "/users") {
     });
 }
 
-
+/**
+ * Saves the current list of contacts to the database.
+ *
+ * This function sends an HTTP PUT request to the server to update the list of contacts.
+ * The URL is constructed by concatenating BASE_URL and the specified path.
+ * The contacts data is converted to a JSON string and sent as the request body.
+ *
+ * @param {string} [path="/contacts"] - The path where the contacts data should be saved, defaulting to "/contacts".
+ * @returns {Promise<Response>} A promise that resolves with the server's response to the request.
+ * @throws {Error} If the request fails or the server responds with an error status.
+ */
 async function saveContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
@@ -60,8 +96,13 @@ async function saveContacts(path = "/contacts") {
     });
 }
 
-
-// füllt die Eingabefelder mit Email und Passwort
+/**
+ * Fills the login form with the stored user information.
+ *
+ * This function sets the email and password fields of the login form with the corresponding values
+ * from the `currentUser` object. It also updates the display properties of elements related to the
+ * "Remember Me" functionality, indicating that the user has opted to be remembered.
+ */
 function fillStoredUserInfos() {
     document.getElementById('loginEmail').value = currentUser['email'];
     document.getElementById('loginPassword').value = currentUser['password'];
@@ -70,6 +111,14 @@ function fillStoredUserInfos() {
     rememberMe = true;
 }
 
+/**
+ * Toggles the display of the "Remember Me" images and updates the corresponding state.
+ *
+ * This function checks the current display state of the 'rememberImg' element.
+ * If the 'rememberImg' element is not visible, it hides the 'rememberCheckedImg' and shows the 'rememberImg', 
+ * setting the `rememberMe` flag to `false`. Otherwise, it shows the 'rememberCheckedImg' and hides the 'rememberImg', 
+ * setting the `rememberMe` flag to `true`.
+ */
 function changeRememberImg() {
     if (document.getElementById('rememberImg').style.display == 'none') {
         document.getElementById('rememberCheckedImg').style.display = 'none';
