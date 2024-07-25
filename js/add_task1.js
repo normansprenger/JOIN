@@ -193,8 +193,10 @@ function toggleShowChoosingList() {
  * @returns {void}
  */
 function toggleAssigned(contactId) {
-    const contactIndex = newTask['assignedTo'].indexOf(Number(contactId));
-
+    let contactIndex = newTask['assignedTo'].indexOf(Number(contactId));
+    if (!newTask.assignedTo) {
+        newTasktask.assignedTo = [];
+    }
     if (contactIndex === -1) { 
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
@@ -207,6 +209,25 @@ function toggleAssigned(contactId) {
 
     renderAssignedTosEdit(newTask.id);
 }
+
+//function toggleAssigned(contactId, taskId) {
+//    let task = tasks.find(task => task.id === taskId);
+//    if (!task.assignedTo) {
+//        task.assignedTo = [];
+//    }
+//    let isAssigned = task.assignedTo.includes(Number(contactId));
+//    let checkImg = document.getElementById(`choosingListCheckImg${contactId}`);
+//    if (isAssigned) {
+//        task.assignedTo = task.assignedTo.filter(id => id !== Number(contactId));
+//        checkImg.classList.add('completedFalse');
+//        checkImg.classList.remove('completedTrue');
+//    } else {
+//        task.assignedTo.push(Number(contactId));
+//        checkImg.classList.add('completedTrue');
+//        checkImg.classList.remove('completedFalse');
+//    }
+//    renderAssignedTosEdit(taskId);
+//}
 
 /**
  * Filters the contacts in the choosing list based on the search input.

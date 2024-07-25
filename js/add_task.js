@@ -127,7 +127,7 @@ function validateTitle() {
     let title = input.value.trim();
     let titlePattern = /^.{3,40}$/;
     if (titlePattern.test(title)) {
-        input.setCustomValidity(''); 
+        input.setCustomValidity('');
     } else {
         input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
     }
@@ -150,7 +150,7 @@ function validateDescription() {
     let description = input.value.trim();
     let descriptionPattern = /^.{3,200}$/;
     if (descriptionPattern.test(description)) {
-        input.setCustomValidity(''); 
+        input.setCustomValidity('');
     } else {
         input.setCustomValidity('The description must be at least 3 characters long and max 200 characters long.');
     }
@@ -167,7 +167,7 @@ function validateDescription() {
  * @function addSubTask
  * @returns {void}
  */
-function addSubTask() {	
+function addSubTask() {
     let subTaskTitle = document.getElementById('editSubTasks').value;
     let id = new Date().getTime();
     let newSubTask = {
@@ -202,9 +202,9 @@ function renderSubtasksEdit() {
             <div class="subTaskEditRow" id="subTaskEditRow${singleSubtask['id']}">
                 <div class="subTaskEditName" id="subTaskName${singleSubtask['id']}">&#10625 ${singleSubtask['content']}</div>
                 <div class="subTaskEditRowRight">
-                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="event.stopPropagation(), editEditSubTask(${singleSubtask['id']})">
+                    <img class="editSubTaskEditImg" src="../assets/img/edit.svg" alt="" onclick="editEditSubTask(${singleSubtask['id']})">
                     <div class="editSubTaskSeparator"></div>
-                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="event.stopPropagation(), deleteEditSubTask(${singleSubtask['id']})">
+                    <img class="editSubTaskDeleteImg" src="../assets/img/delete.svg" alt="" onclick="deleteEditSubTask(${singleSubtask['id']})">
                 </div>
             </div>
             `;
@@ -253,7 +253,7 @@ function editEditSubTask(subTaskId) {
     }
 
     let preloadedValue = subTaskNameElement.innerHTML;
-    
+
     let subTaskEditRowElement = document.getElementById(`subTaskEditRow${subTaskId}`);
     if (!subTaskEditRowElement) {
         console.error(`Element mit ID subTaskEditRow${subTaskId} nicht gefunden.`);
@@ -300,7 +300,7 @@ function changeEditSubTaskContent(subTaskId) {
 }
 
 // Clear Task Function //
-    
+
 /**
  * Clears the input fields and resets task-related arrays and variables.
  * 
@@ -324,12 +324,10 @@ function clearTask() {
 // Create Task //
 
 async function createTask(event) {
-    event.preventDefault(); 
-
-    // render Tasks // ??
-    await pushTask();
-    showDialogAnimation();
-    window.location.href = "board.html";
+    event.preventDefault();
+    //pushTask();
+    //showDialogAnimation();
+    //window.location.href = "board.html";
 }
 
 async function pushTask() {
@@ -340,15 +338,15 @@ async function pushTask() {
 
     newTask.assignedTo = assignedContacts; // Wie hole ich die Assigned To Kontakte??
     newTask.priority = newTask.priority || "medium"; // Falls keine Priorität gewählt wurde, Standardwert setzen
-    newTask.subTasks = subArray; 
-    newTask.status = "New"; 
+    newTask.subTasks = subArray;
+    newTask.status = "toDo";
 
     newTaskId = new Date().getTime();
     newTask.id = Number(newTaskId);
 
     tasks.push(newTask);
 
-    await saveTasks();
+    //await saveTasks();
 }
 
 /**
