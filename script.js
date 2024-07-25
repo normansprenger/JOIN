@@ -371,7 +371,7 @@ function clearInputs() {
  * 
  */
 function directToSummary() {
-    window.location.href = '../html/summary.html';
+    window.location.href = '../JOIN/html/summary.html';
 }
 
 

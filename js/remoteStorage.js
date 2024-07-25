@@ -165,7 +165,7 @@ function fillUserInitials() {
 function logout() {
     sessionStorage.clear();
     localStorage.clear();
-    window.location.href = '../../index.html';
+    window.location.href = '..JOIN/index.html';
 }
 
 /**
