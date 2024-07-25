@@ -302,8 +302,6 @@ function changeEditSubTaskContent(subTaskId) {
     }
 }
 
-// Clear Task Function //
-
 /**
  * Clears the input fields and resets task-related arrays and variables.
  * 
@@ -323,9 +321,14 @@ function clearTask() {
     priority = "";
     location.reload();
 }
-
-
-
+/**
+ * Handles the creation of a new task.
+ * Prevents the default form submission behavior, pushes the new task to the task list,
+ * shows a dialog animation, and then redirects to the board page.
+ * 
+ * @param {Event} event - The event object from the form submission.
+ * @returns {Promise<void>} - A promise that resolves when the task creation process is complete.
+ */
 async function createTask(event) {
     event.preventDefault();
     await pushTask();
@@ -333,18 +336,27 @@ async function createTask(event) {
     window.location.href = "board.html";
 }
 
+/**
+ * Gathers task data from the form, creates a new task object, assigns default values where necessary,
+ * adds the task to the tasks array, and saves the tasks array.
+ * 
+ * @returns {Promise<void>} - A promise that resolves when the task has been successfully saved.
+ */
 async function pushTask() {
+    const newTask = {};
+    
     newTask.title = document.getElementById('title').value.trim();
     newTask.description = document.getElementById('description').value.trim();
     newTask.dueDate = document.getElementById('editDueDate').value;
     newTask.category = document.getElementById('category').value;
 
+    // Assigned contacts need to be retrieved from the appropriate source
     newTask.assignedTo = assignedContacts; // Wie hole ich die Assigned To Kontakte??
-    newTask.priority = newTask.priority || "medium"; // Falls keine Priorität gewählt wurde, Standardwert setzen
+    newTask.priority = newTask.priority || "medium"; // Set default priority if none is chosen
     newTask.subTasks = subArray;
     newTask.status = "toDo";
 
-    newTaskId = new Date().getTime();
+    const newTaskId = new Date().getTime();
     newTask.id = Number(newTaskId);
 
     tasks.push(newTask);
