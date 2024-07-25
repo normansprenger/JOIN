@@ -1,9 +1,45 @@
+/**
+ * @constant {HTMLElement} assignetTo - Reference to the HTML element with the ID 'assignedTo'.
+ */
 let assignetTo = document.getElementById("assignedTo");
+
+/**
+ * @constant {HTMLElement} category - Reference to the HTML element with the ID 'category'.
+ */
 let category = document.getElementById("category");
+
+/**
+ * @type {string|undefined} priority - The priority level of the task. It can be 'urgent', 'medium', 'low', or undefined.
+ */
 let priority;
+
+/**
+ * @type {Array} subArray - An array used for storing subtask-related data or other information.
+ */
 let subArray = [];
+
+/**
+ * @type {Array} assignedContacts - An array for keeping track of assigned contacts by their IDs.
+ */
 let assignedContacts = [];
+
+/**
+ * @type {number|undefined} newTaskId - The unique identifier for the new task, based on the current timestamp. It can be undefined if not set.
+ */
 let newTaskId;
+
+/**
+ * @type {Object} newTask - An object representing a new task, with properties for managing task details.
+ * @property {Array<number>} assignedTo - An array of IDs for the contacts assigned to the task.
+ * @property {string} category - The category of the task.
+ * @property {string} description - The description of the task.
+ * @property {string} dueDate - The due date of the task in YYYY-MM-DD format.
+ * @property {number|undefined} id - The unique identifier for the task. It can be undefined if not set.
+ * @property {string} priority - The priority level of the task (e.g., 'urgent', 'medium', 'low').
+ * @property {string} status - The status of the task (e.g., 'pending', 'completed').
+ * @property {Array<Object>} subTasks - An array of subtask objects associated with the task.
+ * @property {string} title - The title of the task.
+ */
 let newTask = {
     "assignedTo": [],
     "category": "",
@@ -342,4 +378,3 @@ function showDialogAnimation() {
 //anschließend weiterleiten zu boardseite
 //fertig
 //}
-
