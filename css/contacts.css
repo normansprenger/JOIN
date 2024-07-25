@@ -204,6 +204,8 @@ h1 {
 .contactDetailsBodyPhone {
     font-weight: 400;
     margin: 0;
+    text-decoration: none;
+    color: black;
 }
 
 .LeftPartOverview {

@@ -245,7 +245,7 @@ function createContactDetailsBody(contact) {
       </div>
       <div class="contactDetailsBodyPhoneContainer">
         <p>Phone:</p>
-        <p class="contactDetailsBodyPhone">${contact.phone || "N/A"}</p>
+        <a class="contactDetailsBodyPhone" href="tel:${contact.phone || "N/A"}">${contact.phone || "N/A"}</a>
       </div>
       <img src="../assets/img/arrowLeft.svg" alt="Back" class="backButton" onclick="backToList()">
       <div class="ContactMenu" id="ContactMenu" onclick="openContactMenu(${contact.id})">
