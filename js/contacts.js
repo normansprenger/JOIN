@@ -241,7 +241,7 @@ function createContactDetailsBody(contact) {
       <h3>Contact Information</h3>
       <div class="contactDetailsBodyEmailContainer">
         <p>Email:</p>
-        <p class="contactDetailsBodyEmail">${contact.email}</p>
+        <a class="contactDetailsBodyEmail" href="mailto:${contact.email}">${contact.email}</a>
       </div>
       <div class="contactDetailsBodyPhoneContainer">
         <p>Phone:</p>

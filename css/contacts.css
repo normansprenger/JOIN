@@ -184,6 +184,7 @@ h1 {
     font-weight: 700;
     gap: 15px;
     margin: 0;
+    
 }
 
 .contactDetailsBodyEmailContainer p, 
@@ -195,7 +196,10 @@ h1 {
     color: #007CEE;
     font-weight: 400;
     margin-bottom: 15px!important;
+    text-decoration: none;
 }
+
+
 
 .contactDetailsBodyPhone {
     font-weight: 400;

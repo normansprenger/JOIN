@@ -1,3 +1,5 @@
+
+
 /**
  * @constant {HTMLElement} assignetTo - Reference to the HTML element with the ID 'assignedTo'.
  */
@@ -79,6 +81,7 @@ async function initAddTask() {
     setEditDueDateMinDate();
     checkUser();
     fillUserInitials();
+    //document.querySelector('.formAddTask').addEventListener('submit', createTask);
 }
 
 // disabled to enabled //
@@ -102,9 +105,9 @@ function enableCreateTaskButton() {
     const categoryFilled = document.getElementById('category').value !== '' && document.getElementById('category').value !== 'Select task category';
 
     if (titleFilled && dueDateFilled && categoryFilled) {
-        document.getElementById('createTask').disabled = false;
+        document.getElementById('createTaskButton').disabled = false;
     } else {
-        document.getElementById('createTask').disabled = true;
+        document.getElementById('createTaskButton').disabled = true;
     }
 }
 
@@ -321,13 +324,13 @@ function clearTask() {
     location.reload();
 }
 
-// Create Task //
+
 
 async function createTask(event) {
     event.preventDefault();
-    //pushTask();
-    //showDialogAnimation();
-    //window.location.href = "board.html";
+    await pushTask();
+    showDialogAnimation();
+    window.location.href = "board.html";
 }
 
 async function pushTask() {
@@ -346,7 +349,7 @@ async function pushTask() {
 
     tasks.push(newTask);
 
-    //await saveTasks();
+    await saveTasks();
 }
 
 /**
@@ -368,12 +371,3 @@ function showDialogAnimation() {
         showElement.classList.remove('addTaskAfterAnimationText');
     }, 2000);
 }
-
-//createTask(){
-//werte aus inputfeldern mit .value in das newTask
-//newTask gepusht in das tasks
-//saveTasks() zurück in Firebase
-//dialog animation
-//anschließend weiterleiten zu boardseite
-//fertig
-//}

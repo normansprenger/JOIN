@@ -33,6 +33,7 @@ function addPrioButtonColor(prio, event) {
     }
 }
 
+
 /**
  * Removes specific CSS classes from the priority buttons and resets their icons.
  * 
@@ -122,7 +123,7 @@ function setEditDueDateMinDate() {
     let today = new Date();
 
     let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     let dd = String(today.getDate()).padStart(2, '0');
     let formattedDate = yyyy + '-' + mm + '-' + dd;
 
@@ -197,11 +198,11 @@ function toggleAssigned(contactId) {
     if (!newTask.assignedTo) {
         newTasktask.assignedTo = [];
     }
-    if (contactIndex === -1) { 
+    if (contactIndex === -1) {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
         newTask['assignedTo'].push(Number(contactId));
-    } else { 
+    } else {
         document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
         document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
         newTask['assignedTo'].splice(contactIndex, 1);
