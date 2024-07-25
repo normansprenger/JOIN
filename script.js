@@ -158,10 +158,10 @@ function changeRememberImg() {
  */
 function changePasswordIcon() {
     if (!document.getElementById('loginPassword').value == '' && passwordFilled == false) {
-        document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
+        document.getElementById('passwordIcon').src = '../JOIN/assets/img/visibility_off.svg';
         passwordFilled = true;
     } else if (document.getElementById('loginPassword').value == '') {
-        document.getElementById('passwordIcon').src = '../assets/img/lock.svg';
+        document.getElementById('passwordIcon').src = '../JOIN/assets/img/lock.svg';
         document.getElementById("loginPassword").type = "password";
         passwordFilled = false;
     }
@@ -177,10 +177,10 @@ function changePasswordIcon() {
  */
 function toggleVisibilityPasswordIcon() {
     if (document.getElementById("loginPassword").type === "password" && passwordFilled == true) {
-        document.getElementById('passwordIcon').src = '../assets/img/visibility.svg';
+        document.getElementById('passwordIcon').src = '../JOIN/assets/img/visibility.svg';
         document.getElementById("loginPassword").type = "text";
     } else if (document.getElementById("loginPassword").type === "text" && passwordFilled == true) {
-        document.getElementById('passwordIcon').src = '../assets/img/visibility_off.svg';
+        document.getElementById('passwordIcon').src = '../JOIN/assets/img/visibility_off.svg';
         document.getElementById("loginPassword").type = "password";
     }
 }
