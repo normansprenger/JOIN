@@ -164,8 +164,7 @@ function fillUserInitials() {
  */
 function logout() {
     sessionStorage.clear();
-    localStorage.clear();
-    window.location.href = '..JOIN/index.html';
+    window.location.href = 'https://join-268.developerakademie.net/index.html';
 }
 
 /**

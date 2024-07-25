@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
-    <link rel="icon" type="image/x-icon" href="../JOIN/assets/img/logoBright.svg">
-    <link rel="stylesheet" href="../JOIN/css/font_inter.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logoBright.svg">
+    <link rel="stylesheet" href="../css/font_inter.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <script src="script1.js"></script>
 </head>
 
 <body class="body" onload="init()">
-    <img class="logo" src="../JOIN/assets/img/logoDark.svg" alt="logo">
+    <img class="logo" src="../assets/img/logoDark.svg" alt="logo">
     <main class="main">
         <div class="header">
             <div class="loginHeadline">
@@ -26,7 +26,7 @@
                 <input class="inputField" required autocomplete="email" id="loginEmail" type="email" placeholder="Email"
                     onkeyup="enableDisableButton()" onfocus="changeBordorColorEmail()"
                     onblur="originalBorderColorEmail()">
-                <img class="signUpFormEmoticons" src="../JOIN/assets/img/mail.svg" alt="">
+                <img class="signUpFormEmoticons" src="../assets/img/mail.svg" alt="">
             </div>
             <div id="wrongEmailMsg" class="warningMsg dnone">Wrong E-Mail. Try again.</div>
             <div class="inputContainer" id="inputContainerPassword" onkeyup="changePasswordIcon()"
@@ -35,14 +35,14 @@
                     placeholder="Password" onkeyup="enableDisableButton()" onfocus="changeBordorColorPassword()"
                     onblur="originalBorderColorPassword()" oninput="validatePassword()">
 
-                <img id="passwordIcon" class="signUpFormEmoticons" src="../JOIN/assets/img/lock.svg" alt=""
+                <img id="passwordIcon" class="signUpFormEmoticons" src="../assets/img/lock.svg" alt=""
                     onclick="toggleVisibilityPasswordIcon()">
             </div>
             <div id="wrongPasswordMsg" class="warningMsg dnone">Wrong Password. Try again.</div>
             <div class="checkbox">
-                <img id="rememberCheckedImg" class="check" src="../JOIN/assets/img/checked.svg" alt=""
+                <img id="rememberCheckedImg" class="check" src="../assets/img/checked.svg" alt=""
                     onclick="changeRememberImg()" style="display: none;">
-                <img id="rememberImg" class="check" src="../JOIN/assets/img/checkEmpty.svg" alt=""
+                <img id="rememberImg" class="check" src="../assets/img/checkEmpty.svg" alt=""
                     onclick="changeRememberImg()">
                 <span>Remember me</span>
             </div>
@@ -59,15 +59,15 @@
     <section class="bottom">
         <div class="signUpContainer">
             <span>Not a Join User ?</span>
-            <a href="../JOIN/html/signUp.html" id="signUpLink">Sign Up</a>
+            <a href="../html/signUp.html" id="signUpLink">Sign Up</a>
         </div>
         <div class="bottomLinks">
-            <a href="../JOIN/html/privacy_policy.html">Privacy Policy</a>
-            <a href="../JOIN/html/legal_notice.html">Legal Notice</a>
+            <a href="../html/privacy_policy.html">Privacy Policy</a>
+            <a href="../html/legal_notice.html">Legal Notice</a>
         </div>
     </section>
     <div id="startingBackground" class="background">
-        <img id="startingImg" class="startingImg " src="../JOIN/assets/img/logoDark.svg" alt="">
+        <img id="startingImg" class="startingImg " src="../assets/img/logoDark.svg" alt="">
     </div>
 </body>
 

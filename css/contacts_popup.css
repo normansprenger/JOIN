@@ -451,7 +451,7 @@
 }
 
 /* Mobile View */
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
     .addContactButton {
         display: none;
     }

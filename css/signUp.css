@@ -195,6 +195,10 @@ h1 {
     bottom: 0px !important;
 }
 
+.overflowHidden{
+    overflow: hidden !important;
+}
+
 @media screen and (min-width: 1000px) {
     .logo {
         height: 120px;
@@ -218,4 +222,10 @@ h1 {
         width: calc(100% - 160px);
     }
 
+}
+
+@media screen and (max-height: 900px) {
+    .logo{
+        display: none;
+    }
 }

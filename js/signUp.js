@@ -538,6 +538,7 @@ function clearInputs() {
  * @returns {void}
  */
 function signUpSuccess() {
+    document.getElementById('body').classList.add('overflowHidden');
     document.getElementById('blackBackground').style.display = "flex";
 
     // Delay the display of the success message to ensure the background appears first
@@ -559,5 +560,5 @@ function signUpSuccess() {
  * @returns {void}
  */
 function directToLogin() {
-    window.location.href = '../../index.html';
+    window.location.href = 'https://join-268.developerakademie.net/index.html';
 }

@@ -9,7 +9,7 @@ html {
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     max-width: 2000px;
     display: flex;
     flex-direction: column;
@@ -338,5 +338,11 @@ h1 {
 
     .checkbox {
         width: calc(100% - 160px)
+    }
+}
+
+@media screen and (max-height: 900px) {
+    .logo{
+        display: none;
     }
 }

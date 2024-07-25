@@ -4,7 +4,8 @@ body {
     font-family: 'Inter';
     background-color: #F6F7F8;
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 main {
