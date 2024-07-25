@@ -44,6 +44,29 @@ function enableCreateTaskButton() {
     }
 }
 
+// Validate Title and Description //
+
+function validateTitle() {
+    let input = document.getElementById('title');
+    let title = input.value.trim();
+    let titlePattern = /^.{3,40}$/;
+    if (titlePattern.test(title)) {
+        input.setCustomValidity(''); 
+    } else {
+        input.setCustomValidity('The title must be at least 3 characters long and max 40 characters long.');
+    }
+}
+
+function validateDescription() {
+    let input = document.getElementById('description');
+    let description = input.value.trim();
+    let descriptionPattern = /^.{3,200}$/;
+    if (descriptionPattern.test(description)) {
+        input.setCustomValidity(''); 
+    } else {
+        input.setCustomValidity('The title must be at least 3 characters long and max 200 characters long.');
+    }
+}
 
 // Prio Button Color function //
 
@@ -289,42 +312,54 @@ function changeEditSubTaskContent(subTaskId) {
 // Clear Task Function //
     
 function clearTask() {
-    let inputTitle = document.getElementById("title");
-    let inputDescription = document.getElementById("description");
-    let date = document.getElementById("editDueDate");
-    inputTitle.value = "";
-    inputDescription.value = "";
-    clearAssignedTo();
-    date.value = "";
-    clearSubtask();
-  }
-
-  function clearAssignedTo() {
-    let div = document.getElementById("contactsDropDown");
-    assignedContacts = [];
-    div.innerHTML = "";
-  }
-
-  function clearSubtask() {
-    let subtask = document.getElementById("editSubtasksList");
+    document.getElementById("title").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("editDueDate").value = "";
+    document.getElementById("category").value = "";
     subArray = [];
-    subtask.innerHTML = "";
-    i = 0;
-    subtask.classList.add("d-none");
+    assignedContacts = [];
+    priority = "";
   }
-  
-  function clearSubtaskInput() {
-    document.getElementById("editSubTasks").value = "";
-  }
-
 
 // Create Task //
 
+async function createTask(event) {
+    event.preventDefault(); 
 
-//form onsubmit="createTask()"
-//(div input input select textarea)
-// der Create taskbutton bekommt keine funktion der bekommt nur den type="submit" aber muss im formular drin sind
+    // render Tasks // ??
+    await pushTask();
+    showDialogAnimation();
+    window.location.href = "board.html";
+}
 
+async function pushTask() {
+    newTask.title = document.getElementById('title').value.trim();
+    newTask.description = document.getElementById('description').value.trim();
+    newTask.dueDate = document.getElementById('editDueDate').value;
+    newTask.category = document.getElementById('category').value;
+
+    newTask.assignedTo = assignedContacts; // Wie hole ich die Assigned To Kontakte??
+    newTask.priority = newTask.priority || "medium"; // Falls keine Priorität gewählt wurde, Standardwert setzen
+    newTask.subTasks = subArray; 
+    newTask.status = "New"; 
+
+    newTaskId = new Date().getTime();
+    newTask.id = Number(newTaskId);
+
+    tasks.push(newTask);
+
+    await saveTasks();
+}
+
+function showDialogAnimation() {
+    const showElement = document.getElementById('addTaskAnimationText');
+
+    showElement.classList.add('addTaskAfterAnimationText');
+
+    setTimeout(() => {
+        showElement.classList.remove('addTaskAfterAnimationText');
+    }, 2000);
+}
 
 
 //createTask(){
@@ -336,4 +371,3 @@ function clearTask() {
 //fertig
 //}
 
-//in die Init checkuser und fillinitisls einfügen (wie immer)

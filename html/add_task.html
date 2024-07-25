@@ -23,7 +23,7 @@
       <section class="addTaskMainContainer">
         <h1 class="addTaskTitle">Add Task</h1>
         <div class="mainAddTask">
-            <form class="formAddTask">
+            <form class="formAddTask" onsubmit="createTask(event)">
                 <div class="addTasksLeft">
                   <div class="addTaskTitleContainer">
                     <label for="title">Title<span style="color: red">*</span></label>
@@ -33,7 +33,7 @@
                       name="title"
                       placeholder="Enter a title"
                       required
-                      oninput="enableCreateTaskButton()"
+                      oninput="enableCreateTaskButton(), validateTitle()"
                     />
                   </div>
                   <div class="addTaskDescriptionContainer">
@@ -44,6 +44,7 @@
                       rows="4"
                       cols="50"
                       placeholder="Enter a Description"
+                      oninput="validateDescription()"
                     ></textarea>
                   </div>
                   <div class="editAssignedTo">
@@ -144,7 +145,8 @@
                     <button class="addTaskCreateTaskButton" type="submit" id="createTask" disabled>Create Task<img src="../assets/img/check.svg" alt="Check" /></button>
                   </div>
                 </div>
-              </form>              
+              </form>
+              <div class="addTaskAnimationText" id="addTaskAnimationText">Task added to Board</div>
         </div>
       </section>
     </main>

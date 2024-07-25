@@ -484,7 +484,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     background-image: url(../assets/img/checked.svg);
 }
 
-
 /* Subtask */
 
 .editSubTasksInputContainer:focus {
@@ -577,6 +576,62 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     background-color: white;
 }
 
+/* disabled to enabled */
+
+.addTaskCreateTaskButton:enabled {
+    background-color: #2A3647;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    gap: 4px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.addTaskCreateTaskButton:enabled:hover {
+    background-color: #29ABE2;
+}
+
+.addTaskCreateTaskButton:disabled {
+    background-color: #A8A8A8;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 21px;
+    font-weight: 700;
+    gap: 4px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.addTaskAnimationText {
+    display: block; 
+    position: fixed;
+    left: calc(50% - 144px);
+    bottom: -200px;
+    z-index: 10;
+    background-color: #2A3647;
+    color: white;
+    font-weight: 400;
+    font-size: 17px;
+    border-radius: 20px;
+    padding: 27px;
+    transition: bottom 2s ease; 
+}
+    
+.addTaskAfterAnimationText {
+    bottom: 200px !important;
+}
+
 @media (max-width: 1300px) {
     .mainAddTask {
         margin: 0;
@@ -659,41 +714,4 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
         gap: 8px;
         flex-direction: column;
     }
-}
-
-/* disabled to enabled */
-
-.addTaskCreateTaskButton:enabled {
-    background-color: #2A3647;
-    color: white;
-    border-radius: 10px;
-    padding: 16px;
-    font-size: 21px;
-    font-weight: 700;
-    cursor: pointer;
-    gap: 4px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.addTaskCreateTaskButton:enabled:hover {
-    background-color: #29ABE2;
-}
-
-.addTaskCreateTaskButton:disabled {
-    background-color: #A8A8A8;
-    color: white;
-    border-radius: 10px;
-    padding: 16px;
-    font-size: 21px;
-    font-weight: 700;
-    gap: 4px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 32px;
 }
