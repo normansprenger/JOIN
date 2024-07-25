@@ -361,7 +361,6 @@ function showDialogAnimation() {
     }, 2000);
 }
 
-
 //createTask(){
 //werte aus inputfeldern mit .value in das newTask
 //newTask gepusht in das tasks
