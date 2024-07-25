@@ -714,4 +714,14 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
         gap: 8px;
         flex-direction: column;
     }
+
+    .addTaskCreateTaskContainer {
+        margin-top: 32px;
+        padding-bottom: 96px;
+    }
+
+    .addTaskCreateTaskButton:disabled {
+        margin-bottom: 0;
+        padding: 8px;
+    }
 }

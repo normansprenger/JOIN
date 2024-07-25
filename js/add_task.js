@@ -16,6 +16,21 @@ let newTask = {
     "title": ""
 };
 
+/**
+ * Initializes the Add Task page by performing several asynchronous operations:
+ * - Includes HTML templates.
+ * - Loads existing tasks and contacts.
+ * - Applies the medium orange button style.
+ * - Generates a unique task ID based on the current timestamp and assigns it to the new task.
+ * - Renders the choosing list and the assigned contacts section for editing.
+ * - Sets the minimum date for the due date input field.
+ * - Checks the current user.
+ * - Fills in user initials.
+ * 
+ * @async
+ * @function initAddTask
+ * @returns {Promise<void>} A promise that resolves when all initialization steps are completed.
+ */
 async function initAddTask() {
     includeHTML();
     await loadTasks();
@@ -32,6 +47,19 @@ async function initAddTask() {
 
 // disabled to enabled //
 
+/**
+ * Enables or disables the "Create Task" button based on the completion status of the task form fields.
+ * 
+ * This function checks if the following form fields are filled:
+ * - Title (must not be empty after trimming whitespace)
+ * - Due Date (must not be empty after trimming whitespace)
+ * - Category (must be selected and not equal to 'Select task category')
+ * 
+ * If all conditions are met, the "Create Task" button is enabled; otherwise, it is disabled.
+ * 
+ * @function enableCreateTaskButton
+ * @returns {void}
+ */
 function enableCreateTaskButton() {
     const titleFilled = document.getElementById('title').value.trim() !== '';
     const dueDateFilled = document.getElementById('editDueDate').value.trim() !== '';
@@ -46,6 +74,18 @@ function enableCreateTaskButton() {
 
 // Validate Title and Description //
 
+/**
+ * Validates the title input field to ensure it meets specific criteria.
+ * 
+ * This function checks if the title:
+ * - Is between 3 and 40 characters long.
+ * 
+ * If the title meets the criteria, the custom validity message is cleared.
+ * Otherwise, a custom validity message is set to inform the user of the requirements.
+ * 
+ * @function validateTitle
+ * @returns {void}
+ */
 function validateTitle() {
     let input = document.getElementById('title');
     let title = input.value.trim();
@@ -57,6 +97,18 @@ function validateTitle() {
     }
 }
 
+/**
+ * Validates the description input field to ensure it meets specific criteria.
+ * 
+ * This function checks if the description:
+ * - Is between 3 and 200 characters long.
+ * 
+ * If the description meets the criteria, the custom validity message is cleared.
+ * Otherwise, a custom validity message is set to inform the user of the requirements.
+ * 
+ * @function validateDescription
+ * @returns {void}
+ */
 function validateDescription() {
     let input = document.getElementById('description');
     let description = input.value.trim();
@@ -64,159 +116,21 @@ function validateDescription() {
     if (descriptionPattern.test(description)) {
         input.setCustomValidity(''); 
     } else {
-        input.setCustomValidity('The title must be at least 3 characters long and max 200 characters long.');
+        input.setCustomValidity('The description must be at least 3 characters long and max 200 characters long.');
     }
-}
-
-// Prio Button Color function //
-
-function addPrioButtonColor(prio, event) {
-    event.preventDefault();
-    let buttonUrgent = document.getElementById("buttonUrgent");
-    let buttonMedium = document.getElementById("buttonMedium");
-    let buttonLow = document.getElementById("buttonLow");
-    let imgUrgent = document.getElementById("buttonImg1");
-    let imgMedium = document.getElementById("buttonImg2");
-    let imgLow = document.getElementById("buttonImg3");
-    removeClasses(buttonUrgent, buttonMedium, buttonLow, imgUrgent, imgMedium, imgLow);
-    if (prio === "urgent") {
-        selectedButtonColor(buttonUrgent, imgUrgent, "backgroundColorRed", "urgent");
-        newTask['priority'] = "urgent";
-    } else if (prio === "medium") {
-        selectedButtonColor(buttonMedium, imgMedium, "backgroundColorOrange", "medium");
-        newTask['priority'] = "medium";
-    } else if (prio === "low") {
-        selectedButtonColor(buttonLow, imgLow, "backgroundColorGreen", "low");
-        newTask['priority'] = "low";
-    }
-}
-
-function removeClasses(buttonUrgent, buttonMedium, buttonLow, imgUrgent, imgMedium, imgLow) {
-    buttonUrgent.classList.remove("backgroundColorRed", "buttonPrioWhite");
-    buttonMedium.classList.remove("backgroundColorOrange", "buttonPrioWhite");
-    buttonLow.classList.remove("backgroundColorGreen", "buttonPrioWhite");
-    imgUrgent.src = "../assets/img/addTaskUrgentLogo.svg";
-    imgMedium.src = "../assets/img/addTaskMediumLogo.svg";
-    imgLow.src = "../assets/img/addTaskLowLogo.svg";
-}
-
-function selectedButtonColor(button, img, colorClass, priority) {
-    button.classList.add(colorClass, "buttonPrioWhite");
-    img.src = `../assets/img/addTask${capitalizeFirstLetter(priority)}LogoWhite.svg`;
-}
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function ButtonMediumInOrange() {
-    let buttonMedium = document.getElementById("buttonMedium");
-    let imgMedium = document.getElementById("buttonImg2");
-    buttonMedium.classList.add("backgroundColorOrange", "buttonPrioWhite");
-    imgMedium.src = "../assets/img/addTaskMediumLogoWhite.svg";
-    newTask['priority'] = "medium";
-}
-
-// Min DayDate //
-
-function setEditDueDateMinDate() {
-    let today = new Date();
-
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    let dd = String(today.getDate()).padStart(2, '0');
-    let formattedDate = yyyy + '-' + mm + '-' + dd;
-
-    document.getElementById('editDueDate').setAttribute('min', formattedDate);
-}
-
-// Assigned To Section //
-
-function renderChoosingList(taskId) {
-    document.getElementById('choosingList').innerHTML = '';
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        let color = contact['color'].replace("#", "C");
-        document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']})" id="choosingListRow${contact['id']}">
-            <div class="choosingListLeft">
-                <div class="choosingListUserIcon ${color}">
-                    <div class="choosingListUserInitials">${contact['initials']}</div>
-                </div>
-                <div>${contact['name']}</div>
-            </div>
-            <div class="choosingListCheck completedFalse" id="choosingListCheckImg${contact['id']}"></div>
-        </div>
-        `;
-    }
-}
-
-function toggleShowChoosingList() {
-    let list = document.getElementById('choosingList');
-    if (list.classList.contains('dnone')) {
-        list.classList.remove('dnone');
-        document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
-    } else {
-        list.classList.add('dnone');
-        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
-    }
-}
-
-function toggleAssigned(contactId) {
-    const contactIndex = newTask['assignedTo'].indexOf(Number(contactId));
-
-    if (contactIndex === -1) { 
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedFalse');
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedTrue');
-        newTask['assignedTo'].push(Number(contactId));
-    } else { 
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.remove('completedTrue');
-        document.getElementById(`choosingListCheckImg${contactId}`).classList.add('completedFalse');
-        newTask['assignedTo'].splice(contactIndex, 1);
-    }
-
-    renderAssignedTosEdit(newTask.id);
-}
-
-function editFilterNames() {
-    let search = document.getElementById('contactsDropDown').value.toLowerCase();
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i]['name'].toLowerCase().includes(search)) {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: flex";
-        } else {
-            document.getElementById(`choosingListRow${contacts[i]['id']}`).style = "display: none";
-        }
-    }
-}
-
-function renderAssignedTosEdit(taskId) {
-    let assignedTos = newTask['assignedTo'];
-    document.getElementById(`editAssignedTosChosenEdit`).innerHTML = ``;
-
-    if (assignedTos) {
-        for (let i = 0; i < assignedTos.length; i++) {
-            let userId = assignedTos[i];
-            let contact = contacts.find(contact => contact.id === userId);
-            if (contact) {
-                let color = contact['color'].replace("#", 'C');
-                document.getElementById(`editAssignedTosChosenEdit`).innerHTML += /*html*/ `
-                <div class="choosingListUserIcon ${color}" id="userIconEdit${i}">
-                    <div class="choosingListUserInitials">${contact['initials']}</div>
-                </div>
-                `;
-            }
-        }
-    }
-}
-
-function showChoosingList() {
-    let list = document.getElementById('choosingList');
-    list.classList.remove('dnone');
-    document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
 }
 
 // Subtask Functions //
 
+/**
+ * Adds a new subtask to the current task.
+ * 
+ * This function retrieves the subtask title from the input field, creates a new subtask object,
+ * adds it to the task's subtasks array, clears the input field, and re-renders the subtask list.
+ * 
+ * @function addSubTask
+ * @returns {void}
+ */
 function addSubTask() {	
     let subTaskTitle = document.getElementById('editSubTasks').value;
     let id = new Date().getTime();
@@ -233,6 +147,15 @@ function addSubTask() {
     renderSubtasksEdit(newTask.id);
 }
 
+/**
+ * Renders the list of subtasks for the current task.
+ * 
+ * This function clears the current subtask list and iterates through the task's subtasks array,
+ * generating HTML for each subtask and appending it to the subtask list element.
+ * 
+ * @function renderSubtasksEdit
+ * @returns {void}
+ */
 function renderSubtasksEdit() {
     document.getElementById('editSubtasksList').innerHTML = ``;
 
@@ -253,6 +176,16 @@ function renderSubtasksEdit() {
     }
 }
 
+/**
+ * Deletes a subtask from the current task.
+ * 
+ * This function finds the subtask in the task's subtasks array by its ID, removes it from the array,
+ * and re-renders the subtask list. If the subtask is not found, an error message is logged.
+ * 
+ * @function deleteEditSubTask
+ * @param {number} subTaskId - The ID of the subtask to delete.
+ * @returns {void}
+ */
 function deleteEditSubTask(subTaskId) {
     let subTaskIndex = newTask.subTasks.findIndex(subTask => subTask.id === subTaskId);
 
@@ -265,6 +198,17 @@ function deleteEditSubTask(subTaskId) {
     renderSubtasksEdit();
 }
 
+/**
+ * Enables editing of a subtask's content.
+ * 
+ * This function replaces the subtask's display element with an input field preloaded with the
+ * current content, allowing the user to rename the subtask. It also adds save and delete icons
+ * for the user to confirm or cancel the edit.
+ * 
+ * @function editEditSubTask
+ * @param {number} subTaskId - The ID of the subtask to edit.
+ * @returns {void}
+ */
 function editEditSubTask(subTaskId) {
     let subTaskNameElement = document.getElementById(`subTaskName${subTaskId}`);
     if (!subTaskNameElement) {
@@ -294,6 +238,17 @@ function editEditSubTask(subTaskId) {
     document.getElementById(`editSubTaskInput${subTaskId}`).value = preloadedValue.substring(2);
 }
 
+/**
+ * Saves the edited content of a subtask.
+ * 
+ * This function retrieves the new content from the input field, updates the corresponding
+ * subtask's content, and re-renders the subtask list. If the subtask is not found, an error
+ * message is logged.
+ * 
+ * @function changeEditSubTaskContent
+ * @param {number} subTaskId - The ID of the subtask to update.
+ * @returns {void}
+ */
 function changeEditSubTaskContent(subTaskId) {
     let subTask = newTask.subTasks.find(subTask => subTask.id === subTaskId);
 
@@ -308,9 +263,17 @@ function changeEditSubTaskContent(subTaskId) {
     }
 }
 
-
 // Clear Task Function //
     
+/**
+ * Clears the input fields and resets task-related arrays and variables.
+ * 
+ * This function resets the values of the task input fields including title, description, due date,
+ * and category. It also clears the subArray and assignedContacts arrays, and resets the priority variable.
+ * 
+ * @function clearTask
+ * @returns {void}
+ */
 function clearTask() {
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
@@ -319,7 +282,7 @@ function clearTask() {
     subArray = [];
     assignedContacts = [];
     priority = "";
-  }
+}
 
 // Create Task //
 
@@ -351,6 +314,16 @@ async function pushTask() {
     await saveTasks();
 }
 
+/**
+ * Applies and then removes an animation class to an element to show a dialog animation.
+ * 
+ * This function adds an animation class to the element with the ID 'addTaskAnimationText',
+ * which triggers an animation effect. After a delay of 2000 milliseconds (2 seconds), 
+ * the animation class is removed from the element to reset its state.
+ * 
+ * @function showDialogAnimation
+ * @returns {void}
+ */
 function showDialogAnimation() {
     const showElement = document.getElementById('addTaskAnimationText');
 
