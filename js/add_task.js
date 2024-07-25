@@ -318,6 +318,7 @@ function clearTask() {
     subArray = [];
     assignedContacts = [];
     priority = "";
+    location.reload();
 }
 
 // Create Task //
