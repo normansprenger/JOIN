@@ -112,43 +112,6 @@ function changeProgressInfos(taskId, subTasks) {
 
 
 /**
- * Updates the display of assigned users for a specific task.
- *
- * This function clears the current display of assigned users for a task and populates it
- * with new user information based on the provided list of user IDs. Each assigned user is 
- * displayed with a color-coded icon and their initials.
- *
- * @param {string} taskId - The unique identifier for the task. This is used to construct
- *   the IDs of the HTML elements that represent the assigned users' icons and initials.
- * @param {Array<string>|undefined} [assignedTos] - An optional array of user IDs representing
- *   the users assigned to the task. If provided, each user is displayed with their initials
- *   and a color-coded icon. If `assignedTos` is `undefined` or an empty array, no users will 
- *   be displayed.
- *
- * @example
- * // Update assigned users for a task with ID 'task1'
- * changeAssignedTos('task1', ['user1', 'user2']);
- *
- * @example
- * // Clear assigned users display for a task with ID 'task2'
- * changeAssignedTos('task2');
- */
-function changeAssignedTos(taskId, assignedTos) {
-    document.getElementById(`assignedTo${taskId}`).innerHTML = ``;
-    if (assignedTos) {
-        for (let i = 0; i < assignedTos.length; i++) {
-            let userId = assignedTos[i];
-            let contact = findContactById(contacts, userId);
-            document.getElementById(`assignedTo${taskId}`).innerHTML += changeAssignedTosHTML(taskId, i);
-            let color = contact['color'];
-            document.getElementById(`userIcon${taskId}${i}`).classList.add(`${color}`.replace("#", 'C'));
-            document.getElementById(`userInitials${taskId}${i}`).innerHTML = `${contact['initials']}`;
-        }
-    }
-}
-
-
-/**
  * Updates the priority image for a specific task.
  *
  * This function adds a CSS class to an HTML element representing the priority of a task.

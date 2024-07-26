@@ -8,6 +8,14 @@ function changeAssignedTosHTML(taskId, i) {
     `;
 }
 
+function hideMoreThanFourAndRenderOneEmptyHTML(taskId) {
+    return /*html*/ `
+    <div class="plusIcon" id="plusIcon${taskId}">
+    <div class="plusNumber" id="plusNumber${taskId}"></div>
+    <div>
+    `;
+}
+
 function renderSingleTaskHTML(task, taskId, taskpriority) {
     return /*html*/`
     <div class="singleTaskHead">

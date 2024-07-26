@@ -473,11 +473,22 @@ function validateEmail() {
     let input = document.getElementById('signUpEmail');
     let email = input.value.trim();
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    let allowedTLDs = ['com', 'net', 'org', 'info', 'biz', 'edu', 'gov', 'mil', 
+                       'de', 'at', 'ch', 'fr', 'it', 'es', 'uk', 'us', 'ca', 
+                       'au', 'jp', 'cn', 'ru', 'in', 'br', 'mx', 
+                       'app', 'blog', 'shop', 'tech', 'design', 'news', 'me', 
+                       'xyz', 'online', 'io'];
+    
     if (emailPattern.test(email)) {
-        input.setCustomValidity('');
+        let domain = email.split('@')[1];
+        let tld = domain.split('.').pop().toLowerCase();
+        if (allowedTLDs.includes(tld)) {
+            input.setCustomValidity('');
+        } else {
+            input.setCustomValidity('Please enter an email with an allowed TLD (ending)');
+        }
     } else {
-        input.setCustomValidity('Please enter a valid email address.');
+        input.setCustomValidity('Please enter a valid email.');
     }
 }
 
