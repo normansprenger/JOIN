@@ -1,5 +1,4 @@
-
-.body{
+.body {
     margin: 0;
     display: flex;
     font-family: 'Inter';
@@ -7,10 +6,11 @@
     min-height: 100vh;
 }
 
-.overflowHidden{
+.overflowHidden {
     overflow: hidden;
 }
-.main{
+
+.main {
     margin-top: 128px;
     margin-bottom: 80px;
     padding-right: 16px;
@@ -345,7 +345,7 @@
     margin-left: -5px;
 }
 
-.CFFBB2B{
+.CFFBB2B {
     background-color: #FFBB2B;
     margin-left: -5px;
 }
@@ -460,7 +460,14 @@
 .singleTaskHead {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
 
+.taskHeadlineBoard{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .singleTaskCategory {
@@ -638,7 +645,7 @@
     width: calc(100%-42px);
 }
 
-#editTitle:focus{
+#editTitle:focus {
     border: 1px solid #29ABE2;
     outline: unset;
 }
@@ -653,7 +660,7 @@
     font-family: 'Inter';
 }
 
-#editDescription:focus{
+#editDescription:focus {
     border: 1px solid #29ABE2;
     outline: unset;
 }
@@ -668,7 +675,7 @@
     font-family: 'Inter';
 }
 
-#editDueDate:focus{
+#editDueDate:focus {
     border: 1px solid #29ABE2;
     outline: unset;
 }
@@ -685,7 +692,7 @@
 }
 
 #contactsDropDown:focus {
-        outline: unset;
+    outline: unset;
 }
 
 .editAssignedTosChosen {
@@ -780,7 +787,7 @@
     align-items: center;
 }
 
-.choosingListRow:hover{
+.choosingListRow:hover {
     background-color: #A8A8A8;
     border-radius: 10px;
     border: unset;
@@ -822,7 +829,7 @@
     background-color: white;
 }
 
-.inputContainerFocus{
+.inputContainerFocus {
     border: 1px solid #29ABE2 !important;
 }
 
@@ -832,7 +839,7 @@
     width: 24px;
 }
 
-#openCloseChoosingListImg:hover{
+#openCloseChoosingListImg:hover {
     cursor: pointer;
 }
 
@@ -889,18 +896,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-width: thin;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover{
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
     cursor: pointer;
 }
 
-.editBottom{
+.editBottom {
     display: flex;
     width: 100%;
     justify-content: end;
     align-items: center;
 }
 
-.editBottomSave{
+.editBottomSave {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -916,7 +923,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     box-shadow: 0px 4px 8px 0px #00000033;
 }
 
-.editBottomSave:hover{
+.editBottomSave:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
@@ -926,24 +933,24 @@ input[type="search"]::-webkit-search-cancel-button {
     appearance: none;
 }
 
-label{
+label {
     margin-bottom: 8px;
     margin-top: 16px;
 }
 
-.addSubTaskImg:hover{
+.addSubTaskImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
 
-.subTaskEditRow{
+.subTaskEditRow {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin-top: 8px;
 }
 
-.subTaskEditRowRight{
+.subTaskEditRowRight {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -951,27 +958,27 @@ label{
     margin-right: 16px;
 }
 
-.editSubTaskSeparator{
+.editSubTaskSeparator {
     background-color: #A8A8A8;
     height: 24px;
     width: 1px;
 }
 
-.subTaskEditName{
+.subTaskEditName {
     margin-left: 16px;
 }
 
-.editSubTaskDeleteImg:hover{
+.editSubTaskDeleteImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
 
-.editSubTaskEditImg:hover{
+.editSubTaskEditImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
 
-.editSubTaskInputContainer{
+.editSubTaskInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -982,18 +989,18 @@ label{
     margin-left: 16px;
 }
 
-.editSubTaskEditInput{
+.editSubTaskEditInput {
     border: unset;
     font-size: 16px;
     flex: 1;
 }
 
-.editSubTaskEditInput:focus{
+.editSubTaskEditInput:focus {
     outline: unset;
     border-bottom: 1px solid #29ABE2
 }
 
-.subTaskEditEditRowRight{
+.subTaskEditEditRowRight {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1001,8 +1008,70 @@ label{
     margin-right: 8px;
 }
 
-@media screen and (min-width: 1000px){
-    main{
-        margin-right: 96px ;
+.taskContainers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.taskHeadlineBoardArrows{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    filter: opacity(0.7);
+}
+
+.boardArrow{
+    height: 25px;
+    width: 25px;
+}
+
+.up{
+    transform: rotate(-90deg);
+}
+
+.down{
+    transform: rotate(90deg);
+}
+
+@media screen and (min-width: 1000px) {
+    main {
+        margin-right: 96px;
     }
 }
+
+@media screen and (min-width: 1520px) {
+    .taskContainerContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+    }
+
+    .taskContainer {
+        width: 244px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 244px;
+    }
+
+    .taskContainerHead {
+        width: 244px;
+    }
+
+    .taskContainers {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: baseline;
+        width: 100%;
+    }
+
+    .taskContainerHeadline {
+        font-size: 20px;
+    }
+}
+

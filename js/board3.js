@@ -165,3 +165,81 @@ function validateDescription() {
     }
 }
 
+
+/**
+ * Updates the status of a task by moving it one step down in the workflow.
+ *
+ * This function changes the status of the task identified by `taskId` as follows:
+ * - If the status is 'inProgress', it changes to 'toDo'.
+ * - If the status is 'awaitingFeedback', it changes to 'inProgress'.
+ * - If the status is 'done', it changes to 'awaitingFeedback'.
+ *
+ * After updating the status, it calls `saveTasks` to persist the changes
+ * and `renderTasksBoard` to update the user interface.
+ *
+ * @param {number} taskId - The unique identifier of the task to update.
+ */
+function statusOneDown(taskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task['status'] == 'inProgress') {
+        task['status'] = 'toDo';
+    } else if (task['status'] == 'awaitingFeedback') {
+        task['status'] = 'inProgress';
+    } else if (task['status'] == 'done') {
+        task['status'] = 'awaitingFeedback';
+    }
+    saveTasks();
+    renderTasksBoard();
+}
+
+
+/**
+ * Updates the status of a task by moving it one step up in the workflow.
+ *
+ * This function changes the status of the task identified by `taskId` as follows:
+ * - If the status is 'toDo', it changes to 'inProgress'.
+ * - If the status is 'inProgress', it changes to 'awaitingFeedback'.
+ * - If the status is 'awaitingFeedback', it changes to 'done'.
+ *
+ * After updating the status, it calls `saveTasks` to persist the changes
+ * and `renderTasksBoard` to update the user interface.
+ *
+ * @param {number} taskId - The unique identifier of the task to update.
+ */
+function statusOneUp(taskId) {
+    let task = tasks.find(task => task.id === taskId);
+    if (task['status'] == 'toDo') {
+        task['status'] = 'inProgress';
+    } else if (task['status'] == 'inProgress') {
+        task['status'] = 'awaitingFeedback';
+    } else if (task['status'] == 'awaitingFeedback') {
+        task['status'] = 'done';
+    }
+    saveTasks();
+    renderTasksBoard();
+}
+
+
+/**
+ * Updates the visibility of arrow icons based on the task's status.
+ *
+ * This function modifies the visibility of up and down arrow elements for a task
+ * identified by `taskId`. It hides the up arrow if the task status is 'toDo' and
+ * hides the down arrow if the task status is 'done'.
+ *
+ * - If the status is 'toDo', the up arrow element identified by `arrowUp${taskId}`
+ *   will have the 'dnone' class added to hide it.
+ * - If the status is 'done', the down arrow element identified by `arrowDown${taskId}`
+ *   will have the 'dnone' class added to hide it.
+ *
+ * @param {number} taskId - The unique identifier of the task whose arrows are being updated.
+ */
+function changeArrows(taskId){
+    let task = tasks.find(task => task.id === taskId);
+    if (task['status'] == 'toDo'){
+        document.getElementById(`arrowUp${taskId}`).classList.add('dnone');
+    }
+    if (task['status'] == 'done'){
+        document.getElementById(`arrowDown${taskId}`).classList.add('dnone');
+    }
+}

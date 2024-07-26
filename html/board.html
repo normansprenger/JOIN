@@ -37,40 +37,42 @@
             <div class="searchMobileSeparator"></div>
             <img class="searchIconMobile" src="../assets/img/searchIcon.svg" alt="">
         </div>
-        <div class="taskContainer">
-            <div class="taskContainerHead">
-                <span class="taskContainerHeadline">To do</span>
-                <div class="taskContainerAddTaskImg" onclick="addTask('toDo')"></div>
+        <div class="taskContainers">
+            <div class="taskContainer">
+                <div class="taskContainerHead">
+                    <span class="taskContainerHeadline">To do</span>
+                    <div class="taskContainerAddTaskImg" onclick="addTask('toDo')"></div>
+                </div>
+                <div class="taskContainerContent" id="taskContainerContentToDo" ondrop="moveTo('toDo')"
+                    ondragover="allowDrop(event)">
+                </div>
             </div>
-            <div class="taskContainerContent" id="taskContainerContentToDo" ondrop="moveTo('toDo')"
-                ondragover="allowDrop(event)">
+            <div class="taskContainer">
+                <div class="taskContainerHead">
+                    <span class="taskContainerHeadline">In Progress</span>
+                    <div class="taskContainerAddTaskImg" onclick="addTask('inProgress')"></div>
+                </div>
+                <div class="taskContainerContent" id="taskContainerContentInProgress" ondrop="moveTo('inProgress')"
+                    ondragover="allowDrop(event)">
+                </div>
             </div>
-        </div>
-        <div class="taskContainer">
-            <div class="taskContainerHead">
-                <span class="taskContainerHeadline">In Progress</span>
-                <div class="taskContainerAddTaskImg" onclick="addTask('inProgress')"></div>
+            <div class="taskContainer">
+                <div class="taskContainerHead">
+                    <span class="taskContainerHeadline">Await feedback</span>
+                    <div class="taskContainerAddTaskImg" onclick="addTask('awaitingFeedback')"></div>
+                </div>
+                <div class="taskContainerContent" id="taskContainerContentAwaitFeedback"
+                    ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event)">
+                </div>
             </div>
-            <div class="taskContainerContent" id="taskContainerContentInProgress" ondrop="moveTo('inProgress')"
-                ondragover="allowDrop(event)">
-            </div>
-        </div>
-        <div class="taskContainer">
-            <div class="taskContainerHead">
-                <span class="taskContainerHeadline">Await feedback</span>
-                <div class="taskContainerAddTaskImg" onclick="addTask('awaitingFeedback')"></div>
-            </div>
-            <div class="taskContainerContent" id="taskContainerContentAwaitFeedback" ondrop="moveTo('awaitingFeedback')"
-                ondragover="allowDrop(event)">
-            </div>
-        </div>
-        <div class="taskContainer">
-            <div class="taskContainerHead">
-                <span class="taskContainerHeadline">Done</span>
-                <div class="taskContainerAddTaskImg" onclick="addTask('done')"></div>
-            </div>
-            <div class="taskContainerContent" id="taskContainerContentDone" ondrop="moveTo('done')"
-                ondragover="allowDrop(event)">
+            <div class="taskContainer">
+                <div class="taskContainerHead">
+                    <span class="taskContainerHeadline">Done</span>
+                    <div class="taskContainerAddTaskImg" onclick="addTask('done')"></div>
+                </div>
+                <div class="taskContainerContent" id="taskContainerContentDone" ondrop="moveTo('done')"
+                    ondragover="allowDrop(event)">
+                </div>
             </div>
         </div>
     </main>

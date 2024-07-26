@@ -54,8 +54,14 @@ function renderTodosBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentToDo').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
-                    <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+                    <div class="taskHeadlineBoard">
+                        <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                        <div class="taskHeadlineBoardArrows">
+                        <img class="boardArrow down" src="../assets/img/boardArrow.svg" id="arrowDown${taskId}" alt="" onclick="event.stopPropagation(), statusOneUp(${taskId})">
+                        <img class="boardArrow up"src="../assets/img/boardArrow.svg" id="arrowUp${taskId}" alt="" onclick="event.stopPropagation(), statusOneDown(${taskId})">
+                        </div>
+                    </div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
                             <div class="progressContainer" id="progressContainer${taskId}">
@@ -78,6 +84,7 @@ function renderTodosBoard() {
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
+            changeArrows(taskId);
         }
     }
 }
@@ -113,8 +120,14 @@ function renderInProgressBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentInProgress').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
-                    <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+                    <div class="taskHeadlineBoard">
+                        <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                        <div class="taskHeadlineBoardArrows">
+                        <img class="boardArrow down" src="../assets/img/boardArrow.svg" id="arrowDown${taskId}" alt="" onclick="event.stopPropagation(), statusOneUp(${taskId})">
+                        <img class="boardArrow up"src="../assets/img/boardArrow.svg" id="arrowUp${taskId}" alt="" onclick="event.stopPropagation(), statusOneDown(${taskId})">
+                        </div>
+                    </div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
                             <div class="progressContainer" id="progressContainer${taskId}">
@@ -137,6 +150,7 @@ function renderInProgressBoard() {
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
+            changeArrows(taskId);
         }
     }
 }
@@ -172,8 +186,14 @@ function renderAwaitFeedbackBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentAwaitFeedback').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
-                    <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+                    <div class="taskHeadlineBoard">
+                        <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                        <div class="taskHeadlineBoardArrows">
+                            <img class="boardArrow down" src="../assets/img/boardArrow.svg" id="arrowDown${taskId}" alt="" onclick="event.stopPropagation(), statusOneUp(${taskId})">
+                            <img class="boardArrow up"src="../assets/img/boardArrow.svg" id="arrowUp${taskId}" alt="" onclick="event.stopPropagation(), statusOneDown(${taskId})">
+                        </div>
+                    </div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
                             <div class="progressContainer" id="progressContainer${taskId}">
@@ -196,6 +216,7 @@ function renderAwaitFeedbackBoard() {
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedTos(taskId, filteredTasks[i]['assignedTo']);
             changePriorityImg(taskId, filteredTasks[i]['priority']);
+            changeArrows(taskId);
         }
     }
 }
@@ -231,15 +252,21 @@ function renderDoneBoard() {
         for (let i = 0; i < filteredTasks.length; i++) {
             let taskId = filteredTasks[i]['id'];
             document.getElementById('taskContainerContentDone').innerHTML += /*html*/ `
-        <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
-                    <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                <div class="task" id="${taskId}" onclick="showTask(${taskId})" draggable="true" ondragstart="draggingStart(${taskId})" ondragend="draggingEnd(${taskId})">
+                    <div class="taskHeadlineBoard">
+                        <div class="taskCategory" id="category${taskId}">${filteredTasks[i]['category']}</div>
+                        <div class="taskHeadlineBoardArrows">
+                            <img class="boardArrow down" src="../assets/img/boardArrow.svg" id="arrowDown${taskId}" alt="" onclick="event.stopPropagation(), statusOneUp(${taskId})">
+                            <img class="boardArrow up"src="../assets/img/boardArrow.svg" id="arrowUp${taskId}" alt="" onclick="event.stopPropagation(), statusOneDown(${taskId})">
+                        </div>
+                    </div>
                     <span class="taskTitle">${filteredTasks[i]['title']}</span>
                     <span class="taskDescription">${filteredTasks[i]['description']}</span>
-                            <div class="progressContainer" id="progressContainer${taskId}">
-                                <div class="progressBar">
-                                    <div class="progress" id="progress${taskId}"></div>
-                                </div>
-                                <div class="progressText"><span id="progressCounter${taskId}"></span>/<span id="progressMax${taskId}">5</span> Subtasks</div>
+                        <div class="progressContainer" id="progressContainer${taskId}">
+                            <div class="progressBar">
+                                <div class="progress" id="progress${taskId}"></div>
+                            </div>
+                            <div class="progressText"><span id="progressCounter${taskId}"></span>/<span id="progressMax${taskId}">5</span> Subtasks</div>
                             </div>
                             <div class="taskBottom">
                                 <div class="assignedTo" id="assignedTo${taskId}">
@@ -255,6 +282,7 @@ function renderDoneBoard() {
             changeProgressInfos(taskId, filteredTasks[i]['subTasks']);
             changeAssignedTos(taskId, filteredTasks[i]['assignedTo'])
             changePriorityImg(taskId, filteredTasks[i]['priority']);
+            changeArrows(taskId);
         }
     }
 }
