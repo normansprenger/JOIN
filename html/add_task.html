@@ -19,14 +19,14 @@
 
 </head>
 
-<body class="bodyContainer" onload="initAddTask()">
+<body class="bodyContainer" onload="initAddTask()" onclick="event.stopPropagation(), closeChoosingList()">
   <header w3-include-html="../assets/templates/header_template.html"></header>
   <aside w3-include-html="../assets/templates/aside_template.html"></aside>
   <main class="mainContainer">
     <section class="addTaskMainContainer">
       <h1 class="addTaskTitle">Add Task</h1>
       <div class="mainAddTask">
-        <form class="formAddTask" onsubmit="createTask(event)">
+        <form class="formAddTask" onsubmit="createTask(event)" onclick="event.stopPropagation(), closeChoosingList()">
           <div class="addTasksLeft">
             <div class="addTaskTitleContainer">
               <label for="title">Title<span style="color: red">*</span></label>
@@ -42,8 +42,9 @@
               <label for="contactsDropDown">AssignedTo</label>
               <div class="contactsDropDownInputContainer">
                 <input placeholder="Select contacts to assign" type="search" id="contactsDropDown"
-                  onkeyup="editFilterNames()" onfocus="showChoosingList()" />
-                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg" onclick="toggleShowChoosingList()">
+                  onkeyup="editFilterNames()" onfocus="showChoosingList()" onclick="event.stopPropagation()" />
+                <div class="openCloseChoosingListImg" id="openCloseChoosingListImg"
+                  onclick="event.stopPropagation(), toggleShowChoosingList()">
                 </div>
               </div>
               <div id="choosingList" class="choosingList dnone"></div>
@@ -63,14 +64,16 @@
             <div class="addTaskPrioContainer">
               <p>Prio</p>
               <div class="addTaskPrioButtonContainer">
-                <button id="buttonUrgent" onclick="addPrioButtonColor('urgent', event)" class="buttonPrio">
+                <button id="buttonUrgent" onclick="event.stopPropagation(), addPrioButtonColor('urgent', event)"
+                  class="buttonPrio">
                   Urgent<img id="buttonImg1" src="../assets/img/addTaskUrgentLogo.svg" />
                 </button>
-                <button id="buttonMedium" onclick="addPrioButtonColor('medium', event)"
+                <button id="buttonMedium" onclick="event.stopPropagation(), addPrioButtonColor('medium', event)"
                   class="buttonPrio buttonPrioMediumOrange">
                   Medium<img id="buttonImg2" src="../assets/img/addTaskMediumLogo.svg" />
                 </button>
-                <button id="buttonLow" onclick="addPrioButtonColor('low', event)" class="buttonPrio">
+                <button id="buttonLow" onclick="event.stopPropagation(), addPrioButtonColor('low', event)"
+                  class="buttonPrio">
                   Low<img id="buttonImg3" src="../assets/img/addTaskLowLogo.svg" />
                 </button>
               </div>
@@ -87,15 +90,16 @@
             <div class="editSubTasksInputContainer">
               <input type="text" name="editSubTasks" id="editSubTasks" placeholder="Add new subtask" minlength="5"
                 maxlength="20" />
-              <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt="" onclick="addSubTask()" />
+              <img class="addSubTaskImg" src="../assets/img/EditTaskAddSubtask.svg" alt=""
+                onclick="event.stopPropagation(),addSubTask()" />
             </div>
             <div id="editSubtasksList" class="editSubtasksList"></div>
             <div class="addTaskCreateTaskContainer">
               <div class="addTaskThisFieldIsRequiredRight">
                 <span style="color: red">*</span><span>This field is required</span>
               </div>
-              <button class="addTaskClearTaskButton" onclick="clearTask()">Clear<img src="../assets/img/close_black.svg"
-                  alt="Clear" /></button>
+              <button class="addTaskClearTaskButton" onclick="event.stopPropagation(), clearTask()">Clear<img
+                  src="../assets/img/close_black.svg" alt="Clear" /></button>
               <button class="addTaskCreateTaskButton" type="submit" id="createTaskButton" disabled>Create Task<img
                   src="../assets/img/check.svg" alt="Check" /></button>
             </div>

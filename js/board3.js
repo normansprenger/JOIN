@@ -281,7 +281,7 @@ function changeAssignedTos(taskId, assignedTos) {
         }
         if (assignedTos.length > 4) {
             hideMoreThanFourAndRenderOneEmpty(taskId);
-            document.getElementById(`plusNumber${0}`).innerHTML = `+${assignedTos.length - 4}`;
+            document.getElementById(`plusNumber${taskId}`).innerHTML = `+${assignedTos.length - 4}`;
         }
     }
 }

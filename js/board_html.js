@@ -56,10 +56,10 @@ function renderSingleTaskHTML(task, taskId, taskpriority) {
 function renderSingleTaskAssignedToHTML(i) {
     return /*html*/ `
     <div class="singleTaskAssignedToSub">
-        <div class="userIcon" id="userIcon${i}">
-            <div class="userInitials" id="userInitials${i}"></div>
+        <div class="userIcon" id="userIconSingleTask${i}">
+            <div class="userInitials" id="userInitialsSingleTask${i}"></div>
         </div>
-        <div class="singleTaskUserName" id="userName${i}"></div>
+        <div class="singleTaskUserName" id="userNameSingleTask${i}"></div>
     </div>
     `
 }

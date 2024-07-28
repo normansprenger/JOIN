@@ -16,16 +16,16 @@ html {
     margin-top: 96px;
 }
 
-#asideMiddleLinkAddTask{
+#asideMiddleLinkAddTask {
     background-color: #091931;
     color: white;
 }
 
-#asideMiddleLinkAddTask img{
+#asideMiddleLinkAddTask img {
     filter: brightness(2);
 }
 
-#desktopContainerLinkAddTask{
+#desktopContainerLinkAddTask {
     background-color: #091931;
     border-radius: 8px;
     width: 76px;
@@ -33,7 +33,7 @@ html {
     color: white;
 }
 
-#desktopContainerLinkAddTask img{
+#desktopContainerLinkAddTask img {
     filter: brightness(2);
 }
 
@@ -100,6 +100,13 @@ html {
 .assignedContactsContainer {
     display: flex;
     padding-top: 16px;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-y: auto;
+    max-height: 44px;
+    margin-top: 10px;
 }
 
 .addTaskTitleContainer input {
@@ -112,8 +119,8 @@ html {
 }
 
 .addTaskTitleContainer input:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .addTaskDescriptionContainer textarea {
@@ -128,8 +135,8 @@ html {
 }
 
 .addTaskDescriptionContainer textarea:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .addTaskAssignedToContainer select {
@@ -149,9 +156,9 @@ html {
 }
 
 #assignedTo {
-    -webkit-appearance: none; 
-    -moz-appearance: none;     
-    appearance: none;          
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .addTaskCategoryContainer select {
@@ -171,14 +178,14 @@ html {
 }
 
 #category {
-    -webkit-appearance: none; 
-    -moz-appearance: none;     
-    appearance: none;          
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .addTaskAssignedToContainer select:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .addTaskDueDateContainer input {
@@ -192,21 +199,21 @@ html {
 }
 
 .addTaskDueDateContainer input:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     color: rgba(0, 0, 0, 0);
     opacity: 1;
     display: block;
-    background: url(../assets/img/CalenderEditBoard.svg) no-repeat; 
+    background: url(../assets/img/CalenderEditBoard.svg) no-repeat;
     width: 20px;
     height: 20px;
     border-width: thin;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover{
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
     cursor: pointer;
 }
 
@@ -217,8 +224,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 }
 
 .addTaskCategoryContainer select:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .addTaskCreateTaskContainer {
@@ -302,17 +309,22 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 }
 
 .buttonPrio img {
-    filter: none; 
+    filter: none;
 }
 
 .buttonPrioWhite img {
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
 }
 
 
 .editAssignedTo {
     display: flex;
     flex-direction: column;
+}
+
+.choosingList{
+    max-height: 448px;
+    overflow-y: auto;
 }
 
 .choosingListRow {
@@ -322,7 +334,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     align-items: center;
 }
 
-.choosingListRow:hover{
+.choosingListRow:hover {
     background-color: #A8A8A8;
     border-radius: 10px;
     border: unset;
@@ -379,7 +391,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     width: 24px;
 }
 
-#openCloseChoosingListImg:hover{
+#openCloseChoosingListImg:hover {
     cursor: pointer;
 }
 
@@ -394,6 +406,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 
 .CFF5EB3 {
     background-color: #FF5EB3;
+    margin-left: -5px;
+}
+
+.CFFBB2B {
+    background-color: #FFBB2B;
     margin-left: -5px;
 }
 
@@ -487,8 +504,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 /* Subtask */
 
 .editSubTasksInputContainer:focus {
-    border-color: #29ABE2; 
-    outline: none; 
+    border-color: #29ABE2;
+    outline: none;
 }
 
 .editSubTasksInputContainer {
@@ -510,19 +527,19 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     outline: none;
 }
 
-.addSubTaskImg:hover{
+.addSubTaskImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
 
-.subTaskEditRow{
+.subTaskEditRow {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin-top: 8px;
 }
 
-.subTaskEditRowRight{
+.subTaskEditRowRight {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -530,12 +547,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     margin-right: 16px;
 }
 
-.editSubTaskDeleteImg:hover{
+.editSubTaskDeleteImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
 
-.editSubTaskEditImg:hover{
+.editSubTaskEditImg:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
@@ -552,19 +569,19 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     border-radius: 10px;
 }
 
-.editSubTaskEditInput{
+.editSubTaskEditInput {
     border: unset;
     font-size: 16px;
     flex: 1;
     height: 32px;
 }
 
-.editSubTaskEditInput:focus{
+.editSubTaskEditInput:focus {
     outline: none;
     border-bottom: 1px solid #29ABE2
 }
 
-.subTaskEditEditRowRight{
+.subTaskEditEditRowRight {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -614,7 +631,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 }
 
 .addTaskAnimationText {
-    display: block; 
+    display: block;
     position: fixed;
     left: calc(50% - 144px);
     bottom: -200px;
@@ -625,9 +642,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     font-size: 17px;
     border-radius: 20px;
     padding: 27px;
-    transition: bottom 2s ease; 
+    transition: bottom 2s ease;
 }
-    
+
 .addTaskAfterAnimationText {
     bottom: 200px !important;
 }

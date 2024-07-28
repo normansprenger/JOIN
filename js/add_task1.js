@@ -149,7 +149,7 @@ function renderChoosingList(taskId) {
         let contact = contacts[i];
         let color = contact['color'].replace("#", "C");
         document.getElementById('choosingList').innerHTML += /*html*/`
-        <div class="choosingListRow" onclick="toggleAssigned(${contact['id']})" id="choosingListRow${contact['id']}">
+        <div class="choosingListRow" onclick="event.stopPropagation(), toggleAssigned(${contact['id']})" id="choosingListRow${contact['id']}">
             <div class="choosingListLeft">
                 <div class="choosingListUserIcon ${color}">
                     <div class="choosingListUserInitials">${contact['initials']}</div>
@@ -293,4 +293,25 @@ function showChoosingList() {
     let list = document.getElementById('choosingList');
     list.classList.remove('dnone');
     document.getElementById('openCloseChoosingListImg').classList.add('rotate180');
+}
+
+
+/**
+ * Hides the choosing list and resets the rotation of the toggle icon to indicate a closed state.
+ *
+ * This function hides the choosing list by adding the 'dnone' class and updates the toggle icon
+ * by removing the 'rotate180' class to indicate that the list is closed. It first checks if the 
+ * choosing list element exists before making changes.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Hide the choosing list and reset the toggle icon rotation
+ * closeChoosingList();
+ */
+function closeChoosingList() {
+    if (document.getElementById('choosingList')) {
+        document.getElementById('choosingList').classList.add('dnone');
+        document.getElementById('openCloseChoosingListImg').classList.remove('rotate180');
+    }
 }

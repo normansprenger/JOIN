@@ -47,7 +47,7 @@ function renderTodosBoard() {
     if (filteredTasks.length < 1) {
         document.getElementById('taskContainerContentToDo').innerHTML =/*html*/ `
         <div class="noTaskContainer">
-            <span class="noTaskText">No tasks in progress</span>
+            <span class="noTaskText">No tasks to do</span>
         </div>
         `
     } else {

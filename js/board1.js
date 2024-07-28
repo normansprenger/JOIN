@@ -126,10 +126,10 @@ function renderSingleTaskAssignedTo(task) {
             let assignedToIndex = assignedTos[i];
             let contact = findContactById(contacts, assignedToIndex);
             document.getElementById(`singleTaskAssignedTo`).innerHTML += renderSingleTaskAssignedToHTML(i);
+            document.getElementById(`userInitialsSingleTask${i}`).innerHTML = `${contact['initials']}`;
+            document.getElementById(`userNameSingleTask${i}`).innerHTML = `${contact['name']}`;
             let color = contact['color'];
-            document.getElementById(`userIcon${i}`).classList.add(`${color}`.replace("#", 'C'));
-            document.getElementById(`userInitials${i}`).innerHTML = `${contact['initials']}`;
-            document.getElementById(`userName${i}`).innerHTML = `${contact['name']}`;
+            document.getElementById(`userIconSingleTask${i}`).classList.add(`${color}`.replace("#", 'C'));
         }
     }
 }
