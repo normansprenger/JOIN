@@ -212,9 +212,9 @@ function changeSubTaskCompletet(taskId, subTaskId) {
  * // Delete the task with ID 'task123'
  * deleteTask('task123');
  */
-function deleteTask(taskId) {
+async function deleteTask(taskId) {
     tasks = tasks.filter(task => task.id !== taskId);
-    saveTasks();
+    await saveTasks();
     location.reload();
 }
 

@@ -333,7 +333,6 @@ async function createTask(event) {
     event.preventDefault();
     await pushTask();
     showDialogAnimation();
-    window.location.href = "board.html";
 }
 
 /**
@@ -343,24 +342,13 @@ async function createTask(event) {
  * @returns {Promise<void>} - A promise that resolves when the task has been successfully saved.
  */
 async function pushTask() {
-    const newTask = {};
-    
-    newTask.title = document.getElementById('title').value.trim();
-    newTask.description = document.getElementById('description').value.trim();
+    newTask.title = document.getElementById('title').value;
+    newTask.description = document.getElementById('description').value;
     newTask.dueDate = document.getElementById('editDueDate').value;
     newTask.category = document.getElementById('category').value;
-
-    // Assigned contacts need to be retrieved from the appropriate source
-    newTask.assignedTo = assignedContacts; // Wie hole ich die Assigned To Kontakte??
-    newTask.priority = newTask.priority || "medium"; // Set default priority if none is chosen
-    newTask.subTasks = subArray;
     newTask.status = "toDo";
-
-    const newTaskId = new Date().getTime();
-    newTask.id = Number(newTaskId);
-
+    newTask.Id = Number(new Date().getTime());
     tasks.push(newTask);
-
     await saveTasks();
 }
 
@@ -375,11 +363,11 @@ async function pushTask() {
  * @returns {void}
  */
 function showDialogAnimation() {
-    const showElement = document.getElementById('addTaskAnimationText');
+    let showElement = document.getElementById('addTaskAnimationText');
 
     showElement.classList.add('addTaskAfterAnimationText');
 
     setTimeout(() => {
-        showElement.classList.remove('addTaskAfterAnimationText');
+        showElement.classList.remove('addTaskAfterAnimationText');window.location.href = "board.html";
     }, 2000);
 }
